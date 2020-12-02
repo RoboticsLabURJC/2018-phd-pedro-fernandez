@@ -1,185 +1,150 @@
-# phd-pedro-fernandez
-October, 17th 2018
-
-Get started, officially!!
-
-
-Thesis: TrafficMonitor.
-
-After analyzing for long days, and discover new tendencies in AI applied to computer vision, and others fields, search and navigate through others universities, mainly in USA and think in what kind of apps will be success taking them to the markets, I decided focus on Traffic monitor with computer vision and AI techniques. This will be our start point.
-
-At first, we are going to research in traffic monitor. Several weeks ago, I was reading Redouane Kachach doctoral thesis “Monitorización visual automática de tráfico rodado” from Alicante University and directed by Dr. JoseMaria Cañas.
-
-Now, we have a concrete goal, next two weeks, I am going to:
+### PhD Pedro [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 
 
-Read again doctoral thesis
-Analyze state of the art in traffic monitor: 
+### Table of contents
 
-Companies sell those services
-Most relevant algorithms
-Real solutions in main countries
-
-That points are the beginning to find out the real moment of true and will be the baseline for our thesis
-
-
-Install TrafficMonitor app developed in Redouane thesis and know how it works.
-
-
-
-
-
-
-
-October 18th 2018
-
-We begin searching traffic monitoring apps and companies which are developed some kind of algorithms related to.
-
-Trafficvision.com, company dedicated wich i am loooking for (it seems very interested). It offers:
-
-Improves incident detection and response times
-Turns your existing cameras into highway sensors that notify you of incidents while collecting data 24/7 
-Improves efficiency of manual processes by operations staff
-Deploys latest features and improvements immediately, with no need to deal directly with cameras
-Provides traffic industry-specific analytics, as compared to security-industry algorithms not designed for changing light conditions and constant panning, tilting, and zooming
-
-And they work in special cases such as:
-
-Monitoring for incidents or collecting data during special events
-Construction zones
-Problem areas requiring quantified data points such as wrong way drivers, stopped vehicles, volume increases/decreases, or frequent slow downs
-
-
-TrafficVision analytics can automatically classify vehicles for detailed volume assessment
-
-
-In its website, I discovered a new term: Advanced Traffic Management System (ATMS). In https://en.wikipedia.org/wiki/Advanced_Traffic_Management_System we can find any important features or functional areas:
-
-Real-time traffic monitoring
-Dynamic message sign monitoring and control
-Incident monitoring
-Traffic camera monitoring and control
-Active Traffic Management (ATM)
-Chain control
-Ramp meter monitoring and control
-Arterial management
-Traffic signal monitoring and control
-Automated warning systems
-Road Weather Information System (RWIS) monitoring
-Highway advisory radio
-Urban Traffic Management and Control
-
-
-
-Advantech.com: Taiwan company with solutions for intelligent traffic control
-
-Youtube Videokinetics: ugly video, music disturbing, but a good overall solution with many functions for traffic monitoring
-
-
-Youtube SpeedCam very easy app for monitoring speed vehicules. www.raserabwehr.de
-Datafromsky shows aerial images controlling, monitoring, analysing traffic from a drone: GOOD!!!
-http://datafromsky.com/applications/traffic-research/, for instance, that is all I was searching for Peruvian project. In their research area they have next:
-
-Motion pattern classification, Abnormal motion pattern detection,
-Traffic mining, Prediction of non-recurrent short-term traffic patterns,
-Developing next generation driving behavior models, Trajectory clustering,
-New perspective on merging behavior – gap seeking instead of acceptance behavior,
-Evaluation of traffic simulation methods / models on real data, Capacity estimations,
-Traffic congestion studies, Travel-time, Vehicle counting, Trajectory based analysis,
-Road safety, Pedestrian and cyclist safety, Road-user interactions, Smart analysis,
-Driver decision making and complex multi-actor interactions, Traffic instabilities,
-Empirical evidence of multi-anticipation (drivers have multiple leaders),
-Study of behavior adaptation effect.
-
-
-
-
-October 19th
-
-Keep researching. In IEEE.org I find different new terms for my work:
-
-feature extraction,
-image classification,
-learning (artificial intelligence),
-multilayer perceptrons,
-neural nets,
-pattern classification,
-road traffic,
-traffic engineering computing,
-video signal processing,
-video surveillance
-INSPEC: Non-Controlled Indexing
-road traffic conditions classification,
-image content,
-convolutional neural network,
-traffic control strategies,
-traffic streams,
-video traffic monitoring,
-traffic data,
-video surveillance data,
-video content,
-video data,
-traffic observation sites,
-traffic management,
-DLN,
-deep learning network,
-traffic control measures
-
-
-
-
-Good paper about ATMS and its features...it’s from 1993 but contains relevant ideas for me.
-https://www.aaai.org/Papers/Workshops/1993/WS-93-04/WS93-04-008.pdf
-
-Another good paper for visioning ATMS: https://static1.squarespace.com/static/59c3ed7b197aeabbd2a51a3b/t/5b2a504b88251ba2adbe4c35/1529499723388/TS06_Paper15539.pdf
-
-
-
-I am going to read again Radou thesis. It will be my first entry in this world.
+  - [Weblog](#weblog)
+    - [Noviembre](#noviembre)
+  - [Resources](#resources)
+    - [Useful links JdRobot](#useful-links-jdrobot)
+    - [Courses](#courses)
+    - [Lectures](#lectures)
+    - [TextBooks](#textbooks)
+    - [Tutorials/Tasks](#tutorialstasks)
+    - [Links](#links)
+    - [Repos](#repos)
+    - [Papers](#papers)
+    - [Open Source Reinforcement Learning Platforms](#open-source-reinforcement-learning-platforms)
+    - [Applications](#Applications)
 
  
 
-26th October.
+### Weblog
 
-Last week, it began doctorate program officially. In virtual classroom discovered contents, links, videos related to advance in the program. 
+### Noviembre 
+
+Week from 2 to 7
 
 
-I come into Radou thesis again. I read 6 or 7 weeks ago, and this is the start point of my research work.
+I am going to read TFM's Ignacio Arranz in 📂   **/Users/user/PhD**
+This TFM is my foundation in this part of research. I'll take all code and ideas to begin with.
+
+Next week Proposal: Install and execute all parts, frameworks, libraries and "play" with them.
 
 
-Intelligent Transport System (ITS), when I make a googel search, I find in the first place: https://en.wikipedia.org/wiki/Intelligent_transportation_system
-ITS is a broad concept which includes many features related to traffic and transportation. Well, it’s a good high level start point. The wikipedia page is outdated in some concepts.
+Week up to 30 November
 
-29th October
+Goal: play with OpenAI Gym Pendulum.
 
-I keep up reading Radou thesis 	
-			
-Automatic incidents detection (AID) is a broad concept for companies which are working on.
+The explanations of environment are here:
+https://github.com/openai/gym/wiki/Pendulum-v0
+https://mspries.github.io/jimmy_pendulum.html
+https://github.com/ZhengXinyue/Model-Predictive-Control/blob/master/Naive_MPC/Pure_MPC_Pendulum.py
 
-Companies referenced in thesis:
-FLIR
-Siemens
-Indra
-Kapsch
-Q-Free
-Thales
-Safram Morpho Mesta fusion radar (very interesting, may 2018)
-
-Those companies are big in terms of incomes and business, and they have differents areas of research. Most of them develop in tech such as defense, consulting, telecom, and others fields. Being very large companies, they have been able to invest in the whole concept of  Intelligent Transportation Systems which involves not only vision or payments, but systems infrastructure and architecture, sensors, radars, and everything about managing  as well.
+https://gym.openai.com/docs/
+https://towardsdatascience.com/reinforcement-learning-with-openai-d445c2c687d2
+https://leonardoaraujosantos.gitbook.io/artificial-inteligence/artificial_intelligence/markov_decision_process
 
 
 
-No code yet!!!!!
+### Resources
+
+### Useful links JdRobot
+
+- Ignacio Arranz Master Thesis Work in: https://roboticslaburjc.github.io/2019-tfm-ignacio-arranz/
+- BehaviorStudio project from JdRobot: https://github.com/JdeRobot/BehaviorStudio
+- Gym-Gazebo 2 project from JdRobot: https://github.com/JdeRobot/gym-gazebo-2
+
+
+### Courses
+
+- [Coursera] [RL Specialization University of Alberta](https://www.coursera.org/specializations/reinforcement-learning)
+- [Coursera] [Practical Reinforcement Learning by National Research University Higher School of Economics](https://www.coursera.org/learn/practical-rl?specialization=aml)
+- [Coursera] [Reinforcement Learning in Finance New York University](https://www.coursera.org/learn/reinforcement-learning-in-finance)
+- [Udacity][ Reinforcement Learning](https://www.udacity.com/course/reinforcement-learning--ud600): by Georgia Tech, free available
+- [Stanford] [CS234: Reinforcement Learning - Winter 2020](http://web.stanford.edu/class/cs234/index.html)
+- [David Silver's Reinforcement Learning Course - UCL(University College London) course on RL](https://www.davidsilver.uk/teaching/)
+
+
+### Lectures
+- [Berkeley] [Lectures for [UC Berkeley] CS 285 Fall 2020: Deep Reinforcement Learning](https://www.youtube.com/playlist?list=PL_iWQOsE6TfURIIhCrlt-wj9ByIVpbfGc)
+
+### TextBooks
+
+- [Reinforcement Learning: An Introduction, second edition](http://incompleteideas.net/book/RLbook2018.pdf). Richard S. Sutton and Andrew G. Barto. The MIT Press (https://mitpress.mit.edu/books/reinforcement-learning-second-edition) [[Code]](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)
 
 
 
-				
+### Tutorials/Tasks
 
-30th October
 
-After my biweekly meeting with JoseMaria, next period I am going to:
-run Smart Traffic Sensor which is developed in C++
-Tagging images
 
-Let’s go!!!
+
+### Links
+- [Applications of Reinforcement Learning in Real World](https://towardsdatascience.com/applications-of-reinforcement-learning-in-real-world-1a94955bcd12): an intro to RL world with very very useful links
+- [An Outsider's Tour of Reinforcement Learning](http://www.argmin.net/2018/06/25/outsider-rl/)
+
+
+- [Awesome Reinforcement Learning:](https://github.com/aikorea/awesome-rl) is a entry door to entire RL world
+- [Implementation of RL algorithms:](https://github.com/dennybritz/reinforcement-learning) with many notebooks in main subjects such as TD, MDP, Q
+
+### Repos
+- [Udacity RL](https://github.com/udacity/deep-reinforcement-learning)
+
+
+### Papers
+
+
+
+### Open Source Reinforcement Learning Platforms
+- [OpenAI gym](https://github.com/openai/gym) - A toolkit for developing and comparing reinforcement learning algorithms
+- [OpenAI universe](https://github.com/openai/universe) - A software platform for measuring and training an AI's general intelligence across the world's supply of games, websites and other applications
+- [DeepMind Lab](https://github.com/deepmind/lab) - A customisable 3D platform for agent-based AI research
+- [Project Malmo](https://github.com/Microsoft/malmo) - A platform for Artificial Intelligence experimentation and research built on top of Minecraft by Microsoft
+- [ViZDoom](https://github.com/Marqt/ViZDoom) - Doom-based AI research platform for reinforcement learning from raw visual information
+- [Retro Learning Environment](https://github.com/nadavbh12/Retro-Learning-Environment) - An AI platform for reinforcement learning based on video game emulators. Currently supports SNES and Sega Genesis. Compatible with OpenAI gym.
+- [torch-twrl](https://github.com/twitter/torch-twrl) - A package that enables reinforcement learning in Torch by Twitter
+- [UETorch](https://github.com/facebook/UETorch) - A Torch plugin for Unreal Engine 4 by Facebook
+- [TorchCraft](https://github.com/TorchCraft/TorchCraft) - Connecting Torch to StarCraft
+- [garage](https://github.com/rlworkgroup/garage) - A framework for reproducible reinformcement learning research, fully compatible with OpenAI Gym and DeepMind Control Suite (successor to rllab)
+- [TensorForce](https://github.com/reinforceio/tensorforce) - Practical deep reinforcement learning on TensorFlow with Gitter support and OpenAI Gym/Universe/DeepMind Lab integration.
+- [tf-TRFL](https://github.com/deepmind/trfl/) - A library built on top of TensorFlow that exposes several useful building blocks for implementing Reinforcement Learning agents.
+- [OpenAI lab](https://github.com/kengz/openai_lab) - An experimentation system for Reinforcement Learning using OpenAI Gym, Tensorflow, and Keras.
+- [keras-rl](https://github.com/matthiasplappert/keras-rl) - State-of-the art deep reinforcement learning algorithms in Keras designed for compatibility with OpenAI.
+- [BURLAP](http://burlap.cs.brown.edu) - Brown-UMBC Reinforcement Learning and Planning, a library written in Java
+- [MAgent](https://github.com/geek-ai/MAgent) - A Platform for Many-agent Reinforcement Learning. 
+- [Ray RLlib](http://ray.readthedocs.io/en/latest/rllib.html) - Ray RLlib is a reinforcement learning library that aims to provide both performance and composability.
+- [SLM Lab](https://github.com/kengz/SLM-Lab) - A research framework for Deep Reinforcement Learning using Unity, OpenAI Gym, PyTorch, Tensorflow.
+- [Unity ML Agents](https://github.com/Unity-Technologies/ml-agents) - Create reinforcement learning environments using the Unity Editor
+- [Intel Coach](https://github.com/NervanaSystems/coach) - Coach is a python reinforcement learning research framework containing implementation of many state-of-the-art algorithms.
+- [Microsoft AirSim](https://microsoft.github.io/AirSim/docs/reinforcement_learning/) - Open source simulator based on Unreal Engine for autonomous vehicles from Microsoft AI & Research.
+
+
+
+## Applications
+
+- [Resource Management with Deep Reinforcement Learning](https://people.csail.mit.edu/alizadeh/papers/deeprm-hotnets16.pdf) for computer clusters
+- [Reinforcement learning-based multi-agent system for network traffic signal control](http://web.eecs.utk.edu/~ielhanan/Papers/IET_ITS_2010.pdf) for Traffic Control
+
+- [End-to-End training of deep visuomotor policies](https://www.youtube.com/watch?v=Q4bMcUk6pcw&feature=emb_logo) in Robotics
+
+- [Web system Configuration](http://ranger.uta.edu/~jrao/papers/ICDCS09.pdf)
+
+- [Chemistry in optimizing chemical reactions with Deep Reinforcement Learning](https://pubs.acs.org/doi/full/10.1021/acscentsci.7b00492) and its [Github](https://github.com/lightingghost/chemopt)
+
+- [News Personalized Recommendations](http://www.personal.psu.edu/~gjz5038/paper/www2018_reinforceRec/www2018_reinforceRec.pdf)
+- [Real-Time Bidding with Multi-Agent Reinforcement Learningin Display Advertising](https://arxiv.org/pdf/1802.09756.pdf)
+- Games such as [AlphaGo](https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf) , [AlphaGo Zero](https://deepmind.com/blog/article/alphago-zero-starting-scratch), [playing Atari of DeepMind](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf) and [LSTM DL (DRQN)](https://arxiv.org/pdf/1507.06527.pdf)
+- [GANs and RL](https://arxiv.org/pdf/1804.01118.pdf) from [DeepMind](https://www.youtube.com/watch?v=N5oZIO8pE40)
+- [Pros and cons of RL state of art (2018)][Deep Reinforcement Learning Doesn't Work Yet](https://www.alexirpan.com/2018/02/14/rl-hard.html)
+
+
+
+
+
+
+
+
+
+
