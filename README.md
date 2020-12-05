@@ -51,12 +51,12 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 
 ---
 ### December
-- Week from 1 to 16 december
 
-DQN. 
-I am going to work wiht DQN. First steps only learn and undestand its implementation. I will follow DeepMind paper
+Week from 1 to 16 december
 
+- DQN. I am going to work wiht DQN. First steps only learn and undestand its implementation. I will follow DeepMind paper
 
+- Experienced Replay
 
 - Lectures and URLs
 [Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
@@ -66,7 +66,7 @@ I am going to work wiht DQN. First steps only learn and undestand its implementa
 - [A Brief Survey of Deep Reinforcement Learning](https://arxiv.org/pdf/1708.05866.pdf)
 
 ---
-### Resources
+### General Resources
 
 ### Useful links JdRobot
 
