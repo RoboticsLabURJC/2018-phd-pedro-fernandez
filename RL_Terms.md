@@ -379,6 +379,12 @@ The algorithm is nearly identical to Sarsa, except the T error uses the expected
 ![q-sarsa-expected](images/q-sarsa-expected.png)
 
 
+Recall the update equation for Sarsa. Sarsa's update target includes the action value for the next state in action. Now, recall that expected Sarsa instead uses the expectation over its target policy. To compute the expectation, we simply sum over the action values weighted by their probability under the target policy. 
+
+
+![sarsa-to-expected-sarsa.png](images/sarsa-to-expected-sarsa.png)
+
+
 ## Chapter 8. Planning and Learning with Tabular Methods
 
 - Model-based methods rely on planning.
@@ -437,3 +443,367 @@ The model could also be an accurate if the environment changes. Taking an action
 To encourage the agent to revisit its state periodically, we can add a bonus to the reward used in planning. This bonus is simply Kappa, times the square root of Tau, where r, is the reward from the model and Tau is the amount of time it's been since the state action pair was last visited in the environment. Tau is not updated in the planning loop, that would not be a real visit. Kappa is a small constant that controls the influence of the bonus on the planning update. If Kappa was zero, we would ignore the bonus completely. Adding this exploration bonus to the planning updates results in the Dyna-Q+ algorithm.
 
 ![dyna vs dyna +](images/dyna-dyna+.png)
+
+
+
+# Part II: Approximate Solution Methods
+
+
+So far, we can represent almost all (!not all) RL algorithms with next tree. 
+
+![complete tree](images/complete-tree2.png)
+
+![left tree](images/lefttree.png)
+
+![right tree](images/righttree.png)
+
+In the second part of the book we extend the tabular methods presented in the first part to apply to problems with arbitrarily large state spaces.
+
+
+# Chapter 9 On-policy Prediction with Approximation
+
+**Course 3 -> Week1 -> Video Moving to parameterized functions** where explains tha basics of function approx.
+
+The novelty in this chapter is that the approximate value function is represented not as a table but as a parameterized functional form with weight vector w.
+
+
+![Parameterized VF](images/Parameterized-Valuefunction.png)
+
+
+
+Our choice of feature impacts the kinds of value functions we can represent.
+
+
+![Tabular-value-function](images/Tabular-value-function.png)
+
+Since every state's value is represented by a separate weight, this is equivalent to a tabular value function. These parameterized values are general, and we can consider lots of different types of functions. Neural networks are an example of a non-linear function of state. The output of the network is our approximate value for a given state. The state is passed to the network as the input. All the connections in the network correspond to real valued weights. When data is passed through a connection, the weight is multiplied by its input. This process transforms the input state through a sequence of layers to finally produce the value estimate. 
+
+**Generalization** intuitively means applying knowledge about specific situations to draw conclusions about a wider variety of situations. When we talk about generalization in the context of policy evaluation, we mean that updates to the value estimate of one state influence the value of other states.
+
+**discrimination** means the ability to make the values for two states different to distinguish between the values for these two states
+
+
+![categoVSgenera](images/categoVSgenera.png)
+
+
+**Framing value estimation as Supervised Learning**
+
+In reinforcement learning, an agent interacts with an environment and continually generates new data. This is often called the online setting. To distinguish it from the offline setting where the full dataset is available from the start and remains fixed throughout learning. If we want to use a function approximation technique, we should make sure it can work in the online setting. Some methods are not compatible with the online setting because they are either designed for a fixed batch of data or there are not designed for temporally correlated data, and the data in reinforcement learning is always correlated. 
+
+TD methods introduce an additional complication when applying techniques from supervised learning. TD methods use bootstrapping, meaning that our targets now depend on our own estimates. These estimates change as learning progresses and so our targets continually change. This is different than supervised learning where we have access to a ground truth label as the target. For example, the price of a house does not depend on our estimate nor does it change when we change our estimates. 
+
+
+**Mean Squared Value Error objective for policy evaluation (MSVE)**
+
+![adapting weights](images/mean-square-value-error-objetive.png)
+
+Mu of S should tell us how much we care about each state. A natural measure is the fraction of time each state is visited under the policy. That means we want to minimize the average value error for the states we visit while following Pi. The states that the policy spends more time in have a higher weight in the objective. We care less about errors in the states the policy visits less frequently. Mu of S is a probability distribution as shown on the slide. In this example, the policy spends little time at the extremes of the state space. This means, under the Mean Squared Value Error, we allow the value approximation to have higher error in those states.
+
+
+![adapting weights](images/adapting-weights.png)
+
+We want to minimize the mean squared value error, to make our value estimates close to the true value function. Recall that our value estimate is given by a function of the state, parameterised by a set of real-valued weights, W. These ways determine how the value's computed for each state, changing the weights will modify the value estimate for many states. 
+
+
+**Gradient Descent**
+
+
+We want to minimize the mean squared value error, to make our value estimates close to the true value function. Recall that our value estimate is given by a function of the state, parameterised by a set of real-valued weights, W. These ways determine how the value's computed for each state, changing the weights will modify the value estimate for many states. We have to think about how to change the weights to minimize the overall value error. 
+
+
+![Gradient1](images/Gradient-1.png)
+
+The gradient is a vector of partial derivatives, indicating how a local change in each component of W affects the function. Notice that the gradient has to be the same size as the weight vector. 
+
+
+![Gradient2](images/Gradient-2.png)
+
+![Gradient3](images/Gradient-3.png)
+
+![Gradient4](images/Gradient-4.png)
+
+You now know 
+
+- one strategy to minimize objectives, **gradient descent**, and 
+- we formulated a clear objective for policy evaluation, **the value error**. 
+
+With Gradient Descent minimize W -> and find Value Error -> find policy evaluation
+
+
+
+**stochastic gradient descent**, because it only uses a stochastic estimate of the gradient. In fact, the expectation of each stochastic gradient equals the gradient of the objective. You can think of this stochastic gradient as a noisy approximation to the gradient that is much cheaper to compute, but can nonetheless make steady progress to a minimum. Stochastic gradient descent allowed us to efficiently update the weights on every step by sampling the gradient. 
+
+**State Aggregation with Monte Carlo**
+
+![state-aggregation.png](images/state-aggregation.png)
+
+
+![montecarlo-state-aggregation.png](images/montecarlo-state-aggregation.png)
+
+
+**Semi-Gradient TD for Policy Evaluation**
+
+Recall the gradient Monte Carlo update equation. It updates our current value estimate to be closer to a sample of the return Gt, but we can consider using other targets instead of the return. In fact, we can replace the return in this update with any estimate of the value.
+
+
+**Comparing TD and Monte Carlo with State Aggregation**
+
+TD often learns faster the Monte Carlo. This is because TD can learn during the episode and has lower variance updates. Monte Carlo is better on long-run performance, it's not always the main concern. We can never run our experiments to achieve asymptotic performance.
+
+
+**The linear TD update**
+
+
+
+**Parameterized value function** as a mapping from states to real numbers. The output is controlled by a vector of real valued weights W. 
+
+## Coarse coding
+
+![recall-linear-value-function-approx.png](images/recall-linear-value-function-approx.png)
+
+Recall that a tabular representation can be expressed as a binary feature vector. Each state is associated with a different feature. If the agent is in a state then the feature corresponding to that state is 1.
+
+![recall2](images/recall2.png)
+
+![coarse-coding](images/coarse-coding.png)
+how changing the properties of coarse coding affects generalization and discrimination.
+
+
+## Tile coding
+
+Tile coding is a specific type of Course Coding. Tile coding performs an exhaustive partition of the state space using overlapping grids. 
+
+
+tile coding can be used to approximate value functions and policy valuation and we compare tile coding to state aggregation 
+
+
+![tiling-code1](images/tiling-code1.png)
+
+The number of active tiles is always significantly less than the number of total tiles. We can use this to calculate the value function efficiently. Recall that with linear function approximation, the value function is a dot product between a weight vector and a feature vector.
+
+If we were to multiply the two vectors element-wise, many of the element-wise products will be zero. This means we only have to consider the weights at the non-zero elements of the feature vector because the features are binary, the weights at the non-zero features are multiplied by one. Computing the dot product in the usual way would be expensive. Instead, we can just sum the weights corresponding to the active features. Note that this takes a certain amount of time because the number of active features is the same in every state. The feature vectors produced by tile coding may query in the value function cheap computationally.
+![tiling-code2](images/tiling-code2.png)
+
+
+## Neural Networks and how they construct features vectors
+
+When we first build the neural network, we need to specify the initial weights. The way we initialize the weights is important. we can start with a random distribution.
+
+
+![NN1](images/NN1.png)
+Each output layer gives the output, the approximate value of the current state, the feature.
+Those features are non-linear in the input space.
+
+Neural networks can be viewed as a way to construct features, and that neural networks are non-linear functions of s State.
+
+A feed-forward neural network uses a series of layers to produce a representation.
+
+## Summary of this important chapter
+
+A representation is an agent's internal encoding of the state, the agent constructs features to summarize the current input. 
+
+Whenever we are talking about features and representation learning, we are in the land of function approximation. 
+
+
+# Chapter 10. On-policy Control with Approximation
+
+Recall the **value function** approximation has two components, a weight vector and a feature vector: 
+
+
+$V_{\pi} \approx v^\hat(s,W) = W^TX(S)$
+
+In a given state, the value estimate is the dot product between these two components.
+
+
+To move from TD to Sarsa, we need **action value functions**. So the feature representation has to represent actions as well.
+
+Course 3 -> week 3 -> Video Episodic SARSA with Function approx. Here explain how NN works
+
+
+## Expected SARSA && Q-Learning with Function approximation
+
+Recall the update equation for Sarsa. Sarsa's update target includes the action value for the next state in action. Now, recall that expected Sarsa instead uses the expectation over its target policy. To compute the expectation, we simply sum over the action values weighted by their probability under the target policy. 
+
+![expected-sarsa-function-approx.png](images/expected-sarsa-function-approx.png)
+
+
+The same expectation can be computed even when we use function approximation. Let's see how to do this. First, recall the update for Sarsa with function approximation. It looks similar to the tabular setting except the action value estimates are parameterized by the weight factor, W. We also have a gradient term to distribute the error to the weights appropriately. Expected Sarsa with function approximation follows a similar structure. We compute the action values from our weight vector for every action in the next state. Then we compute this expectation under the target policy.
+
+
+
+
+
+![expected-sarsa-q-learning.png](images/expected-sarsa-q-learning.png)
+
+
+Fortunately, Q-learning is a special case of expected Sarsa. In Q-learning, the target policy is greedy with respect to the approximate action values. Computing the expectation under greedy policy is the same as computing the maximum action value. So the Q-learning update with function approximation is actually quite straightforward. We just use the max in place of the expectation.
+
+## Optimistical initial values in function approximation
+
+In function approximation, optimistic initial values corresponds to initializing the weights such that the resulting values are optimistic. In some cases this is straightforward, for example, when the features are binary, we simply initialize each weight to be the largest possible return. Then, as long as each state has at least one feature active, the value will be optimistic and likely overly so.
+
+![initialize-values.png](images/initialize-values.png)
+
+
+## Average reward.
+
+Instead of maximizing the discounted return from the current state, we can think about maximizing the average reward that a policy receives overtime. We defined differential returns and differential values, these enable the agent to assess the relative value of actions in the average reward setting. 
+
+## Differential Semi gradient SARS
+
+approximates differential values to learn policies. 
+
+
+
+# Chapter 13. Policy Gradient Methods
+
+From this moment, we are going to study a new class of methods where the policies are parameterized directly.
+
+
+
+Previously, we used epsilon-greedy to convert approximate action values into a policy. But we can also consider policy which maps states directly to actions without first computing action values.
+
+Suppose the mountain cart watched before:
+
+![direct-policy](images/direct-policy.png)
+
+
+Ee can define such a policy. Simply choose accelerate right when the velocity is positive and otherwise, choose the accelerate left action. Put another way, this policy accelerates in whatever direction we are already moving. In fact, this simple energy pumping policy, is close to optimal. This policy does not make use of action values at all. 
+
+
+
+The parameterized function, has to generate a valid policy. This means, it has to generate a valid probability distribution over actions for every state. Specifically, the probabilities selecting an action, must be greater than or equal to zero. For each state, the sum of the probabilities over all actions must be one. It requires some thought to satisfy these conditions for a parameterized function. For example, this means we can not use a linear function directly like we did with value function approximation.
+
+
+
+It's important to distinguish between **action preferences** and **action values**. Preferences indicate how much the agent prefers each action but they are not summaries of future reward. Only the relative differences between preferences are important. For example, we could add plus 100 to all the preferences and it would not matter. An epsilon-greedy policy derived from action values can behave very differently than a softmax policy over action preferences. In epsilon-greedy, the action corresponding to the highest valued action, is selected with high probability. The probability selecting all the other actions, is quite small. Actions with nearly the same but lower action value, are selected with much lower probability. On the other hand, actions with very poor action values, are still selected frequently due to the epsilon exploration step. 
+
+![action-preferences](images/action-preferences.png)
+
+
+Learning policies directly gives us more flexibility in how we solve our problems.
+
+## parameterized stochastic policies
+
+
+The policy can start off stochastic to guarantee expiration. Then as learning progresses, the policy can naturally converge towards a deterministic greedy policy. A softmax policy can adequately approximate a deterministic policy by making one action preference very large.
+
+
+
+These parameterized stochastic policies are useful because 
+- they can autonomously decrease exploration over time. 
+- They can avoid failures due to deterministic policies with limited function approximation. 
+- And sometimes the policy is less complicated than the value function. 
+
+
+## the objective for Learning Policies
+
+the basic idea will be to specify an objective, and then figure out how to estimate the gradient of that objective from an agent's experience. 
+
+the ultimate goal of reinforcement learning is to learn a policy that obtains as much reward as possible in the long run. It turns out that when we parameterize our policy directly, we can also use this goal directly as the learning objective. 
+
+
+**Summary of 3 goals as an objective**
+
+![goals](images/goal.png)
+
+
+Remember what our aim is here, to find a way to **directly optimize the parameters of a policy**. The first step is to write the average reward objective in a form that we can optimize.
+
+Now, our aim is to learn a policy that directly optimizes average reward.
+
+
+![average-reward.png](images/average-reward.png)
+
+
+Let's break this formula down starting from the inner sum and moving out. This inner sum gives the expected reward if we start in state S and take action A. This is simply the sum over all rewards we might receive weighted by their probability from S and A. We sum over next states S prime to get marginal probabilities over the reward. The next level of the summation is over all possible actions weighted by their probability under Pi. This gives us the expected reward under the policy Pi from a particular state S. Finally, we get the overall average reward by considering the fraction of time we spend in state S under policy Pi. The distribution Mu provides these probabilities. The expected reward across states is a sum over S of the expected reward in a state weighted by Mu of S, r Pi is our average reward learning objective.
+
+
+
+
+Our goal of policy optimization will be to find a policy which maximizes the average reward. Our basic approach will be to estimate the gradient of the objective with respect to the policy parameters and adjust the parameters based on this estimate.
+
+Up until now, we've used a very different approach. We use the Generalized Policy Iteration framework to learn approximate action values. Then we use these approximate values indirectly to infer a good policy. Now, we're interested in **learning policies directly**. 
+
+
+**we can use the average reward as an objective for policy optimization.** 
+
+## The policy Gradient Theorem
+
+It allows us to write the gradient of the **average reward** so that it is easier to estimate from experience. 
+
+## Estimating the Policy Gradient
+
+We have an objective for policy optimization. We also have the policy gradient theorem, which gives us a simple expression for the gradient of that objective. We'll complete the puzzle by showing how to estimate this gradient using the experience of an agent interacting with the environment.
+
+We want to derive a gradient descent algorithm for our policy. We simply make updates from states we observe while following policy pi.
+
+## Actor-critic algorithm (for continuing tasks)
+
+the parameterized policy plays the role of an actor, while the value function plays the role of a critic, evaluating the actions selected by the actor.
+
+![actor-critic](images/actor-critic.png)
+
+
+![actor-critic2.png](images/actor-critic2.png)
+
+Subtracting this baseline tends to reduce the variance of the update which results in faster learning. This update makes sense intuitively. After we execute an action, we use the TD error to decide how good the action was compared to the average for that state. If the TD error is positive, then it means the selected action resulted in a higher value than expected. Taking that action more often should improve our policy. That is exactly what this update does. It changes the policy parameters to increase the probability of actions that were better than expected according to the critic. Correspondingly, if the critic is disappointed and the TD error is negative, then the probability of the action is decreased. The actor and the critic learn at the same time, constantly interacting. The actor is continually changing the policy to exceed the critics expectation, and the critic is constantly updating its value function to evaluate the actors changing policy. With the policy update in place, we're ready to go through the full algorithm for average reward actor-critic. To start, we specify the policy parameterization and the value function parameterization. 
+
+![a-c-algori.png](images/a-c-algori.png)
+
+
+## Actor-Critic with Softmax Policies
+
+![puwsp.png](images/puwsp.png)
+
+![acwsp.png](images/acwsp.png)
+
+
+![acpendulum.png](images/acpendulum.png)
+The pendulum can move freely subject only to gravity and the actions applied by the agent. The state of the pendulum is the angle of the pole, and the angular velocity, both are real valued quantities. Our simulation has just three discrete actions, apply a constant angular acceleration clockwise, counterclockwise, or apply no angular acceleration. We use a softmax policy for this task because the action space is discrete. 
+
+
+A good policy must apply actions that move the pendulum away from the desired position in order to gain enough momentum to swing up.
+And must continually balance the pole in the vertical position.
+
+
+First of all, we have to design our **function approximator** and our **policy parameterization**.
+
+## Gaussian policies for continuous Actions
+
+One of the nice things about **policy-based methods**, is that they give us a natural way to deal with very large or even continuous action spaces. We don't have to use a policy parameterization that assigns individual probabilities to each action. We could instead learn the parameters of some distribution over actions. 
+
+
+![continuous.png](images/continuous.png)
+another strategy is to parameterize the policy as a continuous distribution, such as a Gaussian distribution.
+
+![continuous2.png](images/continuous2.png)
+
+
+We make the parameters Mu and Sigma functions of the state. This way, the agent can assign different action distributions to different states. Mu can be any parameterized function.
+
+![continuous3.png](images/continuous3.png)
+Let's define our policy using a Gaussian over actions. We make the parameters Mu and Sigma functions of the state. This way, the agent can assign different action distributions to different states. Mu can be any parameterized function. But to keep things simple, let's make it a linear function of the state features. The policy parameters associated with Mu are denoted by Theta Mu. The parameter's function Sigma has one constraint. It must be positive. To enforce this, we will parameterize it as the exponential of a linear function. The policy parameters associated with Sigma are denoted by Theta Sigma. Our policy parameters now consists of these two stack parameter vectors of equal size. We've defined our Gaussian policy.
+
+
+
+**the main point of a policy is that it gives us a way to select actions. To select actions with this policy, we sample from the Gaussian**
+
+
+Sigma essentially controls the degree of exploration. We typically initialize the variance to be large so that a wide range of actions are tried. As learning progresses, we expect the variance to shrink and the policy to concentrate around the best action in each state. Like many parameterized policies, the agent can reduce the amount of exploration over time through learning.
+
+
+![continuous4.png](images/continuous4.png)
+
+
+## Experience Replay (Course 4 -> In-depth on Experienced Replay)
+
+To get some intuition for experience replay, let's first remember Dyna-Q. The idea is to learn a model using sample experience. Then simulated experience can be obtained from this model to update the values. This procedure of using simulated experience to improve the value estimates is called planning.
+
+
+The idea is to learn a model using sample experience. Then simulated experience can be obtained from this model to update the values. This procedure of using simulated experience to improve the value estimates is called planning.
+
+
+Experience replay is a simple method that can get some of the advantages of Dyna by saving a buffer of experience and using the data stored in the buffer as a model. This view of prior data as a model works because the data represents actual transitions from the underlying MDP. Furthermore, as a side note, this kind of model that is not learned and simply a collection of experience can be called non-parametric as it can be ever-growing as opposed to a parametric model where the transitions are learned to be represented with a fixed set of parameters or weights.
+
+The agent can perform several of these planning updates, which are the replay updates per each real step in the environment. More updates means we extract more from the data we have observed. Each of these replay updates consists of a mini batch update to reduce the noise of that update.

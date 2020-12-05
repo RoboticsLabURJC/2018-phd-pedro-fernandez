@@ -19,12 +19,12 @@
     - [Applications](#Applications)
 
  
+---
+## Weblog
+---
+### November
 
-### Weblog
-
-### Noviembre 
-
-Week from 2 to 7
+- Week from 2 to 7
 
 
 I am going to read TFM's Ignacio Arranz in 📂   **/Users/user/PhD**
@@ -37,7 +37,7 @@ Week up to 30 November
 
 Goal: play with OpenAI Gym Pendulum.
 
-The explanations of environment are here:
+The explanations of environments are here:
 https://github.com/openai/gym/wiki/Pendulum-v0
 https://mspries.github.io/jimmy_pendulum.html
 https://github.com/ZhengXinyue/Model-Predictive-Control/blob/master/Naive_MPC/Pure_MPC_Pendulum.py
@@ -47,7 +47,25 @@ https://towardsdatascience.com/reinforcement-learning-with-openai-d445c2c687d2
 https://leonardoaraujosantos.gitbook.io/artificial-inteligence/artificial_intelligence/markov_decision_process
 
 
+I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 
+---
+### December
+- Week from 1 to 16 december
+
+DQN. 
+I am going to work wiht DQN. First steps only learn and undestand its implementation. I will follow DeepMind paper
+
+
+
+- Lectures and URLs
+[Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
+- [RL with Bayesian approach (just for curiosity)](https://towardsdatascience.com/coordinating-multiple-rl-agents-on-overcooked-ee1b4ce11054) and [here](https://arxiv.org/pdf/2003.11778.pdf)
+
+- [Deep Reinforcement Learning - an overview](https://arxiv.org/pdf/1701.07274.pdf)
+- [A Brief Survey of Deep Reinforcement Learning](https://arxiv.org/pdf/1708.05866.pdf)
+
+---
 ### Resources
 
 ### Useful links JdRobot
