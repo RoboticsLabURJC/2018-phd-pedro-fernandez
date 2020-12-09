@@ -24,7 +24,7 @@
 ---
 ### November
 
-- Week from 2 to 7
+**Week from 2 to 7**
 
 
 I am going to read TFM's Ignacio Arranz in 📂   **/Users/user/PhD**
@@ -33,7 +33,7 @@ This TFM is my foundation in this part of research. I'll take all code and ideas
 Next week Proposal: Install and execute all parts, frameworks, libraries and "play" with them.
 
 
-Week up to 30 November
+**Week up to 30 November**
 
 Goal: play with OpenAI Gym Pendulum.
 
@@ -52,9 +52,15 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 ---
 ### December
 
-Week from 1 to 16 december
+**Week from 1 to 16 december**
 
-- DQN. I am going to work wiht DQN. First steps only learn and undestand its implementation. I will follow DeepMind paper
+- DQN. I am going to work wiht DQN. First steps only learn and undestand its implementation. I will follow DeepMind paper: [Human-level control through deep reinforcement learning](https://deepmind.com/research/publications/human-level-control-through-deep-reinforcement-learning)
+
+- Installing Gazebo and ROS in MacOS 10.15.7 (Catalina):
+1. http://gazebosim.org/tutorials?cat=install&tut=install_on_mac
+
+- Install Ubuntu20.04, Python 3.7, Gazebo 11, BehaviorStudio, Ros Noetic (last Version). See details in Install.md
+
 
 - Experienced Replay
 
@@ -64,6 +70,17 @@ Week from 1 to 16 december
 
 - [Deep Reinforcement Learning - an overview](https://arxiv.org/pdf/1701.07274.pdf)
 - [A Brief Survey of Deep Reinforcement Learning](https://arxiv.org/pdf/1708.05866.pdf)
+
+- https://github.com/vmayoral/basic_reinforcement_learning
+- https://github.com/kuz/DeepMind-Atari-Deep-Q-Learner
+- https://github.com/keras-rl/keras-rl
+- https://github.com/Lazydok/RL-Pytorch-cartpole
+- https://github.com/erlerobot/gym-gazebo && https://github.com/AcutronicRobotics/gym-gazebo2
+- [Extending the OpenAI Gym for robotics: a toolkit
+for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.05742.pdf)
+- [Toward Self-Driving Bicycles Using State-of-the-Art Deep Reinforcement Learning Algorithms](https://www.mdpi.com/2073-8994/11/2/290/htm)
+- [A Beginner's Guide to Deep Reinforcement Learning](https://wiki.pathmind.com/deep-reinforcement-learning)
+
 
 ---
 ### General Resources

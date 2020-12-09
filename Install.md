@@ -1,4 +1,4 @@
-Mac Users: MacOS Catalina V.10.15.7
+# Mac Users: MacOS Catalina V.10.15.7
 
 
 ## 1. Install any Python Version. Follow this [good tutorial](https://python-guide-es.readthedocs.io/es/latest/starting/install3/osx.html) 
@@ -192,6 +192,42 @@ and:
 >`$ python -m pip install --upgrade SomePackage`
 
 The best way to work with envs is through requirements.txt file
+
+
+---
+# Ubuntu 20.04
+
+It comes with Python 3.8.5
+
+1. Install differents Python versions is very convenient for working with differents environments
+
+- install pip
+>`$ sudo apt install -y python3-pip`
+
+- install python 3.7.9 version
+
+```
+$ sudo apt update
+$ sudo apt install software-properties-common
+$ sudo add-apt repository ppa:deadsnakes/ppa
+$ sudo apt-get update
+$ sudo apt-get install python3.7
+```
+
+and install Python3.9.1
+
+```
+$ sudo apt update
+$ sudo apt install software-properties-common
+$ sudo add-apt repository ppa:deadsnakes/ppa
+$ sudo apt-get update
+$ sudo apt-get install python3.9
+```
+
+
+2. We have several Python versions, and we will work with all of them (maybe), so we need install differents environments.
+
+
 
 
 
