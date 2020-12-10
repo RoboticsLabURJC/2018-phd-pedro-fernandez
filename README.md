@@ -61,10 +61,10 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 - Install Ubuntu20.04, Python 3.7, Gazebo 11, BehaviorStudio, Ros Noetic (lastest Version). See details in Install.md
 
 
-- Experienced Replay
+- Experience Replay
 
-- Lectures and URLs
-[Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
+### Lectures and URLs of the week
+- [Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
 - [RL with Bayesian approach (just for curiosity)](https://towardsdatascience.com/coordinating-multiple-rl-agents-on-overcooked-ee1b4ce11054) and [here](https://arxiv.org/pdf/2003.11778.pdf)
 
 - [Deep Reinforcement Learning - an overview](https://arxiv.org/pdf/1701.07274.pdf)
