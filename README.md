@@ -38,13 +38,13 @@ Next week Proposal: Install and execute all parts, frameworks, libraries and "pl
 Goal: play with OpenAI Gym Pendulum.
 
 The explanations of environments are here:
-https://github.com/openai/gym/wiki/Pendulum-v0
-https://mspries.github.io/jimmy_pendulum.html
-https://github.com/ZhengXinyue/Model-Predictive-Control/blob/master/Naive_MPC/Pure_MPC_Pendulum.py
+- https://github.com/openai/gym/wiki/Pendulum-v0
+- https://mspries.github.io/jimmy_pendulum.html
+- https://github.com/ZhengXinyue/Model-Predictive-Control/blob/master/Naive_MPC/Pure_MPC_Pendulum.py
 
-https://gym.openai.com/docs/
-https://towardsdatascience.com/reinforcement-learning-with-openai-d445c2c687d2
-https://leonardoaraujosantos.gitbook.io/artificial-inteligence/artificial_intelligence/markov_decision_process
+- https://gym.openai.com/docs/
+- https://towardsdatascience.com/reinforcement-learning-with-openai-d445c2c687d2
+- https://leonardoaraujosantos.gitbook.io/artificial-inteligence/artificial_intelligence/markov_decision_process
 
 
 I finally implemented Pendulum and cartPole, even with NN in Pendulum.
@@ -64,6 +64,14 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 - Experience Replay
 
 ### Lectures and URLs of the week
+
+- [Reinforcement Learning with ROS and Gazebo](https://github.com/vmayoral/basic_reinforcement_learning/blob/master/tutorial7/README.md)
+
+- [Erle Robotics: Accelerated Robot Training through Simulation
+with ROS and Gazebo](https://roscon.ros.org/2018/presentations/ROSCon2018_AcceleratedRobotTraining.pdf)
+
+- [gym-gazebo2](https://github.com/AcutronicRobotics/gym-gazebo2)
+
 - [Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
 - [RL with Bayesian approach (just for curiosity)](https://towardsdatascience.com/coordinating-multiple-rl-agents-on-overcooked-ee1b4ce11054) and [here](https://arxiv.org/pdf/2003.11778.pdf)
 
@@ -77,17 +85,30 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 - https://github.com/erlerobot/gym-gazebo && https://github.com/AcutronicRobotics/gym-gazebo2
 - [Extending the OpenAI Gym for robotics: a toolkit
 for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.05742.pdf)
+
 - [Toward Self-Driving Bicycles Using State-of-the-Art Deep Reinforcement Learning Algorithms](https://www.mdpi.com/2073-8994/11/2/290/htm)
+
 - [A Beginner's Guide to Deep Reinforcement Learning](https://wiki.pathmind.com/deep-reinforcement-learning)
+
 - [World Models](https://arxiv.org/abs/1803.10122) && [here](https://worldmodels.github.io/)
+
 - [Reinforcement Q-Learning from Scratch in Python with OpenAI Gym](https://www.learndatasci.com/tutorials/reinforcement-q-learning-scratch-python-openai-gym/)
+
 - [Google X’s Deep Reinforcement Learning in Robotics using Vision](https://hackernoon.com/google-xs-deep-reinforcement-learning-in-robotics-using-vision-7a78e87ab171) && [QT-Opt: Scalable Deep Reinforcement Learning for Vision-Based Robotic Manipulation](https://arxiv.org/abs/1806.10293) && [here](https://ai.googleblog.com/2018/06/scalable-deep-reinforcement-learning.html)
+
 - [Aprendizaje por Refuerzo: Procesos de Decisión de Markov — Parte 1](https://medium.com/aprendizaje-por-refuerzo-introducci%C3%B3n-al-mundo-del/aprendizaje-por-refuerzo-procesos-de-decisi%C3%B3n-de-markov-parte-1-8a0aed1e6c59) y [Aprendizaje por Refuerzo: Procesos de Decisión de Markov — Parte 2](https://medium.com/aprendizaje-por-refuerzo-introducci%C3%B3n-al-mundo-del/aprendizaje-por-refuerzo-procesos-de-decisi%C3%B3n-de-markov-parte-2-d219358ecd76) y [Aprendizaje por Refuerzo: Planificando con Programación Dinámica](https://medium.com/aprendizaje-por-refuerzo-introducci%C3%B3n-al-mundo-del/aprendizaje-por-refuerzo-planificando-con-programaci%C3%B3n-din%C3%A1mica-200ebd2af48f) y [Aprendizaje por Refuerzo: Predicción Libre de Modelo](https://medium.com/aprendizaje-por-refuerzo-introducci%C3%B3n-al-mundo-del/aprendizaje-por-refuerzo-predicciones-sin-modelo-45e66528aa98) y [Aprendizaje por Refuerzo: Control Libre de Modelo](https://medium.com/aprendizaje-por-refuerzo-introducci%C3%B3n-al-mundo-del/aprendizaje-por-refuerzo-control-libre-de-modelo-e175f50217a) y [Aprendizaje por Refuerzo: Aproximación de Función de Valor](https://medium.com/aprendizaje-por-refuerzo-introducci%C3%B3n-al-mundo-del/aprendizaje-por-refuerzo-aproximaci%C3%B3n-de-funci%C3%B3n-de-valor-61b8f5e22e21)
-- [Reinforcement learning tutorial with TensorFlow](https://adventuresinmachinelearning.com/reinforcement-learning-tensorflow/)
+
+- [Reinforcement learning tutorial with TensorFlow](https://adventuresinmachinelearning.com/reinforcement-learning-tensorflow/) && [Policy Gradient Reinforcement Learning in TensorFlow 2](https://adventuresinmachinelearning.com/policy-gradient-tensorflow-2/) && [Prioritised Experience Replay in Deep Q Learning](https://adventuresinmachinelearning.com/prioritised-experience-replay/)
+
 - [Vanilla Deep Q Networks](https://towardsdatascience.com/dqn-part-1-vanilla-deep-q-networks-6eb4a00febfb) && [Double Deep Q Networks](https://towardsdatascience.com/double-deep-q-networks-905dd8325412)
+
 - [Simple reinforcement learning methods to learn CartPole](http://kvfrans.com/simple-algoritms-for-solving-cartpole/)
+
 - [Q-learning: Aprendizaje automático por refuerzo](https://rubenlopezg.wordpress.com/2015/05/12/q-learning-aprendizaje-automatico-por-refuerzo/)
+
 - [Aprendizaje por refuerzo: algoritmo Q Learning](http://www.cs.us.es/~fsancho/?e=109)
+
+- [Entrenamiento de Redes Neuronales: mejorando el Gradiente Descendiente](http://www.cs.us.es/~fsancho/?e=165)
 
 - [DQN from Scratch with TensorFlow 2](https://levelup.gitconnected.com/dqn-from-scratch-with-tensorflow-2-eb0541151049)
 

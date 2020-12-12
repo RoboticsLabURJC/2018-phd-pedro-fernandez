@@ -23,8 +23,7 @@ If you want launch version 3.9.0:
 Another import command to know and manage is `pip`
 To upgrade or downgrade:
 >`$ python -m pip install pip==19.2` 
-
-where 19.2 is teh version you have install
+where 19.2 is the version you have install
 ---
 ## 2. Virtual envs
 
@@ -209,7 +208,7 @@ It comes with Python 3.8.5
 ```
 $ sudo apt update
 $ sudo apt install software-properties-common
-$ sudo add-apt repository ppa:deadsnakes/ppa
+$ sudo add-apt-repository ppa:deadsnakes/ppa
 $ sudo apt-get update
 $ sudo apt-get install python3.7
 ```
@@ -219,7 +218,7 @@ and install Python3.9.1
 ```
 $ sudo apt update
 $ sudo apt install software-properties-common
-$ sudo add-apt repository ppa:deadsnakes/ppa
+$ sudo add-apt-repository ppa:deadsnakes/ppa
 $ sudo apt-get update
 $ sudo apt-get install python3.9
 ```
