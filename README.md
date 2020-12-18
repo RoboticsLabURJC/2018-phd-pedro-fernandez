@@ -21,36 +21,15 @@
  
 ---
 ## Weblog
----
-### November
-
-**Week from 2 to 7**
-
-
-I am going to read TFM's Ignacio Arranz in 📂   **/Users/user/PhD**
-This TFM is my foundation in this part of research. I'll take all code and ideas to begin with.
-
-Next week Proposal: Install and execute all parts, frameworks, libraries and "play" with them.
-
-
-**Week up to 30 November**
-
-Goal: play with OpenAI Gym Pendulum.
-
-The explanations of environments are here:
-- https://github.com/openai/gym/wiki/Pendulum-v0
-- https://mspries.github.io/jimmy_pendulum.html
-- https://github.com/ZhengXinyue/Model-Predictive-Control/blob/master/Naive_MPC/Pure_MPC_Pendulum.py
-
-- https://gym.openai.com/docs/
-- https://towardsdatascience.com/reinforcement-learning-with-openai-d445c2c687d2
-- https://leonardoaraujosantos.gitbook.io/artificial-inteligence/artificial_intelligence/markov_decision_process
-
-
-I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 
 ---
 ### December
+
+
+**Week from 17 to 31 december**
+
+I am going to work with GridWorld from Scratch
+
 
 **Week from 1 to 16 december**
 
@@ -125,6 +104,33 @@ for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.0574
 
 
 
+---
+### November
+
+**Week from 2 to 7**
+
+
+I am going to read TFM's Ignacio Arranz in 📂   **/Users/user/PhD**
+This TFM is my foundation in this part of research. I'll take all code and ideas to begin with.
+
+Next week Proposal: Install and execute all parts, frameworks, libraries and "play" with them.
+
+
+**Week up to 30 November**
+
+Goal: play with OpenAI Gym Pendulum.
+
+The explanations of environments are here:
+- https://github.com/openai/gym/wiki/Pendulum-v0
+- https://mspries.github.io/jimmy_pendulum.html
+- https://github.com/ZhengXinyue/Model-Predictive-Control/blob/master/Naive_MPC/Pure_MPC_Pendulum.py
+
+- https://gym.openai.com/docs/
+- https://towardsdatascience.com/reinforcement-learning-with-openai-d445c2c687d2
+- https://leonardoaraujosantos.gitbook.io/artificial-inteligence/artificial_intelligence/markov_decision_process
+
+
+I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 
 
 
