@@ -5,7 +5,9 @@
 ### Table of contents
 
   - [Weblog](#weblog)
-    - [Noviembre](#noviembre)
+    - [January](#January 2021)
+    - [December](#December 2020)
+    - [November](#noviembre 2020)
   - [Resources](#resources)
     - [Useful links JdRobot](#useful-links-jdrobot)
     - [Courses](#courses)
@@ -21,11 +23,10 @@
  
 ---
 ## Weblog
-<<<<<<< HEAD:README V2.md
 
 
 ---
-### 2021 January
+### January 2021
 
 **Week from 4 to 18 January**
 
@@ -34,16 +35,12 @@ We are going to work with discreta and continuous examples as before.
 - GridWorld & maze. Show images of agent with different configurations of state space, obstacles and Start and end points. Create graphics and results of implementation.
 
 - MountainCar the same as above point. 
-=======
->>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
+
+
+
 
 ---
-### December
-
-<<<<<<< HEAD:README V2.md
-
----
-### December
+### December 2020
 
 **Week from 17 to 31 december**
 
@@ -63,12 +60,6 @@ We are going to work in two simple projects:
   - https://github.com/MattChanTK/gym-maze
   - https://github.com/maximecb/gym-minigrid
   - https://github.com/maximecb/gym-miniworld
-=======
-
-**Week from 17 to 31 december**
-
-I am going to work with GridWorld from Scratch
->>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
 
 
 **Week from 1 to 16 december**
@@ -131,24 +122,8 @@ for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.0574
 - [DQN from Scratch with TensorFlow 2](https://levelup.gitconnected.com/dqn-from-scratch-with-tensorflow-2-eb0541151049)
 
 
-<<<<<<< HEAD:README V2.md
-=======
-- [Deep Reinforcement Learning: Playing CartPole through Asynchronous Advantage Actor Critic (A3C) with tf.keras and eager execution](https://medium.com/tensorflow/deep-reinforcement-learning-playing-cartpole-through-asynchronous-advantage-actor-critic-a3c-7eab2eea5296)
-
-- [https://github.com/kaland313/A3C-CarRacingGym](https://github.com/kaland313/A3C-CarRacingGym)
-
-- [https://github.com/novicasarenac/car-racing-rl](https://github.com/novicasarenac/car-racing-rl)
-
-
-- [Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
-- [RL with Bayesian approach (just for curiosity)](https://towardsdatascience.com/coordinating-multiple-rl-agents-on-overcooked-ee1b4ce11054) and [here](https://arxiv.org/pdf/2003.11778.pdf)
-
-
-
-
->>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
 ---
-### November
+### November 2020
 
 **Week from 2 to 7**
 
@@ -175,14 +150,6 @@ The explanations of environments are here:
 
 I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 
-<<<<<<< HEAD:README V2.md
-=======
-
-
-
-
-
->>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
 ---
 ### General Resources
 
