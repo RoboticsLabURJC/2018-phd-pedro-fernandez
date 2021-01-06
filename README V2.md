@@ -21,6 +21,7 @@
  
 ---
 ## Weblog
+<<<<<<< HEAD:README V2.md
 
 
 ---
@@ -33,8 +34,13 @@ We are going to work with discreta and continuous examples as before.
 - GridWorld & maze. Show images of agent with different configurations of state space, obstacles and Start and end points. Create graphics and results of implementation.
 
 - MountainCar the same as above point. 
+=======
+>>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
 
+---
+### December
 
+<<<<<<< HEAD:README V2.md
 
 ---
 ### December
@@ -57,6 +63,12 @@ We are going to work in two simple projects:
   - https://github.com/MattChanTK/gym-maze
   - https://github.com/maximecb/gym-minigrid
   - https://github.com/maximecb/gym-miniworld
+=======
+
+**Week from 17 to 31 december**
+
+I am going to work with GridWorld from Scratch
+>>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
 
 
 **Week from 1 to 16 december**
@@ -79,8 +91,7 @@ with ROS and Gazebo](https://roscon.ros.org/2018/presentations/ROSCon2018_Accele
 
 - [gym-gazebo2](https://github.com/AcutronicRobotics/gym-gazebo2)
 
-- [Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
-- [RL with Bayesian approach (just for curiosity)](https://towardsdatascience.com/coordinating-multiple-rl-agents-on-overcooked-ee1b4ce11054) and [here](https://arxiv.org/pdf/2003.11778.pdf)
+
 
 - [Deep Reinforcement Learning - an overview](https://arxiv.org/pdf/1701.07274.pdf)
 - [A Brief Survey of Deep Reinforcement Learning](https://arxiv.org/pdf/1708.05866.pdf)
@@ -97,7 +108,7 @@ for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.0574
 
 - [A Beginner's Guide to Deep Reinforcement Learning](https://wiki.pathmind.com/deep-reinforcement-learning)
 
-- [World Models](https://arxiv.org/abs/1803.10122) && [here](https://worldmodels.github.io/)
+- [World Models](https://arxiv.org/abs/1803.10122) && [here](https://worldmodels.github.io/) && [Hallucinogenic Deep Reinforcement Learning Using Python and Keras](https://medium.com/applied-data-science/how-to-build-your-own-world-model-using-python-and-keras-64fb388ba459)
 
 - [Reinforcement Q-Learning from Scratch in Python with OpenAI Gym](https://www.learndatasci.com/tutorials/reinforcement-q-learning-scratch-python-openai-gym/)
 
@@ -120,6 +131,22 @@ for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.0574
 - [DQN from Scratch with TensorFlow 2](https://levelup.gitconnected.com/dqn-from-scratch-with-tensorflow-2-eb0541151049)
 
 
+<<<<<<< HEAD:README V2.md
+=======
+- [Deep Reinforcement Learning: Playing CartPole through Asynchronous Advantage Actor Critic (A3C) with tf.keras and eager execution](https://medium.com/tensorflow/deep-reinforcement-learning-playing-cartpole-through-asynchronous-advantage-actor-critic-a3c-7eab2eea5296)
+
+- [https://github.com/kaland313/A3C-CarRacingGym](https://github.com/kaland313/A3C-CarRacingGym)
+
+- [https://github.com/novicasarenac/car-racing-rl](https://github.com/novicasarenac/car-racing-rl)
+
+
+- [Tensor Flow and Neural Nets (in Spanish)](https://relopezbriega.github.io/blog/2016/06/05/tensorflow-y-redes-neuronales/)
+- [RL with Bayesian approach (just for curiosity)](https://towardsdatascience.com/coordinating-multiple-rl-agents-on-overcooked-ee1b4ce11054) and [here](https://arxiv.org/pdf/2003.11778.pdf)
+
+
+
+
+>>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
 ---
 ### November
 
@@ -148,6 +175,14 @@ The explanations of environments are here:
 
 I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 
+<<<<<<< HEAD:README V2.md
+=======
+
+
+
+
+
+>>>>>>> 7121f98c3beca8bfdc2441572c016b3d65642154:README.md
 ---
 ### General Resources
 
