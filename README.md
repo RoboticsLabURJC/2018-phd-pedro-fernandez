@@ -5,9 +5,9 @@
 ### Table of contents
 
   - [Weblog](#weblog)
-    - [January](#January)
-    - [December](#December)
-    - [November](#noviembre)
+    - [January 2021](#January)
+    - [December 2020](#December)
+    - [November 2020](#november)
   - [Resources](#resources)
     - [Useful links JdRobot](#useful-links-jdrobot)
     - [Courses](#courses)
@@ -26,7 +26,7 @@
 
 
 ---
-### January 2021
+### January
 
 **Week from 4 to 18 January**
 
@@ -40,7 +40,7 @@ We are going to work with discreta and continuous examples as before.
 
 
 ---
-### December 2020
+### December
 
 **Week from 17 to 31 december**
 
@@ -123,7 +123,7 @@ for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.0574
 
 
 ---
-### November 2020
+### November
 
 **Week from 2 to 7**
 
