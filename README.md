@@ -5,9 +5,9 @@
 ### Table of contents
 
   - [Weblog](#weblog)
-    - [January](#January 2021)
-    - [December](#December 2020)
-    - [November](#noviembre 2020)
+    - [January](#January)
+    - [December](#December)
+    - [November](#noviembre)
   - [Resources](#resources)
     - [Useful links JdRobot](#useful-links-jdrobot)
     - [Courses](#courses)
