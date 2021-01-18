@@ -34,11 +34,12 @@ If we take only until (d) step, it is called a **direct RL** or **Q-learning** a
 
 ![Dyna-Q architecture](GridWorld&Maze/images_theory/DynaQ-architecture.png)
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=K3DimDK5H6A
-" target="_blank"><img src="http://img.youtube.com/vi/K3DimDK5H6A/0.jpg" 
+<a href="https://www.youtube.com/watch?feature=player_embedded&v=K3DimDK5H6A
+" target="_blank"><img src="https://img.youtube.com/vi/K3DimDK5H6A/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
-[![Tabular Dyna Q](http://img.youtube.com/vi/K3DimDK5H6A/0.jpg)](http://www.youtube.com/watch?v=K3DimDK5H6A)
+[![Tabular Dyna Q](https://img.youtube.com/vi/K3DimDK5H6A/0.jpg)](https://www.youtube.com/watch?v=K3DimDK5H6A)
+
 
 
 https://youtu.be/K3DimDK5H6A
