@@ -1,15 +1,17 @@
 ### Sources [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 
-## GridWorld
+
 
 ### Table of contents
 
-  - [TABULAR DYNA-Q](#TABULAR-DYNA-Q)
+## GridWorld
+  - [Tabular Dyna-Q](#TABULAR-DYNA-Q)
   - [Dyna-Q +](#Dyna-Q-+)
   - [Prioritized Sweeping](#Prioritized-Sweeping)
-
- 
+## Short Corridor
+  - [Policy Approximation](#Policy-approximation)
+  - [REINFORCE Monte Carlo Policy Gradient](#REINFORCE-MC)
 ---
 
 First implementation of a RL algoritmhs. It is a typical and beginner example for understanding basics ideas and concepts of RL.
@@ -32,6 +34,14 @@ If we take only until (d) step, it is called a **direct RL** or **Q-learning** a
 
 ![Dyna-Q architecture](GridWorld&Maze/images_theory/DynaQ-architecture.png)
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=K3DimDK5H6A
+" target="_blank"><img src="http://img.youtube.com/vi/K3DimDK5H6A/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+[![Tabular Dyna Q](http://img.youtube.com/vi/K3DimDK5H6A/0.jpg)](http://www.youtube.com/watch?v=K3DimDK5H6A)
+
+
+https://youtu.be/K3DimDK5H6A
 
 - Tabular_Dyna-Q V2.ipynb and Tabular_Dyna-Q V2.py contains implementation of TABULAR DYNA-Q. 
 Running the code, we obtain figures representing policies and values for a given value. They are examples of a given value.
@@ -67,5 +77,22 @@ The algorithm is in "prioritized sweeping V1.py" file
 
 
 ---
-**Continuous implementation**
+## Policy Approximation 
+
+1. Short corridor with switched actions.
+
+![short corridor](GridWorld&Maze/images_theory/short-corridor.png)
+
+Algorithm can find in "short_corridor(chapter_13_policy_approximation).py"
+
+## REINFORCE Monte Carlo Policy Gradient
+
+Generic algorithm can see below
+
+![Reinforce](GridWorld&Maze/images_theory/reinforce.png)
+
+and code in "short_corridor(chapter_13_REINFORCE_MonteCarlo_Policy_Gradient_Control).py"
+
+
+
 
