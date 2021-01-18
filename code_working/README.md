@@ -36,7 +36,7 @@ If we take only until (d) step, it is called a **direct RL** or **Q-learning** a
 
 <a href="https://www.youtube.com/watch?feature=player_embedded&v=K3DimDK5H6A
 " target="_blank"><img src="https://img.youtube.com/vi/K3DimDK5H6A/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+alt="IMAGE ALT TEXT HERE" width="800" height="400" border="10" /></a>
 
 [![Tabular Dyna Q](https://img.youtube.com/vi/K3DimDK5H6A/0.jpg)](https://www.youtube.com/watch?v=K3DimDK5H6A)
 
