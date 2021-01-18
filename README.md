@@ -30,9 +30,10 @@
 
 **Week from 4 to 18 January**
 
-We are going to work with discreta and continuous examples as before.
+We are going to work with discrete and continuous examples as before.
 
-- GridWorld & maze. Show images of agent with different configurations of state space, obstacles and Start and end points. Create graphics and results of implementation.
+- GridWorld & maze. Show images of agent with different configurations of state space, obstacles and Start and end points. Create graphics and results of implementation. Algorithms are in directory /GridWorld&Maze 
+
 
 - MountainCar the same as above point. 
 
