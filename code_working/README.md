@@ -5,9 +5,9 @@
 
 ### Table of contents
 
-  - [TABULAR DYNA-Q](#TABULAR DYNA-Q)
-  - [Dyna-Q +](#Dyna-Q +)
-  - [Prioritized Sweeping](#Prioritized Sweeping)
+  - [TABULAR DYNA-Q](#TABULAR-DYNA-Q)
+  - [Dyna-Q +](#Dyna-Q-+)
+  - [Prioritized Sweeping](#Prioritized-Sweeping)
 
  
 ---
@@ -19,7 +19,7 @@ We are going to follow the TextBook [Sutton]
 The GridWorld and Maze are explained in chapter 8, and they are good examples of discrete and stochastic environments.
 
 
-##TABULAR DYNA-Q
+## Tabular Dyna-Q
 
 The algorithm is
 ![tabular Dyna-Q](GridWorld&Maze/images_theory/Tabular-Dyna-Q.png)
@@ -41,7 +41,7 @@ Running the code, we obtain figures representing policies and values for a given
 ![values](GridWorld&Maze/images_theory/tabular-Dyna-Q_VALUES_9_2_49.png)
 
 ---
-##Dyna-Q +
+## Dyna-Q +
 
 The Dyna-Q+ agent that did solve the shortcut maze uses one such heuristic. This agent keeps track for each state–action pair of how many time steps have elapsed since the pair was last tried in a real interaction with the environment. The more time that has elapsed, the greater (we might presume) the chance that the dynamics of this pair has changed and that the model of it is incorrect. To encourage behavior that tests long-untried actions, a special “bonus reward” is given on simulated experiences involving these actions.
 
