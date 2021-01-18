@@ -1,14 +1,16 @@
 ### Sources [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 
+## GridWorld
 
 ### Table of contents
 
-  - [GridWorld](#GridWorld)
+  - [TABULAR DYNA-Q](#TABULAR DYNA-Q)
+  - [Dyna-Q +](#Dyna-Q +)
+  - [Prioritized Sweeping](#Prioritized Sweeping)
 
  
 ---
-## GridWorld
 
 First implementation of a RL algoritmhs. It is a typical and beginner example for understanding basics ideas and concepts of RL.
 
@@ -17,9 +19,9 @@ We are going to follow the TextBook [Sutton]
 The GridWorld and Maze are explained in chapter 8, and they are good examples of discrete and stochastic environments.
 
 
-**DISCRETE implementations**
+##TABULAR DYNA-Q
 
-1. TABULAR DYNA-Q. The algorithm is
+The algorithm is
 ![tabular Dyna-Q](GridWorld&Maze/images_theory/Tabular-Dyna-Q.png)
 
 Model and Planning verion that it is called Tabular Dyna-Q. 
@@ -38,8 +40,8 @@ Running the code, we obtain figures representing policies and values for a given
 
 ![values](GridWorld&Maze/images_theory/tabular-Dyna-Q_VALUES_9_2_49.png)
 
-
-2. Dyna-Q +
+---
+##Dyna-Q +
 
 The Dyna-Q+ agent that did solve the shortcut maze uses one such heuristic. This agent keeps track for each state–action pair of how many time steps have elapsed since the pair was last tried in a real interaction with the environment. The more time that has elapsed, the greater (we might presume) the chance that the dynamics of this pair has changed and that the model of it is incorrect. To encourage behavior that tests long-untried actions, a special “bonus reward” is given on simulated experiences involving these actions.
 
@@ -50,8 +52,8 @@ One possible example of a grid changing world is showed in next image
 
 The algorithm is in "DynaQ+ V1.py" and .pynb
 
-
-3. Prioritized Sweeping
+---
+## Prioritized Sweeping
 
 The algorithm is shown below
 
@@ -59,11 +61,11 @@ The algorithm is shown below
 
 The idea behind this algorithm is that we can work only in states that have changed recently and update states closed to him, that is, backward focusing. We have a queu of states and theirs predecessors, so if one state is changed, all its predecessors too. Thus we only update a few states each time.
 
-The algorithm is in "prioritized sweeping V1.py"
+The algorithm is in "prioritized sweeping V1.py" file
 
 
 
 
-
+---
 **Continuous implementation**
 
