@@ -28,6 +28,12 @@
 ---
 ### January
 
+**Week from 18 to 31 January**
+Continuing developing GridWorlds, trying to reach textbook chapter 13. This period we focus on discrete worls, understanding value functions, policy search and models worlds, the three main approaches to every RL agent can have.
+
+
+
+
 **Week from 4 to 18 January**
 
 We are going to work with discrete and continuous examples as before.
