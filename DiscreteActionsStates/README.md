@@ -5,11 +5,10 @@
 
 ### Table of contents
 
-## GridWorld
+
   - [Tabular Dyna-Q](#TABULAR-DYNA-Q)
   - [Dyna-Q +](#Dyna-Q-+)
   - [Prioritized Sweeping](#Prioritized-Sweeping)
-## Short Corridor
   - [Policy Approximation](#Policy-approximation)
   - [REINFORCE Monte Carlo Policy Gradient](#REINFORCE-MC)
 ---
@@ -18,7 +17,13 @@ First implementation of a RL algoritmhs. It is a typical and beginner example fo
 
 We are going to follow the TextBook [Sutton]
 
-The GridWorld and Maze are explained in chapter 8, and they are good examples of discrete and stochastic environments.
+## Example 3.5 GridWorld
+
+Finite MDP (Markov Decision Processes) with a grid of 5x5 states, and 4 actions equiprobables: left, right, up, down. Every action gives us 0 reward, except in those states which actions move the agent out, which results in -1, or in A state with reward +10, and B state, with reward +5.
+
+[![Tabular Dyna Q](https://img.youtube.com/vi/yR71faR0FMI/0.jpg)](https://www.youtube.com/watch?v=yR71faR0FMI)
+
+https://youtu.be/yR71faR0FMI
 
 
 ## Tabular Dyna-Q
@@ -38,11 +43,7 @@ If we take only until (d) step, it is called a **direct RL** or **Q-learning** a
 " target="_blank"><img src="https://img.youtube.com/vi/K3DimDK5H6A/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="1000" height="800" border="10" /></a>
 
-[![Tabular Dyna Q](https://img.youtube.com/vi/K3DimDK5H6A/0.jpg)](https://www.youtube.com/watch?v=K3DimDK5H6A)
 
-
-
-https://youtu.be/K3DimDK5H6A
 
 - Tabular_Dyna-Q V2.ipynb and Tabular_Dyna-Q V2.py contains implementation of TABULAR DYNA-Q. 
 Running the code, we obtain figures representing policies and values for a given value. They are examples of a given value.
