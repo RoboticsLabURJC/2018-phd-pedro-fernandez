@@ -19,21 +19,17 @@ We are going to follow the TextBook [Sutton]
 
 ## Example 3.5 GridWorld
 
-Finite episodic MDP (Markov Decision Processes) with a grid of 5x5 states, and 4 actions equiprobables: left, right, up, down. Every action gives us 0 reward, except in those states which actions move the agent out, which results in -1, or in A state with reward +10, and B state, with reward +5. Discount rate of 0.9
+Finite episodic MDP (Markov Decision Processes) with a grid of 5x5 states, and 4 equiprobables actions : left, right, up, down. Every action gives us 0 reward, except in those states which actions move the agent out, which results in -1, or in A state with reward +10, and B state, with reward +5. Discount rate of 0.9
 
 [![3.5](https://img.youtube.com/vi/yR71faR0FMI/0.jpg)](https://www.youtube.com/watch?v=yR71faR0FMI)
 
-https://youtu.be/yR71faR0FMI
 
-<a href="https://www.youtube.com/watch?feature=player_embedded&v=yR71faR0FMI
-" target="_blank"><img src="https://img.youtube.com/vi/yR71faR0FMI/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="1000" height="800" border="10" /></a>
 
 The final Value Function generated is showing below:
 
-![valueFunction](DiscreteActionsStates/images/3_5_GridWorld_value_function.png)
-![valueFunction](DiscreteActionsStates/images/figure_3_2.png)
+![valueFunction](images/3_5_GridWorld_value_function.png)
 
+Code is here: [3_5_GridWorld_(simple_finite_MDP_Example_3_5).ipynb](3_5_GridWorld_(simple_finite_MDP_Example_3_5).ipynb)
 
 ## Tabular Dyna-Q
 
