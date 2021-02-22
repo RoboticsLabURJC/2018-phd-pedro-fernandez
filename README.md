@@ -24,6 +24,53 @@
 ---
 ## Weblog
 
+---
+### February
+**Week from 16 to 28 February**
+
+1. Install platform in Mac Big Sur:
+- [Gazebo 11.3.0](http://gazebosim.org/tutorials?cat=install&tut=install_on_mac&ver=11.0)
+- [ROS2](https://index.ros.org/doc/ros2/Installation/Crystal/macOS-Install-Binary/)
+- Gym Gazebo
+- [Ignition Gazebo](https://ignitionrobotics.org/docs/all/getstarted)
+
+2. Documentation in:
+- [Gazebo](http://gazebosim.org/tutorials?cat=connect_ros)
+- [ROS2](https://index.ros.org/doc/ros2/Tutorials/Configuring-ROS2-Environment/)
+
+3. Really good tutorial in:
+- [Open Source Robotics: Getting Started with Gazebo and ROS 2](https://www.infoq.com/articles/ros-2-gazebo-tutorial/)
+
+
+References in this period:
+
+- [Reward Engineering for Classic Control Problems on OpenAI Gym |DQN |RL](https://towardsdatascience.com/open-ai-gym-classic-control-problems-rl-dqn-reward-functions-16a1bc2b007), very beginning article but with a seminal idea as how **changing the rewards** we can get better results, optimizing convergence.
+
+- [Actor Critic implementation with TensorFlow](https://www.tensorflow.org/tutorials/reinforcement_learning/actor_critic) and with [Keras](https://keras.io/examples/rl/)
+- [DQN with Pythorch](https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html)
+
+**Week from 1 to 15 february**
+
+We introduce in continuous actions and states. Unlike discrete actions, now continuous open ne procedures, algorithms and differents ways to do the analysis and almost all research drives to deep learning as a way to find features and parameters in search policy function.
+
+References in this period:
+- TFM Alex cabañeros UPC: Autonomous vehicle navigation with deep reinforcement
+- Reinforcement Learning, Sutton 2018, chapter 13
+- [CONTINUOUS CONTROL WITH DEEP REINFORCEMENT LEARNING](https://arxiv.org/pdf/1509.02971.pdf). Timothy P. Lillicrap, Jonathan J. Hunt,Alexander Pritzel, Nicolas Heess,Tom Erez, Yuval Tassa, David Silver & Daan Wierstra. Google Deepmind
+- [Deep Reinforcement Learning in Continuous Action Spaces: a Case Study in the Game of Simulated Curling](http://proceedings.mlr.press/v80/lee18b/lee18b.pdf). Kyowoon Lee, Sol-A Kim, Jaesik Choi, Seong-Whan Lee ; Proceedings of the 35th International Conference on Machine Learning, PMLR 80:2937-2946, 2018
+- [Improving Stochastic Policy Gradients in Continuous Control with Deep Reinforcement Learning using the Beta Distribution](https://www.ri.cmu.edu/publications/improving-stochastic-policy-gradients-in-continuous-control-with-deep-reinforcement-learning-using-the-beta-distribution/), Po-Wei Chou, Daniel Maturana and Sebastian Scherer.
+- [Reinforcement Learning with Exploration by Random Network Distillation](https://towardsdatascience.com/reinforcement-learning-with-exploration-by-random-network-distillation-a3e412004402), Or Rivlin - Medium
+- [Natural actor–critic algorithms](https://www.sciencedirect.com/science/article/pii/S0005109809003549), Shalabh Bhatnagar, Richard S. Sutton, Mohammad Ghavamzadeh, Mark Lee
+
+- [Deep Reinforcement Learning That Matters](https://ojs.aaai.org/index.php/AAAI/article/view/11694), Henderson, P., Islam, R., Bachman, P., Pineau, J., Precup, D., & Meger, D. (2018). Deep Reinforcement Learning That Matters. Proceedings of the AAAI Conference on Artificial Intelligence, 32(1)
+- [Actor-critic algorithms. In Advances in neural information processing systems (pp. 1008-1014).](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.821.1075&rep=rep1&type=pdf) Konda, V. R., & Tsitsiklis, J. N. (2000). 
+- [Policy gradient methods for reinforcement learning with function approximation. In NIPs (Vol. 99, pp. 1057-1063).](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.6.696&rep=rep1&type=pdf)Sutton, R. S., McAllester, D. A., Singh, S. P., & Mansour, Y. (1999, November). 
+- [Reinforcement learning in continuous action spaces through sequential monte carlo methods. Advances in neural information processing systems, 20, 833-840.](http://chercheurs.lille.inria.fr/~lazaric/Webpage/Publications_files/lazaric2008reinforcement.pdf) Lazaric, A., Restelli, M., & Bonarini, A. (2007). 
+- [Deterministic policy gradient algorithms. In International conference on machine learning (pp. 387-395). PMLR.](http://proceedings.mlr.press/v32/silver14.html) Silver, D., Lever, G., Heess, N., Degris, T., Wierstra, D., & Riedmiller, M. (2014, January). 
+
+- [Optimizing expectations: From deep reinforcement learning to stochastic computation graphs (Doctoral dissertation, UC Berkeley).](https://escholarship.org/uc/item/9z908523) Schulman, J. (2016).
+- [Policy Gradient Algorithms](https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html)
+
 
 ---
 ### January
