@@ -23,6 +23,7 @@ Finite MDP (Markov Decision Processes) with a grid of 5x5 states, and 4 actions 
 
 The code is in file 3_5_GridWorld_(simple_finite_MDP_Example_3_5).ipynb
 
+
 [![3_5](https://img.youtube.com/vi/yR71faR0FMI/0.jpg)](https://www.youtube.com/watch?v=yR71faR0FMI)
 
 https://youtu.be/yR71faR0FMI
