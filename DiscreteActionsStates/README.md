@@ -6,6 +6,7 @@
 ### Table of contents
 
 
+  - [Example 3.5 GridWorld](#3_5_GRID)
   - [Tabular Dyna-Q](#TABULAR-DYNA-Q)
   - [Dyna-Q +](#Dyna-Q-+)
   - [Prioritized Sweeping](#Prioritized-Sweeping)
@@ -30,6 +31,26 @@ The final Value Function generated is showing below:
 ![valueFunction](images/3_5_GridWorld_value_function.png)
 
 Code is here: [3_5_GridWorld_(simple_finite_MDP_Example_3_5).ipynb](3_5_GridWorld_(simple_finite_MDP_Example_3_5).ipynb)
+
+
+
+## Example 3.8 GridWorld with optimal Policy and Value Function
+
+Following exercise 3.5 to find optimal policy and Value function in a discrete space with four discrete equiprobables actions. The framework is the same seen before, but now, we use optimal Bellman equations
+
+[![3.5](https://img.youtube.com/vi/YZA0osDwUPM/0.jpg)](https://www.youtube.com/watch?v=YZA0osDwUPM)
+
+The optimal Value Function generated is showing below:
+
+![optimalvalueFunction](images/3_8_bestValueFunction.png)
+
+and optimal policy
+
+
+![optimalpolicy](images/3_8_optimalPolicy.png)
+
+
+Code is in: [3_8_GridWorld_(simple_finite_MDP_with_Bellma_optimality_equations_Example_3_8).ipynb](3_8_GridWorld_(simple_finite_MDP_with_Bellma_optimality_equations_Example_3_8).ipynb)
 
 ## Tabular Dyna-Q
 
@@ -92,6 +113,7 @@ The algorithm is in "prioritized sweeping V1.py" file
 
 Algorithm can find in "short_corridor(chapter_13_policy_approximation).py"
 
+---
 ## REINFORCE Monte Carlo Policy Gradient
 
 Generic algorithm can see below
