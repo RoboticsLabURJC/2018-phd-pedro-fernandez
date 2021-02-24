@@ -1,4 +1,4 @@
-### PhD Pedro [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+### PhD Pedro - [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez)
 
 
 
@@ -105,7 +105,7 @@ We are going to work in two simple projects:
   - https://github.com/imraviagrawal/Reinforcement-Learning-Implementation
   - https://github.com/adik993/reinforcement-learning-sutton
   - https://github.com/adityajain07/ReinforcementLearning-Gridworld
-  - https://github.com/qqiang00/Reinforce/tree/master/reinforce
+  - https://github.com/LyWangPX/Reinforcement-Learning-2nd-Edition-by-Sutton-Exercise-Solutions
 
 - Mountain car
 

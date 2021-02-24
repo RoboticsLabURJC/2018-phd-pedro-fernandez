@@ -1,4 +1,4 @@
-### Sources [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
+### Sources - [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez)
 
 
 
@@ -6,13 +6,20 @@
 ### Table of contents
 
 
-  - [Example 3.5 GridWorld](#3_5_GRID)
+  - [Example 3.5 GridWorld](#3-5-GRID)
+  - [Example 3.8 GridWorld with optimal Policy and Value Function](#3-8-GRID)
+  - [Example 4.1 GridWorld Iterative Policy Evaluation (prediction)](#4-1-iteration-policy)
+
   - [Tabular Dyna-Q](#TABULAR-DYNA-Q)
   - [Dyna-Q +](#Dyna-Q-+)
   - [Prioritized Sweeping](#Prioritized-Sweeping)
   - [Policy Approximation](#Policy-approximation)
   - [REINFORCE Monte Carlo Policy Gradient](#REINFORCE-MC)
 ---
+
+Ideas and code taking from: [2016-2018 Shangtong Zhang(zhangshangtong.cpp@gmail.com) and 2016 Kenta Shimada(hyperkentakun@gmail.com)](https://github.com/LyWangPX/Reinforcement-Learning-2nd-Edition-by-Sutton-Exercise-Solutions)
+ 
+
 
 First implementation of a RL algoritmhs. It is a typical and beginner example for understanding basics ideas and concepts of RL.
 
@@ -52,6 +59,27 @@ and optimal policy
 
 Code is in: [3_8_GridWorld_(simple_finite_MDP_with_Bellma_optimality_equations_Example_3_8).ipynb](3_8_GridWorld_(simple_finite_MDP_with_Bellma_optimality_equations_Example_3_8).ipynb)
 
+
+
+
+## Example 4.1 GridWorld Iterative Policy Evaluation (prediction)
+
+Next example follows algorithm to find Optimal Policiy in a deterministic and discrete state and actions world. There are 4 equiprobables actions with no discount rate in the problem. Algorithm is shown below
+
+![policyevaluation](images_theory/4_1_iterative_policy_evaluation.png)
+
+Result with best Value Function obtained:
+
+![bestvaluefuntion](images/figure_4_1.png)
+
+
+[![4.1](https://img.youtube.com/vi/BvdCEA3C5us/0.jpg)](https://www.youtube.com/watch?v=BvdCEA3C5us)
+
+
+Code is in: [4_1_GridWorld_(optimal policy figure 4.1).ipynb](4_1_GridWorld_(optimal policy figure 4.1).ipynb)
+
+
+## (UNDER CONSTRUCTION)
 ## Tabular Dyna-Q
 
 The algorithm is
@@ -65,9 +93,7 @@ If we take only until (d) step, it is called a **direct RL** or **Q-learning** a
 
 ![Dyna-Q architecture](GridWorld&Maze/images_theory/DynaQ-architecture.png)
 
-<a href="https://www.youtube.com/watch?feature=player_embedded&v=K3DimDK5H6A
-" target="_blank"><img src="https://img.youtube.com/vi/K3DimDK5H6A/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="1000" height="800" border="10" /></a>
+
 
 
 
