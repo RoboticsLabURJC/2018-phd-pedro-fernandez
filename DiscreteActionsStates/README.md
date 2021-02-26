@@ -18,10 +18,9 @@
   - [Example 8.3 Dyna Q+ in a changing grid environment](#Dyna+)
   - [Example 8.4 Prioritized Sweeping](#Prioritized-Sweeping)
 
-Under construction
 ### Policy Gradient Methods 
-  - [Policy Approximation](#Policy-approximation)
-  - [REINFORCE Monte Carlo Policy Gradient](#REINFORCE-MC)
+  - [Example 13.1 Short corridor with switched actions](#Policy-approximation)
+  - [Example 13.2 REINFORCE Monte Carlo Policy Gradient](#REINFORCE-MC)
 ---
 
 Ideas and code taking from: [2016-2018 Shangtong Zhang(zhangshangtong.cpp@gmail.com) and 2016 Kenta Shimada(hyperkentakun@gmail.com)](https://github.com/LyWangPX/Reinforcement-Learning-2nd-Edition-by-Sutton-Exercise-Solutions)
@@ -209,17 +208,9 @@ Following Dyna techiques, thus new algorithm is designed to rule in a changing w
 [![8.1](https://img.youtube.com/vi/2mtTQhWUG6s/0.jpg)](https://www.youtube.com/watch?v=2mtTQhWUG6s)
 
 
+
 Code is in: [8_3_DynaQ+_vs_DynaQ(dynamic_changing_obstacles_in_Maze).ipynb](8_3_DynaQ+_vs_DynaQ(dynamic_changing_obstacles_in_Maze).ipynb)
 
-
-
-
-- Tabular_Dyna-Q V2.ipynb and Tabular_Dyna-Q V2.py contains implementation of TABULAR DYNA-Q. 
-Running the code, we obtain figures representing policies and values for a given value. They are examples of a given value.
-
-![policies](GridWorld&Maze/images_theory/tabular-Dyna-POLICY_9_2_49.png)
-
-![values](GridWorld&Maze/images_theory/tabular-Dyna-Q_VALUES_9_2_49.png)
 
 
 
@@ -235,9 +226,6 @@ The idea behind this algorithm is that we can work only in states that have chan
 Code is in: [8_4_Prioritized_sweeping_vs_DynaQ.ipynb](8_4_Prioritized_sweeping_vs_DynaQ.ipynb)
 
 
-
----
-## (UNDER CONSTRUCTION)
 ---
 ## Policy Approximation 
 
@@ -251,14 +239,14 @@ Code is in: [8_4_Prioritized_sweeping_vs_DynaQ.ipynb](8_4_Prioritized_sweeping_v
 [![13.1](https://img.youtube.com/vi/JKSmG7HXfBo/0.jpg)](https://www.youtube.com/watch?v=JKSmG7HXfBo)
 
 
-Algorithm can find in "short_corridor(chapter_13_policy_approximation).py"
+
 Code is in: [13_1_Short_corridor(Policy_approximation_with_e-greedy_selection).ipynb](13_1_Short_corridor(Policy_approximation_with_e-greedy_selection).ipynb)
 
 
 
 
 ---
-## REINFORCE Monte Carlo Policy Gradient
+## Example 13.2 REINFORCE Monte Carlo Policy Gradient
 
 Generic algorithm can see below
 
