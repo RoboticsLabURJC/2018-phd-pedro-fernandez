@@ -11,11 +11,13 @@
   - [Example 4.1 GridWorld Iterative Policy Evaluation (prediction)](#4-1-iteration-policy)
   - [Example 5.4 off policy ordinary importance sampling](#5-4-off-policy-MonteCarlo)
   - [Example 6.2 Temporal Differences (0) Random Walk](#TD0)
-  - [Example 6.3 Windy GridWorld SARSA](#SARSA)
+  - [Example 6.5 Windy GridWorld SARSA](#SARSA)
+  - [Example 6.6 Cliff Walking GridWorld SARSA](#Qlearning)
+  - [Example 6.6 Cliff Walking GridWorld SARSA and Q-Learning](#expectedSARSA)
+  - [Example 8.1 Tabular Dyna-Q in a simple maze with obstacles](#DynaQ)
+  - [Example 8.3 Dyna Q+ in a changing grid environment](#Dyna+)
 
-
-  - [Tabular Dyna-Q](#TABULAR-DYNA-Q)
-  - [Dyna-Q +](#Dyna-Q-+)
+Under construction
   - [Prioritized Sweeping](#Prioritized-Sweeping)
   - [Policy Approximation](#Policy-approximation)
   - [REINFORCE Monte Carlo Policy Gradient](#REINFORCE-MC)
@@ -124,7 +126,7 @@ This is the first example of Temporal Difference algorithm. Such as algorithms h
 
 Code is in: [6_2_Random_walk(comparing_alphaMC_vs_TD(0).ipynb](6_2_Random_walk(comparing_alphaMC_vs_TD(0).ipynb))
 
-## Example 6.3 Windy GridWorld SARSA
+## Example 6.5 Windy GridWorld SARSA
 
 SARSA means State Action Reward State Action where we can try to learn the values of state action-pairs. The algorithm is show below
 ![SARSA](images_theory/6_3_SARSA.png)
@@ -136,28 +138,77 @@ The main equation is in
 
 
 
-[![6.3](https://img.youtube.com/vi/GQb24xN3hyI/0.jpg)](https://www.youtube.com/watch?v=GQb24xN3hyI)
+[![6.5](https://img.youtube.com/vi/GQb24xN3hyI/0.jpg)](https://www.youtube.com/watch?v=GQb24xN3hyI)
 
 
-Code is in: [6_3_windy_gridworld(e-Greedy_SARSA).ipynb](6_3_windy_gridworld(e-Greedy_SARSA).ipynb)
+Code is in: [6_5_windy_gridworld(e-Greedy_SARSA).ipynb](6_5_windy_gridworld(e-Greedy_SARSA).ipynb)
+
+
+
+## Example 6.6 Cliff Walking GridWorld SARSA and Q-Learning
+
+In this example, we introduce Q-Learning algorithm and compare with SARSA. Q_learning is off-policy, and it searchs optimal policy. Algorithm is shown below
+
+![qlearning](images_theory/6_6_Qlearning(on_policy_TD_control).png)
+
+
+The main equation is in
+
+>Q(S,A) = Q(S,A) + alfa (R + gamm*amaxQ(S',A') - Q(S,A)) 
+
+
+
+[![6.6](https://img.youtube.com/vi/WqkHNZZ06A4/0.jpg)](https://www.youtube.com/watch?v=WqkHNZZ06A4)
+
+
+Code is in: [6_6_Cliff_walking(SARSA_vs_QLearning).ipynb](6_6_Cliff_walking(SARSA_vs_QLearning).ipynb)
+
+
+
+## Example 6.6 Cliff Walking GridWorld SARSA, Q-Learning and expected SARSA
+
+The same before example, cliff world, but now adding expected SARSA algorithm. This one, instead Q=learning, take the expected value using how likely each action is under the current policy.
+The equation that rules the algorithm
+
+
+![expectedSARSA](images_theory/6_6_expected_SARSA_equation.png)
+
+Code is in: [6_6_Cliff_walking(SARSA_vs_Qlearning_vs_Expected_SARSA).ipynb](6_6_Cliff_walking(SARSA_vs_Qlearning_vs_Expected_SARSA).ipynb)
 
 
 
 
-## (UNDER CONSTRUCTION)
-## Tabular Dyna-Q
+
+## Example 8.1 Tabular Dyna-Q in a simple maze with obstacles
+
+Is the first example with planning techniques, where the agent use a Model to planning the actions. The agent interacts direc with the experience taken from environment, and also save this experience in a Model to update policy and value funtion.
+
+The cycle is shown below
+
+![model and planning](images_theory/model-and-planning.png)
+
+[![8.1](https://img.youtube.com/vi/FumMoFsPtUQ/0.jpg)](https://www.youtube.com/watch?v=FumMoFsPtUQ)
+
+
 
 The algorithm is
-![tabular Dyna-Q](GridWorld&Maze/images_theory/Tabular-Dyna-Q.png)
+![tabular Dyna-Q](images_theory/Tabular-Dyna-Q.png)
 
-Model and Planning verion that it is called Tabular Dyna-Q. 
 
-If we take only until (d) step, it is called a **direct RL** or **Q-learning** algorithm. And steps (e) and (f) it is the Tabular Dyna-Q with Model and Planning version, which represents next figure
+If we take only until (d) step, it is called a **direct RL** or **Q-learning** algorithm. And steps (e) and (f) it is the Tabular Dyna-Q with Model and Planning version.
 
-![model and planning](GridWorld&Maze/images_theory/model-and-planning.png)
+Code is in: [8_1_Maze_(Tabular_Dyna-Q_planning_and_non_planning).ipynb](8_1_Maze_(Tabular_Dyna-Q_planning_and_non_planning).ipynb)
 
-![Dyna-Q architecture](GridWorld&Maze/images_theory/DynaQ-architecture.png)
 
+
+## Example 8.3 Dyna Q+ in a changing grid environment
+
+Following Dyna techiques, thus new algorithm is designed to rule in a changing world. Imagine the obstacles are changing in a specific time, with Dyna Q, one the agent finds the optimal policy, never will try to explore new states or even old states. With Dyna Q+, always the agent explore in old states with a small temperature rate. 
+
+[![8.1](https://img.youtube.com/vi/2mtTQhWUG6s/0.jpg)](https://www.youtube.com/watch?v=2mtTQhWUG6s)
+
+
+Code is in: [8_3_DynaQ+_vs_DynaQ(dynamic_changing_obstacles_in_Maze).ipynb](8_3_DynaQ+_vs_DynaQ(dynamic_changing_obstacles_in_Maze).ipynb)
 
 
 
@@ -169,7 +220,13 @@ Running the code, we obtain figures representing policies and values for a given
 
 ![values](GridWorld&Maze/images_theory/tabular-Dyna-Q_VALUES_9_2_49.png)
 
+
+
+
+
 ---
+## (UNDER CONSTRUCTION)
+
 ## Dyna-Q +
 
 The Dyna-Q+ agent that did solve the shortcut maze uses one such heuristic. This agent keeps track for each state–action pair of how many time steps have elapsed since the pair was last tried in a real interaction with the environment. The more time that has elapsed, the greater (we might presume) the chance that the dynamics of this pair has changed and that the model of it is incorrect. To encourage behavior that tests long-untried actions, a special “bonus reward” is given on simulated experiences involving these actions.
