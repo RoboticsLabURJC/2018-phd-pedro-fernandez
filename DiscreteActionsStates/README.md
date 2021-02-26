@@ -2,10 +2,10 @@
 
 
 
-
 ### Table of contents
 
 
+### Value/Actions Methods
   - [Example 3.5 GridWorld](#3-5-GRID)
   - [Example 3.8 GridWorld with optimal Policy and Value Function](#3-8-GRID)
   - [Example 4.1 GridWorld Iterative Policy Evaluation (prediction)](#4-1-iteration-policy)
@@ -16,9 +16,10 @@
   - [Example 6.6 Cliff Walking GridWorld SARSA and Q-Learning](#expectedSARSA)
   - [Example 8.1 Tabular Dyna-Q in a simple maze with obstacles](#DynaQ)
   - [Example 8.3 Dyna Q+ in a changing grid environment](#Dyna+)
+  - [Example 8.4 Prioritized Sweeping](#Prioritized-Sweeping)
 
 Under construction
-  - [Prioritized Sweeping](#Prioritized-Sweeping)
+### Policy Gradient Methods 
   - [Policy Approximation](#Policy-approximation)
   - [REINFORCE Monte Carlo Policy Gradient](#REINFORCE-MC)
 ---
@@ -222,54 +223,48 @@ Running the code, we obtain figures representing policies and values for a given
 
 
 
+---
+## Example 8.4 Prioritized Sweeping
+
+The algorithm is shown below
+
+![prioritized sweeping](images_theory/prioritized-sweeping.png)
+
+The idea behind this algorithm is that we can work only in states that have changed recently and update states closed to him, that is, backward focusing. We have a queu of states and theirs predecessors, so if one state is changed, all its predecessors too. Thus we only update a few states each time.
+
+Code is in: [8_4_Prioritized_sweeping_vs_DynaQ.ipynb](8_4_Prioritized_sweeping_vs_DynaQ.ipynb)
+
 
 
 ---
 ## (UNDER CONSTRUCTION)
-
-## Dyna-Q +
-
-The Dyna-Q+ agent that did solve the shortcut maze uses one such heuristic. This agent keeps track for each state–action pair of how many time steps have elapsed since the pair was last tried in a real interaction with the environment. The more time that has elapsed, the greater (we might presume) the chance that the dynamics of this pair has changed and that the model of it is incorrect. To encourage behavior that tests long-untried actions, a special “bonus reward” is given on simulated experiences involving these actions.
-
-One possible example of a grid changing world is showed in next image
-
-![changing grid world](GridWorld&Maze/images_theory/DynaQ+.png)
-
-
-The algorithm is in "DynaQ+ V1.py" and .pynb
-
----
-## Prioritized Sweeping
-
-The algorithm is shown below
-
-![prioritized sweeping](GridWorld&Maze/images_theory/prioritized-sweeping.png)
-
-The idea behind this algorithm is that we can work only in states that have changed recently and update states closed to him, that is, backward focusing. We have a queu of states and theirs predecessors, so if one state is changed, all its predecessors too. Thus we only update a few states each time.
-
-The algorithm is in "prioritized sweeping V1.py" file
-
-
-
-
 ---
 ## Policy Approximation 
 
-1. Short corridor with switched actions.
+### Example 13.1 Short corridor with switched actions.
 
-![short corridor](GridWorld&Maze/images_theory/short-corridor.png)
+
+
+![short corridor](images_theory/short-corridor.png)
+
+
+[![13.1](https://img.youtube.com/vi/JKSmG7HXfBo/0.jpg)](https://www.youtube.com/watch?v=JKSmG7HXfBo)
+
 
 Algorithm can find in "short_corridor(chapter_13_policy_approximation).py"
+Code is in: [13_1_Short_corridor(Policy_approximation_with_e-greedy_selection).ipynb](13_1_Short_corridor(Policy_approximation_with_e-greedy_selection).ipynb)
+
+
+
 
 ---
 ## REINFORCE Monte Carlo Policy Gradient
 
 Generic algorithm can see below
 
-![Reinforce](GridWorld&Maze/images_theory/reinforce.png)
+![Reinforce](images_theory/reinforce.png)
 
-and code in "short_corridor(chapter_13_REINFORCE_MonteCarlo_Policy_Gradient_Control).py"
-
+Code is in [13_2_Short_corridor(REINFORCE_MonteCarlo_Policy_Gradient_Control).ipynb](13_2_Short_corridor(REINFORCE_MonteCarlo_Policy_Gradient_Control).ipynb)
 
 
 
