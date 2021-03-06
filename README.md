@@ -30,7 +30,7 @@
 ### March
 **Weeks from 1 to 15 March**
 
-Installing working platform and simulators to work for algorithms RL
+Installing working platform and simulators to implement inside RL algorithms
 
 - Ubuntu 20.04, ROS Noetic, Gym Gazebo 2, Gazebo 11
 - Mac Big sur, ROS 2, Gazebo 11
