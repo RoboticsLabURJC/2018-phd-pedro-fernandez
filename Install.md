@@ -1,4 +1,4 @@
-# Mac Users: MacOS Catalina V.10.15.7
+# Mac Users: MacOS Catalina V.10.15.7 ang Big Sur 11.2.2
 
 
 ## 1. Install any Python Version. Follow this [good tutorial](https://python-guide-es.readthedocs.io/es/latest/starting/install3/osx.html) 
@@ -207,6 +207,7 @@ It comes with Python 3.8.5
 
 ```
 $ sudo apt update
+# sudo apt upgrade para mejorar versiones
 $ sudo apt install software-properties-common
 $ sudo add-apt-repository ppa:deadsnakes/ppa
 $ sudo apt-get update
@@ -506,6 +507,11 @@ pip install -e .
 ```
 
 
+
+---
+# Useful commands Lynux, Mac
+
+## Env Variables
 
 
 

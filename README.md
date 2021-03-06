@@ -5,6 +5,8 @@
 ### Table of contents
 
   - [Weblog](#weblog)
+    - [March 2021](#March)
+    - [February 2021](#February)
     - [January 2021](#January)
     - [December 2020](#December)
     - [November 2020](#november)
@@ -25,8 +27,83 @@
 ## Weblog
 
 ---
+### March
+**Weeks from 1 to 15 March**
+
+Installing working platform and simulators to work for algorithms RL
+
+- Ubuntu 20.04, ROS Noetic, Gym Gazebo 2, Gazebo 11
+- Mac Big sur, ROS 2, Gazebo 11
+
+Learning stochastic and deterministic policy gradient algorithms to solve continuos actions and states:
+- https://spinningup.openai.com/en/latest/user/algorithms.html
+- https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html
+- https://danieltakeshi.github.io/new-start-here.html
+
+
+
+Following [lilianweng](https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html), then we show the main characteristics of some of the SOTA policy based algorithms:
+
+- REINFORCE (Monte-Carlo policy gradient) using episode samples to update the policy parameter θ. It relies on a full trajectory (MC). 
+
+A widely used variation of REINFORCE is to **subtract a baseline value** from the return Gt to reduce the variance of gradient estimation while keeping the bias unchanged. It is a **on-policy** method
+- Actor-Critic, **on-policy** method as MC before: : training samples are collected according to the target policy.
+
+- Off-policy Policy gradient:
+1. The off-policy approach does not require full trajectories and can reuse any past episodes (**“experience replay”**) for much better sample efficiency.
+2. The sample collection follows a behavior policy different from the target policy, bringing better **exploration**.
+
+This algorithm works with a behavior policy and a target policy. Importance weight is used to calculate the gradient.
+
+- A3C Asynchronous Advantage Actor-Critic (Mnih et al., 2016), short for A3C, is a classic policy gradient method with a special focus on parallel training: the critics learn the value function while multiple actors are trained in parallel and get synced with global parameters from time to time.
+
+- A2C is a synchronous, deterministic? version of A3C. A coordinator in A2C waits for all the parallel actors to finish their work before updating the global parameters and then in the next iteration parallel actors starts from the same policy. 
+
+- DPG, Deterministic policy gradient (DPG), models the policy as a deterministic decision: a=μ(s). 
+
+- DDPG (Deep Deterministic Policy Gradient) is a **model free** and **off-policy** actor-critic. Combine DPG with DQN:
+
+experience replay to stabilize the learning
+
+frozen target network
+
+continuous space
+
+learns a deterministic policy
+
+while learns, it builds an exploratory policy
+
+soft updates on the parameters actor and critic algorithms
+
+batch normalization in every dimension across samples in one minibatch
+
+- D4PG (Distributed Distributional DDPG):
+
+Distributional critic
+
+N-step returns
+
+Multiple distributed parallels actors
+
+Prioritized Experience Replay
+
+- MADDPG (Multi Agent DDPG) s an actor-critic model redesigned particularly for handling such a changing environment and interactions between agents. For one agent, the environment is non-stationary as policies of other agents are quickly upgraded and remain unknown. 
+To mitigate the high variance triggered by the interaction between competing or collaborating agents in the environment, MADDPG proposed one more element - policy ensembles:
+
+Train K policies for one agent;
+Pick a random policy for episode rollouts;
+Take an ensemble of these K policies to do gradient update.
+In summary, MADDPG added three additional ingredients on top of DDPG to make it adapt to the multi-agent environment:
+
+Centralized critic + decentralized actors;
+Actors are able to use estimated policies of other agents for learning;
+Policy ensembling is good for reducing variance.
+
+
+- TRPO (TRust region policy optimization) avoid parameter updates that change the policy too much at one step. It carries out this idea by enforcing a KL divergence constraint on the size of policy update at each iteration.
+---
 ### February
-**Week from 16 to 28 February**
+**Weeks from 16 to 28 February**
 
 1. Install platform in Mac Big Sur:
 - [Gazebo 11.3.0](http://gazebosim.org/tutorials?cat=install&tut=install_on_mac&ver=11.0)
@@ -49,7 +126,7 @@ References in this period:
 - [Actor Critic implementation with TensorFlow](https://www.tensorflow.org/tutorials/reinforcement_learning/actor_critic) and with [Keras](https://keras.io/examples/rl/)
 - [DQN with Pythorch](https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html)
 
-**Week from 1 to 15 february**
+**Weeks from 1 to 15 February**
 
 We introduce in continuous actions and states. Unlike discrete actions, now continuous open ne procedures, algorithms and differents ways to do the analysis and almost all research drives to deep learning as a way to find features and parameters in search policy function.
 
@@ -75,7 +152,7 @@ References in this period:
 ---
 ### January
 
-**Week from 18 to 31 January**
+**Weeks from 18 to 31 January**
 Continuing developing GridWorlds, trying to reach textbook chapter 13. This period we focus on discrete worls, understanding value functions, policy search and models worlds, the three main approaches to every RL agent can have.
 
 
