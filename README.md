@@ -100,7 +100,49 @@ Actors are able to use estimated policies of other agents for learning;
 Policy ensembling is good for reducing variance.
 
 
-- TRPO (TRust region policy optimization) avoid parameter updates that change the policy too much at one step. It carries out this idea by enforcing a KL divergence constraint on the size of policy update at each iteration.
+
+---
+Next algorithms go in sequence:
+
+- TRPO (TRust region policy optimization) avoid parameter updates that change the policy too much at one step. It carries out this idea by enforcing a KL divergence constraint on the size of policy update at each iteration. TRPO can guarantee a monotonic improvement over policy iteration.
+
+- PPO (proximal policy optimization) acting in a similar way as TRPO, but imposes teh constraint by forcing to stay in a small interval around 1.
+
+- PPG (Phasic policy gradient) modifies the traditional on-policy actor-critic policy gradient algorithm. precisely PPO, to have separate training phases for policy and value functions.
+
+
+
+---
+- ACER (actor critic with Experience Replay) off-policy technique. It is counterpart of A3C on-policy method. It uses Retrace Q-value estimation, importance weigthts truncation and efficient TRPO
+
+- ACTKR (actor-critic using Kronecker-factored trust region) proposed to use Kronecker-factored approximation curvature (K-FAC which uses natural gradient) to do the gradient update for both the critic and actor.
+
+
+- SAC (soft actor-critic) is a off-policy, where incorporates the entropy measure of the policy into the reward to encourage exploration. It has:
+
+An Actor-critic arquitecture
+
+An off-policy formulation
+
+Entropy maximization leads to policies that can (1) explore more and (2) capture multiple modes of near-optimal strategies (i.e., if there exist multiple options that seem to be equally good, the policy should assign each with an equal probability to be chosen).
+
+- SAC with Automatically Adjusted Temperature, as SAC is brittle with respect to the temperature parameter. Unfortunately it is difficult to adjust temperature, because the entropy can vary unpredictably both across tasks and during training as the policy becomes better. An improvement on SAC formulates a constrained optimization problem: while maximizing the expected return, the policy should satisfy a minimum entropy constraint.
+
+- TD3 (Twin Delayed Deep Deterministic) applies improves in DDPG to prevent the overestimation of the value function:
+
+Clipped Double Q-Learning
+
+Delayed update of Target and Policy Networks
+
+Target Policy Smoothing
+
+- SVPG (Stein Variational Policy Gradient) applies the Stein variational gradient descent (SVGD) algorithm to update the policy parameter 
+
+
+- IMPALA (importance Weighted Actor-Learner Architecture) Multiple actors generate experience in parallel, while the learner optimizes both policy and value function parameters using all the generated experience. 
+
+
+
 ---
 ### February
 **Weeks from 16 to 28 February**

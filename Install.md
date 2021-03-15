@@ -207,7 +207,7 @@ It comes with Python 3.8.5
 
 ```
 $ sudo apt update
-# sudo apt upgrade para mejorar versiones
+# sudo apt upgrade #para mejorar versiones
 $ sudo apt install software-properties-common
 $ sudo add-apt-repository ppa:deadsnakes/ppa
 $ sudo apt-get update
@@ -224,6 +224,14 @@ $ sudo apt-get update
 $ sudo apt-get install python3.9
 ```
 
+To check versions:
+
+>`$whereis python`
+or
+>`python(press tab key twice)`
+
+To remove
+>`sudo apt remove python3.5`
 
 2. We have several Python versions, and we will work with all of them (maybe), so we need install differents environments.
 
@@ -512,6 +520,52 @@ pip install -e .
 # Useful commands Lynux, Mac
 
 ## Env Variables
+> `$env | grep ROS`
+
+>`ls -la` # para ver ficheros ocultos
+
+>`mkdir`
+
+> `touch my_file.txt` # para crear fichero
+
+>`vi my_file.txt` # abre el fichero para editar con vi
+
+dentro de vi:
+
+tecla `i` para insertar
+
+tecla `esc` para volver command mode
+
+tecla `:wq` para grabar y salir
+
+tecla `:help` para obtener ayuda (no me gusta mucho)
+
+
+>`mv <file/folder we want to move> <destination>` # para mover ficheros
+
+>`cp <file/folder we want to copy> <name of the new file/folder>` para copiar ficheros
+
+>`cp -r my_scripts/ my_scripts_copy/` # para copiar directorios
+
+>`rm <file to remove>` # para borrar ficheros
+
+>`rm -r my_scripts_copy` # para borrar dir
+
+>`chmod  <groups to assign the permissions><permissions to assign/remove> <file/folder names>` #cambiar permisos de archivos
+
+>`export` #nos muestra las variables de entorno
+
+> `export | grep ROS` #para buscar por la var que queramos
+
+
+>`htop` para ver los procesos
+
+> `ps faux` 
+---
+# Install ROS on Ubuntu 20.04
+
+
+
 
 
 
