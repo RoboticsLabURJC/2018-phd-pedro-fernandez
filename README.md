@@ -5,6 +5,7 @@
 ### Table of contents
 
   - [Weblog](#weblog)
+    - [April 2021](#April)
     - [March 2021](#March)
     - [February 2021](#February)
     - [January 2021](#January)
@@ -27,7 +28,18 @@
 ## Weblog
 
 ---
+### April
+**Weeks from 1 to 15 April
+
+Trying to replicate my workmate's Ruben Lucas dedicated RL environment, both in Ubuntu and Mac. Ruben has differents projects which have implemented in his own RL environment: https://roboticslaburjc.github.io/2020-phd-ruben-lucas/install/
+
+
+---
 ### March
+**Weeks from 16 to 31 March**
+
+Installing main architecture in Ubuntu and Mac with Gazebo 11, Gym Gazebo and ROS 2
+
 **Weeks from 1 to 15 March**
 
 Installing working platform and simulators to implement inside RL algorithms
