@@ -29,7 +29,7 @@
 
 ---
 ### April
-**Weeks from 1 to 15 April
+**Weeks from 1 to 15 April**
 
 Trying to replicate my workmate's Ruben Lucas dedicated RL environment, both in Ubuntu and Mac. Ruben has differents projects which have implemented in his own RL environment: https://roboticslaburjc.github.io/2020-phd-ruben-lucas/install/
 
