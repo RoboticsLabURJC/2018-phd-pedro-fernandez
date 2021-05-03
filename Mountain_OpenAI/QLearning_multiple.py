@@ -1,7 +1,9 @@
 import gym
 import numpy as np
 import matplotlib.pyplot as plt
-
+from mpl_toolkits.mplot3d.axes3d import Axes3D
+from math import floor
+from time import sleep
 
 
 env = gym.make("MountainCar-v0")
@@ -42,7 +44,7 @@ env.reset()
 
 #-------------------------------
 #Hyperparams
-EPISODES = 1_000
+EPISODES = 25_000
 LEARNING_RATE = 0.1 # min 0 - max 1
 DISCOUNT = 0.95 # min 0 - max 1
 
@@ -52,7 +54,7 @@ REWARD_END = 0
 epsilon = 1  # not a constant, going to be decayed. When close 1, more likely perform EXPLORATORY (random actions) and MORE time getting GOAL
 START_EPSILON_DECAYING = 1
 #END_EPSILON_DECAYING = EPISODES//2 #we can play with this var
-END_EPSILON_DECAYING = EPISODES #we can play with this var
+END_EPSILON_DECAYING = EPISODES/100 #we can play with this var
 epsilon_decay_value = epsilon/(END_EPSILON_DECAYING - START_EPSILON_DECAYING)
 
 
@@ -93,17 +95,56 @@ def get_discrete_state(state):
 #-------------------------------
 
 # fix hyperparams
-learning_rates_ = [0.1, 0.5, 1]
-learning_ = np.zeros((len(learning_rates_), EPISODES))
+learning_rates_ = [0.1]
+#learning_rates_ = [0.2, 0.5, 1]
+#learning_ = np.zeros((len(learning_rates_), EPISODES))
 
-discount_rates_ = [1, 0.95, 0.5]
-discounts_ = np.zeros((len(discount_rates_), EPISODES))
+#discount_rates_ = [0.95, 0.80, 0.5]
+discount_rates_ = [0.95]
+#discounts_ = np.zeros((len(discount_rates_), EPISODES))
 
-QTables_sizes_ = [20, 40, 80]
-q_tables_ = np.random.uniform(low=-2, high=0, size=([i for i in QTables_sizes_] + [env.action_space.n]))
+#QTables_sizes_ = [20, 40, 80]
+#q_tables_ = np.random.uniform(low=-2, high=0, size=([i for i in QTables_sizes_] + [env.action_space.n]))
 
-algorithms_ = ['QLearning', 'SARSA', 'Dyna+', 'DQL']
+#algorithms_ = ['QLearning', 'SARSA', 'Dyna+', 'DQL']
 
+#-------------------------------
+# draw 3D map
+# bound for position and velocity
+POSITION_MIN = -1.2
+POSITION_MAX = 0.5
+VELOCITY_MIN = -0.07
+VELOCITY_MAX = 0.07
+
+#def print_map(value, episode, axes):
+def print_3D(episode):
+    grid_size = 40
+    positions = np.linspace(POSITION_MIN, POSITION_MAX, grid_size)
+    # positionStep = (POSITION_MAX - POSITION_MIN) / grid_size
+    # positions = np.arange(POSITION_MIN, POSITION_MAX + positionStep, positionStep)
+    # velocityStep = (VELOCITY_MAX - VELOCITY_MIN) / grid_size
+    # velocities = np.arange(VELOCITY_MIN, VELOCITY_MAX + velocityStep, velocityStep)
+    velocities = np.linspace(VELOCITY_MIN, VELOCITY_MAX, grid_size)
+    axis_x = []
+    axis_y = []
+    
+    fig = plt.figure(figsize=(40, 10))
+    axes = fig.add_subplot(1, 1, 1, projection='3d')
+    #axis_z = []
+    for position in positions:
+        for velocity in velocities:
+            axis_x.append(position)
+            axis_y.append(velocity)
+            #axis_z.append(value)
+            #print('value_function.cost_to_go(position, velocity):',value_function.cost_to_go(position, velocity))
+
+    #ax.scatter(axis_x, axis_y, axis_z)
+    axes.scatter(axis_x, axis_y)
+    axes.set_xlabel('Position')
+    axes.set_ylabel('Velocity')
+    #ax.set_zlabel('Cost to go')
+    axes.set_title('Episode %d' % (episode + 1))
+    plt.show()
 
 
 for i, learningrates in enumerate(learning_rates_):
@@ -176,13 +217,14 @@ for i, learningrates in enumerate(learning_rates_):
 
                 # Update Q table with new Q value
                     q_table[discrete_state + (action,)] = new_q
+                    #print(f"discrete_state: {discrete_state} + action: {action} + ")
 
             # Simulation ended (for any reason) - if goal position is achived - update Q value with reward directly
                 elif new_state[0] >= env.goal_position:
                     print(f"finish in episode {episode}")
                     #q_table[discrete_state + (action,)] = reward
                     #print(f"discrete_state (initial): {discrete_state} and q_table[discrete_state + (action,)]: {q_table[discrete_state + (action,)]}, and new_discrete_state: {new_discrete_state}")
-                    print(f'Episode: {episode:>5d}, average reward: {average_reward:>4.1f}, current epsilon: {epsilon:>1.2f}')
+                    print(f'Episode: {episode:>5d}, average reward: {average_reward:>4.1f}, current epsilon: {epsilon:>1.2f}, discount: {discountrates:>2.2f},Learning Rate: {learningrates}')
 
                     q_table[discrete_state + (action,)] = REWARD_END #0
                     #if episode > 600:
@@ -208,21 +250,36 @@ for i, learningrates in enumerate(learning_rates_):
                 aggr_ep_rewards['avg'].append(average_reward)
                 aggr_ep_rewards['max'].append(max(ep_rewards[-STATS_EVERY:]))
                 aggr_ep_rewards['min'].append(min(ep_rewards[-STATS_EVERY:]))
-                print(f'Learning Rate: {learningrates}, episode: {episode:>5d}, average reward: {average_reward:>4.1f} \
-                    ,min reward: {min(ep_rewards[-STATS_EVERY:])}, max reward: {max(ep_rewards[-STATS_EVERY:])} \
-                        ,current epsilon: {epsilon:>1.3f},epsilon_decay_value: {epsilon_decay_value:>1.5f}, discount: {discountrates:>2.2f}')
+                print(f'Learning Rate: {learningrates}, discount: {discountrates:>2.2f}, episode: {episode:>5d}, average reward: {average_reward:>4.1f}\
+,min reward: {min(ep_rewards[-STATS_EVERY:])}, max reward: {max(ep_rewards[-STATS_EVERY:])}\
+,current epsilon: {epsilon:>1.3f},epsilon_decay_value: {epsilon_decay_value:>1.5f}')
 
             # lets save results in a table
             if episode % SAVE_TABLE_EVERY == 0 and episode > 0:
                 np.save(f"qtables/{learningrates}-{discountrates}-{episode}-qtable.npy", q_table)
 
-
+        #imagen en 3D
+        #print_3D(episode)
+        #plt.close()
+        #fig = plt.figure()
+        #while True:
+        #plt.figure(1)
         plt.plot(aggr_ep_rewards['ep'], aggr_ep_rewards['avg'], label="average rewards")
         plt.plot(aggr_ep_rewards['ep'], aggr_ep_rewards['max'], label="max rewards")
         plt.plot(aggr_ep_rewards['ep'], aggr_ep_rewards['min'], label="min rewards")
-        plt.legend(loc=1)
+        plt.title('Q_Learning with Learning Rate and Discount Rate')
+        plt.suptitle([learningrates, discountrates])
+        plt.legend(loc=0)
         plt.grid(True)
+                #plt.draw()
         plt.show()
+        sleep(3)
+        plt.clf()
+        #plt.close('all')
+        #sleep(1)
+
+        #plt.close(fig)
+
 
 
 env.close()  

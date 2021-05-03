@@ -16,14 +16,19 @@ def get_q_color(value, vals):
 
 fig = plt.figure(figsize=(12, 9))
 
+LEARNING_RATE = 0.1 # min 0 - max 1
+DISCOUNT = 0.95 # min 0 - max 1
+EPISODES = 25_000
+SAVE_TABLE_EVERY = 24_000 #find the table we need
+
 # we set number of tables. Must be set range(0, X = EPISODES, Z= line 159)
-for i in range(0, 5000, 1000): 
+for i in range(SAVE_TABLE_EVERY, EPISODES, SAVE_TABLE_EVERY): 
     print(i)
     ax1 = fig.add_subplot(311)
     ax2 = fig.add_subplot(312)
     ax3 = fig.add_subplot(313)
 
-    q_table = np.load(f"qtables/{i}-qtable.npy")
+    q_table = np.load(f"qtables/{LEARNING_RATE}-{DISCOUNT}-{i}-qtable.npy")
 
     for x, x_vals in enumerate(q_table):
         for y, y_vals in enumerate(x_vals):
