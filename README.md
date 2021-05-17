@@ -27,9 +27,24 @@
 ---
 ## Weblog
 
+
+
+---
+### May
+**Weeks from 1 to 15**
+
+Ending tabular TD methods: Qlearning, SARSA and expected SARSA in Mountain Car Open AI environment. Getting conclusions in different runnings playing with different hyperparams to fully understand each one behavior.
+
+Going on with Ruben environment to Gazebo
+
+
 ---
 ### April
-**Weeks from 1 to 15 April**
+**Weeks from April 16 to 30 April**
+
+Working on new RL environment, trying to connet it to Gazebo 
+
+**Weeks from April 1 to 15**
 
 Trying to replicate my workmate's Ruben Lucas dedicated RL environment, both in Ubuntu and Mac. Ruben has differents projects which have implemented in his own RL environment: https://roboticslaburjc.github.io/2020-phd-ruben-lucas/install/
 
