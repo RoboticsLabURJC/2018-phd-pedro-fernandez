@@ -147,7 +147,7 @@ start_time = time.time()
 #for agent, step_size, run in tqdm(cross_product):
 for agent in tqdm(agents):
     for step_size in tqdm(params.LEARNING_RATES):
-        for discount in tqmd(params.DISCOUNTS):
+        for discount in tqdm(params.DISCOUNTS):
 
             '''
                 Initialize inside the loop for each agent

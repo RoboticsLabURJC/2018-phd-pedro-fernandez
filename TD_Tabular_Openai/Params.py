@@ -34,6 +34,8 @@ class Params():
         self.END_EPSILON_DECAYING = self.EPISODES #we can play with this var
         self.epsilon_decay_value = self.EPSILON/(self.END_EPSILON_DECAYING - self.START_EPSILON_DECAYING)
         
+        self.DECAYS = [self.EPSILON/self.EPISODES, self.EPSILON/self.EPISODES//2, self.EPSILON/self.EPISODES//4]
+
         #Table
         self.DISCRETE_VALUE = 40
         self.DISCRETE_OS_SIZE = [self.DISCRETE_VALUE] * len(self.env.observation_space.high)

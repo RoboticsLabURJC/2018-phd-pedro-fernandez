@@ -25,7 +25,7 @@ We are going to work with Open AI environment, MountainCar v0. This environment 
     - **Episodes**, we are going to exec up to 25.000
     - **epsilon**, range from (0,1], to control exploration against explotation, basic principle in RL. When epsilon is close to 1, algorithm explores most of time and it lasts long time to converge. We use a epsilon decay rate to balance towards explotation while execution.
     - **epsilon decay rate** to manage epsilon towards exploration or explotation.
-    - **Learning Rate** or **alpha** or **step size** according [Sutton, eq 2.4] minimizes difference between goal and estimated values. Values in range (0,1] and when it is close to 1, last reward gets the main weights. It is constant in this work but a future improvement could be implementing a decay rate, similar we made with epsilon.
+    - **Learning Rate** or **alpha** or **step size** according [Sutton, eq 2.4] minimizes difference between goal and estimated values. Values are in range (0,1] and when it is close to 1, last reward gets the main weights. We implement it as a constant in this work but a future improvement could be implementing a decay rate, similar we made with epsilon.
     - **Discount rate** or **gamma** in range (0,1] which indicates importance of future values. When it is close to 1, it means we give importance recent values, and old values are less important for us.
 
     More features:
@@ -59,7 +59,7 @@ it gets Q(s,a) maximizing actions in next state. The backup diagram is
 Q Learning approaches to optimal policy independent behavior policy, that's why it is a off-policy method. However policy determines state-action pair to visit and update.
 
 
-### First Analysis
+### First Analysis to understand algorithmic behavior
 
 In a first moment, we are going to try our algorithms and evaluate how they work with differents values.
 
@@ -109,6 +109,142 @@ In the second half, it seems our results incresing steadily.
 ![table2-QLearning](../images_theory/QLearning_table2.png)
 
 Remember that action 1 is not to accelerate, that is, to leave the car loose. Action 0 accelerate to the left and action 2 accelerate to the right. It is seen that in the positions close to the objective (rows 40 and adjacent) the chosen action has been to accelerate to the right to get closer to the objective. While in positions near the opposite end of the goal, choose action 0, or accelerate to the left to gain momentum. Action 1 is also taken close to the goal, where it seems that the car already has a lot of momentum to get there. This may be due to past episodes where the car was swaying randomly and was recorded in our Q table
+
+### Next analysis, all table size 40 x 40, 25.000 episodes and epsilon and epsilon decay similar
+
+
+- Learning rate or alpha: 0.20
+- discount rate: 0.95
+
+![3-QLearning](../images_theory/QLearning-020-095.png)
+
+As we go to increasing alpha, we are giving more importance last results, according our Q Learning formula, as we can check. So, old values have less importance and we could expect better convergence. But the other hyperparamns could affect as well.
+
+- Learning rate or alpha: 0.20
+- discount rate: 0.80
+
+![4-QLearning](../images_theory/QLearning-02-080.png)
+
+
+- Learning rate or alpha: 0.20
+- discount rate: 0.5
+
+![5-QLearning](../images_theory/QLearning-02-050.png)
+
+
+
+- Learning rate or alpha: 0.5
+- discount rate: 0.95
+
+![6-QLearning](../images_theory/QLearning-05-095png.png)
+
+
+
+- Learning rate or alpha: 0.5
+- discount rate: 0.8
+
+![7-QLearning](../images_theory/QLearning-05-08.png)
+
+
+- Learning rate or alpha: 0.5
+- discount rate: 0.5
+
+![8-QLearning](../images_theory/QLearning-05-05.png)
+
+
+- Learning rate or alpha: 1
+- discount rate: 0.95
+
+![8-QLearning](../images_theory/QLearning-1-095.png)
+
+As we can see, when we've changed hyperparams, our algorithm has solved in worst convergence.
+
+Now, we see in the next graphs, changing table size and others values
+
+
+### Table 20 x 20
+
+- Learning rate or alpha: 0.1
+- discount rate: 0.95
+
+![9-QLearning](../images_theory/QLearning-01-095-20x20.png)
+
+
+### Table 80 x 80
+
+- Learning rate or alpha: 0.1
+- discount rate: 0.95
+
+![10-QLearning](../images_theory/QLearning-01-095-80x80.png)
+
+![11-QLearning](../images_theory/QLearning_table_80x80.png)
+
+
+We can see in rows close to 80, the goal, the most choose action is 2, accelerate to right. 
+
+
+
+### Epsilon 
+
+In the last analysis, our decay rate was 0.00004, and recall that means Q Learning was exploring during long time until it could got good results. In next analysis, we try with differents values
+
+- Table 40 x 40
+- learning rate: 0.1
+- discount rate: 0.95
+- epsilon decay: 0.00016
+
+
+![12-QLearning](../images_theory/QLearning-01-095-00016.png)
+
+The picture shows us the importance of epsilon, where Q-Learning finds good results from episode 6000 aprox. instead more than 10.000 episodes before seen. So, even gets better results in global. Epsilon controls exploration versus explotation, one of the biggest issues in RL.
+
+
+
+- Table 40 x 40
+- learning rate: 0.1
+- discount rate: 0.95
+- epsilon decay: 0.004
+
+
+![12-QLearning](../images_theory/QLearning-01-095-004.png)
+
+
+
+
+# Changing manually method in execution to automatically
+
+Once we can check Q Learning algorithm, theory and how hyperparams affect results in MountainCar Open Ai environment, in the next analysis, we modify our algorithm to find automatically the best results in differents hyperparams for Q Learning, SARSA and Expected SARSA, which are all of them, TD methods and they help us to well understand in order to use in all kind of environments, and try to choose the best for any kind of problem.
+
+
+But before doing it, next we explain SARSA and Expected SARSA methods
+
+## SARSA
+SARSA is an on-policy method, which means it follows a previous fixed policy. SARSA learns a state-action function, where it has to estimate Q(s,a) for a policy PI and for all states and actions. The name of SARSA stands for State, Action, Reward, State next, Action next which are the steps SARSA has to take.
+The eq. is:
+
+![13-SARSA](../images_theory/SARSA-eq.png)
+
+and its backup diagram follows the diagram:
+
+![14-SARSA](../images_theory/SARSA-backup.png)
+
+
+
+
+
+## Expected SARSA
+This algorithm behaviors as Q Learning method, but instead taking the action that maximize the result, it takes the probability of each action under the policy determined. The eq. is:
+
+![15-expectedSARSA](../images_theory/expected-SARSA-eq.png)
+and its diagram
+
+![16-expectedSARSA](../images_theory/expected-SARSA-backup.png)
+
+This algorithm can be used in on-policy or off-policy, where in the last case it can use a different policy. For example, if the policy is e-greedy and the behavior policy es more exploratory, expected SARSA behaviors Q Learning.
+
+
+
+
 
 ---
 
@@ -233,7 +369,7 @@ Recordemos que la acción 1 es no acelerar, es decir, dejar el carro suelto. La 
 
 ![QLearning_3](qtable_charts/Figure_25000-02-095.png)
 
-Recordemos que la tasa de aprendizaje (learning rate) si esta cercana a 0, esta dando mas importancia a los valores recientes. Por tanto cuanto mas incrementemos este valor, los valores máximos de cada acción crecerán mas lentamente. Posiblemente sea mas estable al algoritmo en su resultados….veamos
+Recordemos que la tasa de aprendizaje (learning rate) si esta cercana a 0, esta dando mas importancia a los valores antiguos. 
 
 
     Learning rate : 0.20 y Discount rate : 0.80

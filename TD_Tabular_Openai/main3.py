@@ -5,7 +5,7 @@
 Main3 stands for:
     - 3 algorithms: QLearning, SARSA and expected SARSA
 
-Hyperparamans have to be change manually.
+Hyperparans have to be change manually.
 
 NOTES:
 in this version, we discretizes continous state space in a table.
