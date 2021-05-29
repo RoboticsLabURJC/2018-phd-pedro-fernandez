@@ -22,9 +22,12 @@ import gym
 
 
 # Using the gym library to create the environment
-#env = gym.make('MountainCar-v0')
-env = BlobEnv()
-#env.reset()
+env = gym.make('MountainCar-v0')
+#env = BlobEnv()
+env.reset()
+print(f"env.observation_space.shape: {env.observation_space.shape}")
+print(f"env.action_space.n: {env.action_space.n}")
+print(f"OBSERVATION_SPACE_VALUES(len(env.observation_space.high): {len(env.observation_space.high)}")
 
 params = Params(env)
 
@@ -49,13 +52,14 @@ if not os.path.isdir('models'):
 
 
 agent = DQNAgent(params)
+epsilon = params.EPSILON
 
 
 #--------------------------------------------------
 # Iterate over episodes
 for episode in tqdm(range(1, params.EPISODES + 1), ascii=True, unit='episodes'):
 
-    epsilon = params.EPSILON
+    #epsilon = params.EPSILON
     # Update tensorboard step every episode
     agent.tensorboard.step = episode
 
@@ -76,9 +80,9 @@ for episode in tqdm(range(1, params.EPISODES + 1), ascii=True, unit='episodes'):
             action = np.argmax(agent.get_qs(current_state))
         else:
             # Get random action
-            action = np.random.randint(0, env.ACTION_SPACE_SIZE)
+            action = np.random.randint(0, params.ACTION_SPACE_SIZE)
 
-        new_state, reward, done = env.step(action)
+        new_state, reward, done, _ = env.step(action)
 
         # Transform new continous state to new discrete state and count reward
         episode_reward += reward

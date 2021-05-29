@@ -8,28 +8,34 @@ class Params():
 
         # env
         self.env = env
-        #self.observation_space.high = env.observation_space.high
-        #self.num_actions = env.action_space.n
-        #self.action_space = env.action_space
+
+        # FOR OPEN AI envs
+        #self.OBSERVATION_SPACE = len(env.observation_space.high)
+        #self.NUM_ACTIONS = env.action_space.n
+        #self.ACTION_SPACE_SIZE = 9
+        #self.OBSERVATION_SPACE_VALUES = (10, 10, 3)
+        self.ACTION_SPACE_SIZE = env.action_space.n
+        self.OBSERVATION_SPACE_VALUES = len(env.observation_space.high)
+        self.OBSERVATION_SPACE_SHAPE = env.observation_space.shape
 
         # DQN settings
-        #self.REPLAY_MEMORY_SIZE = 50_000  # How many last steps to keep for model training
-        #self.MIN_REPLAY_MEMORY_SIZE = 1_000  # Minimum number of steps in a memory to start training
-        #self.MINIBATCH_SIZE = 64  # How many steps (samples) to use for training
-        #self.UPDATE_TARGET_EVERY = 5  # Terminal states (end of episodes)
-        #self.MODEL_NAME = '2x256'
+        self.REPLAY_MEMORY_SIZE = 50_000  # How many last steps to keep for model training
+        self.MIN_REPLAY_MEMORY_SIZE = 1_000  # Minimum number of steps in a memory to start training
+        self.MINIBATCH_SIZE = 64  # How many steps (samples) to use for training
+        self.UPDATE_TARGET_EVERY = 5  # Terminal states (end of episodes)
+        self.MODEL_NAME = '2x256'
         self.MIN_REWARD = -200  # For model save
         self.MEMORY_FRACTION = 0.20
 
         # episodes
-        self.EPISODES = 10
+        self.EPISODES = 100
 
         # LEARNING_RATE = alpha = step_size. When alpha is close to 0, then we reward old values, not predcited values    
         self.LEARNING_RATE = 0.1 # alpha: min 0 - max 1
         self.LEARNING_RATES = np.linspace(0.1,1.0,10)
 
         # DISCOUNT rate = gamma. If gamma = 1, indicates future values have same value than current values
-        #self.DISCOUNT = 0.95 # gamma: min 0 - max 1
+        self.DISCOUNT = 0.95 # gamma: min 0 - max 1
         self.DISCOUNTS = np.linspace(0.1,1.0,10)
 
         # for MountainCar

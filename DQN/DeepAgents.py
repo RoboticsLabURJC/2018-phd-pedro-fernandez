@@ -11,6 +11,9 @@ from Params import Params
 from environments import BlobEnv, Blob
 from collections import deque
 import time
+import random
+import os
+
 
 # Own Tensorboard class
 class ModifiedTensorBoard(TensorBoard):
@@ -51,21 +54,27 @@ class ModifiedTensorBoard(TensorBoard):
 class DQNAgent:
     def __init__(self, params):
 
+        self.ACTION_SPACE_SIZE = params.ACTION_SPACE_SIZE
+        self.OBSERVATION_SPACE_VALUES = params.OBSERVATION_SPACE_VALUES
+        self.OBSERVATION_SPACE_SHAPE = params.OBSERVATION_SPACE_SHAPE
+
         # main model  # gets trained every step
-        self.model = self.create_model()
+        #self.model = self.create_model()
+        self.model = self.create_model_noImage()
 
 
         # DQN settings
-        self.REPLAY_MEMORY_SIZE = 50_000  # How many last steps to keep for model training
-        self.MIN_REPLAY_MEMORY_SIZE = 1_000  # Minimum number of steps in a memory to start training
-        self.MINIBATCH_SIZE = 64  # How many steps (samples) to use for training
-        self.UPDATE_TARGET_EVERY = 5  # Terminal states (end of episodes)
-        self.MODEL_NAME = '2x256'
+        self.REPLAY_MEMORY_SIZE = params.REPLAY_MEMORY_SIZE  # How many last steps to keep for model training
+        self.MIN_REPLAY_MEMORY_SIZE = params.MIN_REPLAY_MEMORY_SIZE  # Minimum number of steps in a memory to start training
+        self.MINIBATCH_SIZE = params.MINIBATCH_SIZE  # How many steps (samples) to use for training
+        self.UPDATE_TARGET_EVERY = params.UPDATE_TARGET_EVERY  # Terminal states (end of episodes)
+        self.MODEL_NAME = params.MODEL_NAME
 
-        self.DISCOUNT = 0.95 # gamma: min 0 - max 1
+        self.DISCOUNT = params.DISCOUNT # gamma: min 0 - max 1
 
         # Target model this is what we .predict against every step
-        self.target_model = self.create_model()
+        self.target_model = self.create_model_noImage()
+        #self.target_model = self.create_model()
         self.target_model.set_weights(self.model.get_weights())
         
         # An array with last n steps for training
@@ -78,14 +87,28 @@ class DQNAgent:
         self.target_update_counter = 0
 
 
+        # To set states and actions environment variables
+
 
 
         #self.env = env
 
+    def create_model_noImage(self):
+        model = Sequential()
+        model.add(Dense(20, input_shape=(2,) + self.OBSERVATION_SPACE_SHAPE, activation='relu'))
+        model.add(Flatten())       # Flatten input so as to have no problems with processing
+        model.add(Dense(18, activation='relu'))
+        model.add(Dense(10, activation='relu'))
+        model.add(Dense(self.ACTION_SPACE_SIZE, activation='linear'))
+        model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
+        return model
+
+
     def create_model(self):
         model = Sequential()
 
-        #model.add(Conv2D(256, (3, 3), input_shape=env.OBSERVATION_SPACE_VALUES))
+        #model.add(Conv2D(256, (3, 3), input_shape=(2,) + self.OBSERVATION_SPACE_SHAPE))
+        #model.add(Conv2D(256, (3, 3), input_shape=self.OBSERVATION_SPACE_VALUES))
         model.add(Conv2D(256, (3, 3), input_shape=(10, 10, 3)))
 
         model.add(Activation("relu"))
@@ -100,8 +123,8 @@ class DQNAgent:
         model.add(Flatten())
         model.add(Dense(64))
 
-        #model.add(Dense(env.ACTION_SPACE_SIZE, activiation="linear"))
-        model.add(Dense(9, activation="linear"))
+        model.add(Dense(self.ACTION_SPACE_SIZE, activation="linear"))
+        #model.add(Dense(9, activation="linear"))
 
         model.compile(loss="mse", optimizer=Adam(lr=0.001), metrics=['accuracy'])
         return model
@@ -141,7 +164,7 @@ class DQNAgent:
             # almost like with Q Learning, but we use just part of equation here
             if not done:
                 max_future_q = np.max(future_qs_list[index])
-                new_q = reward + params.DISCOUNT * max_future_q
+                new_q = reward + self.DISCOUNT * max_future_q
             else:
                 new_q = reward
 

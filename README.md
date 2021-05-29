@@ -31,6 +31,13 @@
 
 ---
 ### May
+
+**Weeks from 15 to 31**
+
+- ROS Noetic tutorials 
+- Gazebo tutorials
+
+
 **Weeks from 1 to 15**
 
 Ending tabular TD methods: Qlearning, SARSA and expected SARSA in Mountain Car Open AI environment. Getting conclusions in different runnings playing with different hyperparams to fully understand each one behavior.

@@ -18,6 +18,7 @@ in this version, we discretizes continuous state space in a table.
  
 import gym
 import numpy as np
+import pandas as pd
  
 from Agent import Agent 
 from Params import Params
@@ -134,7 +135,7 @@ expectedSARSA_stats = {
 
 
 all_reward_sums = {}
-best_stepsize = {}
+#best_stepsize = {}
 
 agents = [qLearningAgent]
 #agents = [qLearningAgent, sarsaAgent, expectedSarsaAgent]
@@ -150,6 +151,7 @@ for agent in tqdm(agents):
     for step_size in tqdm(params.LEARNING_RATES):
         for discount in tqdm(params.DISCOUNTS):
             for epsilondecay in tqdm(params.DECAYS):
+                #print("epsilondecay:",epsilondecay)
 
                 '''
                     Initialize inside the loop for each agent
@@ -158,8 +160,8 @@ for agent in tqdm(agents):
                 if (agent, step_size, discount) not in all_reward_sums:
                     all_reward_sums[(agent, step_size, discount)] = []
 
-                if (agent, step_size, discount) not in best_stepsize:
-                    best_stepsize[(agent, step_size, discount)] = []  
+                #if (agent, step_size, discount) not in best_stepsize:
+                #    best_stepsize[(agent, step_size, discount)] = []  
 
                 params.reset_Values()
                 table = np.random.uniform(low=-2, high=0, size=(params.DISCRETE_OS_SIZE + [params.env.action_space.n]))
@@ -337,36 +339,33 @@ print(f"Start time: {start_time}, end time: {end_time}, and exec time: {exec_tim
 ##---------- Drawing 
 #draw_2Variables(agents, all_reward_sums, params.EPISODES, params.LEARNING_RATES)
 
-
-print("------------- Stats for debug purposes -----------------")
-print(f"Q-Learning best Return: {QLearning_stats['best_value']} in episode: {QLearning_stats['episode']} with step size(learning rate): {QLearning_stats['learning_rate']} and discount(gamma): {QLearning_stats['discount']}")
-print(f"SARSA best Return: {SARSA_stats['best_value']} in episode: {SARSA_stats['episode']} with step size(learning rate): {SARSA_stats['learning_rate']} and discount(gamma): {SARSA_stats['discount']}")
-print(f"expected SARSA best Return: {expectedSARSA_stats['best_value']} in episode: {expectedSARSA_stats['episode']} with step size(learning rate): {expectedSARSA_stats['learning_rate']} and discount(gamma): {expectedSARSA_stats['discount']}")
-
-
-# --------- Saving Results 
-os.makedirs("Files", exist_ok = True)             
-QLearning_file = open(f"Files/QLearning_stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv", "a")
-SARSA_file = open(f"Files/SARSA_stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv", "w")
-expected_SARSA_file = open(f"Files/expected_SARSA_stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv", "w")
-#a_dict = {"a": 1, "b": 2}
-
-writer = csv.writer(QLearning_file)
-writer2 = csv.writer(SARSA_file)
-writer3 = csv.writer(expected_SARSA_file)
-for key, value in QLearning_stats.items():
-    writer.writerow([key, value])
-for key, value in SARSA_stats.items():
-    writer2.writerow([key, value])    
-for key, value in expectedSARSA_stats.items():
-    writer3.writerow([key, value])
-
-QLearning_file.close()
-SARSA_file.close()
-expected_SARSA_file.close()
+df_Qlearning = pd.DataFrame(QLearning_stats)
+df_groupby_Qlearning = df_Qlearning[['episode','learning_rate','best_value','discount','epsilondecay']].groupby(by='best_value',as_index=False).max()
+df_SARSA = pd.DataFrame(SARSA_stats)
+df_groupby_SARSA = df_SARSA[['episode','learning_rate','best_value','discount','epsilondecay']].groupby(by='best_value',as_index=False).max()
+df_expectedSARSA = pd.DataFrame(expectedSARSA_stats)
+df_groupby_Qlearning = df_expectedSARSA[['episode','learning_rate','best_value','discount','epsilondecay']].groupby(by='best_value',as_index=False).max()
 
 
-#########################################################################
+os.makedirs("Files", exist_ok = True) 
+df_groupby_Qlearning.to_csv(f"Files/QLearning_BEST-stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv")            
+df_Qlearning.to_csv(f"Files/QLearning_TOTAL-stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv")            
+
+df_groupby_SARSA.to_csv(f"Files/SARSA_BEST-stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv")            
+df_SARSA.to_csv(f"Files/QLearning_TOTAL-stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv")            
+
+df_groupby_Qlearning.to_csv(f"Files/expectedSARSA_BEST-stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv")            
+df_expectedSARSA.to_csv(f"Files/QLearning_TOTAL-_stats-episodes({params.EPISODES})-alphas({len(params.LEARNING_RATES)})-gammas({len(params.DISCOUNTS)})-{time.strftime('%Y%m%d-%H%M%S')}.csv")            
+
+
+
+
+#print("------------- Stats for debug purposes -----------------")
+#print(f"Q-Learning best Return: best_value: {df_groupby_Qlearning['best_value']} in episode: {df_groupby_Qlearning['best_value']} with learning_rate: {df_groupby_Qlearning['best_value']} , discount: {df_groupby_Qlearning['best_value']}, and epsilondecay: {df_groupby_Qlearning['best_value']}")
+#print(f"SARSA best Return: {df_groupby_SARSA['best_value']} in episode: {df_groupby_SARSA['best_value']} with learning_rate: {df_groupby_SARSA['best_value']} , discount: {df_groupby_SARSA['best_value']}, and epsilondecay: {df_groupby_SARSA['best_value']}")
+#print(f"expected SARSA best Return: {df_groupby_Qlearning['best_value']} in episode: {df_groupby_Qlearning['best_value']} with learning_rate: {df_groupby_Qlearning['best_value']} , discount: {df_groupby_Qlearning['best_value']}, and epsilondecay: {df_groupby_Qlearning['best_value']}")
+
+
 
 
 

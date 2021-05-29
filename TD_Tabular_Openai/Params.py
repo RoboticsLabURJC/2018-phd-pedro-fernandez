@@ -14,7 +14,7 @@ class Params():
 
 
         # episodes
-        self.EPISODES = 100
+        self.EPISODES = 1000
 
         # LEARNING_RATE = alpha = step_size. When alpha is close to 0, then we reward old values, not predcited values    
         self.LEARNING_RATE = 0.1 # alpha: min 0 - max 1
@@ -34,7 +34,7 @@ class Params():
         self.END_EPSILON_DECAYING = self.EPISODES #we can play with this var
         self.epsilon_decay_value = self.EPSILON/(self.END_EPSILON_DECAYING - self.START_EPSILON_DECAYING)
         
-        self.DECAYS = [self.EPSILON/self.EPISODES, self.EPSILON/self.EPISODES//2, self.EPSILON/self.EPISODES//4]
+        self.DECAYS = [self.EPSILON/self.EPISODES, self.EPSILON/(self.EPISODES//2), self.EPSILON/(self.EPISODES//4)]
 
         #Table
         self.DISCRETE_VALUE = 40
