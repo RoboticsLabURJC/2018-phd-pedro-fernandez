@@ -5,6 +5,9 @@
 ### Table of contents
 
   - [Weblog](#weblog)
+
+    - [September 2021](#September)
+    - [May 2021](#May)
     - [April 2021](#April)
     - [March 2021](#March)
     - [February 2021](#February)
@@ -26,6 +29,49 @@
  
 ---
 ## Weblog
+
+### September
+
+
+The Deep QLearning (DQN) algorithm is already implemented in the RL-Studio framework following the algorithm developed by DeepMind for the Go game.
+
+The most relevant features are:
+
+
+- Two convolutional neural networks, one main and one secondary, in which latter the weights of the inner network are updated every defined time to decrease the variance in the training data.
+- Replay Memory where we store the information every certain number of training steps
+- The neural network receives the raw image as input and generates the corresponding actions
+- In order to train faster, there is a image processing with the OpenCv libraries that helps us to calculate the reward from the position of the car with respect to the center of the red line that is painted on the circuit
+- Different positions and alternative displacement can be generated so that the car sees more situations and accelerates training.
+
+Below several short videos of training in a simple circuit with an F1
+
+Training 1
+
+[![Alt text](https://img.youtube.com/vi/oTYWpTp0Lk8/0.jpg)](http://www.youtube.com/watch?v=oTYWpTp0Lk8)
+
+Training 2
+
+[![Alt text](https://img.youtube.com/vi/Z3VSA8sig0I/0.jpg)](http://www.youtube.com/watch?v=Z3VSA8sig0I)
+
+Training 3
+
+[![Alt text](https://img.youtube.com/vi/cRuxlHOrmJI/0.jpg)](http://www.youtube.com/watch?v=cRuxlHOrmJI)
+
+TRaining 4
+
+[![Alt text](https://img.youtube.com/vi/TmdUy6gfmoI/0.jpg)](http://www.youtube.com/watch?v=TmdUy6gfmoI)
+
+
+The full code is in the next repo until I can integrate it into RL Studio
+https://github.com/pjfernandecabo/rl-studio-arm64
+
+---
+### June
+
+**Weeks from 1 to 15**
+- Working on RL Studio: implementing in Mac AMD64 and Mac ARM64
+- Running new algorithms: DQN, AC, PPO...
 
 
 

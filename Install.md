@@ -562,7 +562,9 @@ tecla `:help` para obtener ayuda (no me gusta mucho)
 
 > `ps faux` 
 ---
-# Install ROS on Ubuntu 20.04
+# Install ROS2 on Mac AMD64 Big Sur 11.4 (June 2021)
+
+1. Building ROS 2 on macOS: http://docs.ros.org/en/galactic/Installation/macOS-Development-Setup.html
 
 
 
