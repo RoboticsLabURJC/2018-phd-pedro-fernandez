@@ -38,7 +38,7 @@ The Deep QLearning (DQN) algorithm is already implemented in the RL-Studio frame
 The most relevant features are:
 
 
-- Two convolutional neural networks, one main and one secondary, in which latter the weights of the inner network are updated every defined time to decrease the variance in the training data.
+- Two convolutional neural networks, one main and one secondary, where the weights of the inner network are updated in the latter every defined time to decrease the variance in the training data.
 - Replay Memory where we store the information every certain number of training steps
 - The neural network receives the raw image as input and generates the corresponding actions
 - In order to train faster, there is a image processing with the OpenCv libraries that helps us to calculate the reward from the position of the car with respect to the center of the red line that is painted on the circuit
