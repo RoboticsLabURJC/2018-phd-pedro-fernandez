@@ -6,6 +6,7 @@
 
   - [Weblog](#weblog)
 
+    - [October 2021](#October)
     - [September 2021](#September)
     - [May 2021](#May)
     - [April 2021](#April)
@@ -30,6 +31,59 @@
 ---
 ## Weblog
 
+### October
+
+From 1 to 15. 
+Goal: 
+
+In this work period, we are going to focus on starting to work with spaces for continuous actions.
+
+So far, the actions that we have developed in our simulator of the circuit with a car, consists of a discrete set of actions designed ad hoc. 
+
+An example is in the following table, where we have 2 actions that allow us to handle our agent, the linear velocity v in m/s, and the angular velocity w in rad/s:
+
+
+| Actions        | 0           | 1  | 2  |
+| ------------- |:-------------:| -----:| -----:|
+| linear vel v (m/s)     | 3 | 2 | 2 |
+| angular vel w (rad/s)      | 0      |   1 | -1 |
+
+
+
+As you can see, the values ​​of each action are established by hand and based on the developer's experience with the simulator, which makes our algorithm behave appropriately for training and tests.
+As we already know, the discretization of variables is the first step to understand the algorithms and see how they work, but it does not represent the real world that we are trying to simulate.
+
+From now on, we are going to work with continuous actions. In this period we leave the constant linear velocity v, and we take the angular velocity w to be continuous.
+Analyzing the behavior of a real Formula1 on circuits like Montmelo, we can see that the minimum race speed is 90km / h, which corresponds to the tightest curves on the circuit. With a curve radius of 10 meters (it is only an assumption because I have not been able to verify it), we have an angular velocity w = 2.5 rad / sec (approx) while the minimum obtained at maximum speeds with a very large curve radius, can be close to 0.
+This gives us a continuous interval of w = [-2.5, +2.5]
+
+Therefore we are going to work with 2 actions:
+- v = 10 m/sec which will be constant in training. We will do tests with different values ​​of v to understand the behavior of the agent
+- w = [-2.5, +2.5]
+
+Neural Networks
+
+
+Currently our neural network consists of a number of outputs that are delimited by our construction of the discrete set of actions. And with a softmax function we choose the one with the best probability for the network.
+In the previous example, we have a set of 3 actions: 0, 1 and 2, where action 0 corresponds to v = 3 and w = 0 and so on.
+
+Now we have to redesign the neural network so that it gives us 2 outputs, one for v and one for w. The neural network we build will support multi-label classification
+Although, in this first moment the v will be constant, the new architecture of the neural network will allow us later to be able to use a continuous space for the v, and even to be able to add more actions to our agents easily.
+
+One example is shown below with 2 categories, one for object color, and the other one for category. We will substitute for velocity and angular velocity:
+![alt text](https://pyimagesearch.com/wp-content/uploads/2018/05/keras_multi_output_fashionnet_bottom.png?_ga=2.236320897.1058554134.1633706853-1748351799.1633706853)
+
+
+References in this period:
+
+- https://medium.com/@asteinbach/actor-critic-using-deep-rl-continuous-mountain-car-in-tensorflow-4c1fb2110f7c
+- https://www.tensorflow.org/tutorials/reinforcement_learning/actor_critic
+- https://keras.io/examples/rl/ddpg_pendulum/
+- https://towardsdatascience.com/building-a-multi-output-convolutional-neural-network-with-keras-ed24c7bc1178
+- https://www.pyimagesearch.com/2018/06/04/keras-multiple-outputs-and-multiple-losses/
+
+
+---
 ### September
 
 
