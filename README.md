@@ -99,6 +99,10 @@ From now on, we will try to isolate any sensor from the RL algorithm to avoid im
 Likewise, we are going to obtain the reward by isolating it from the image processing, by means of a formula applied to the physics of our experiments using the two variables that are moving our agent in this environment, the linear velocity and the angular velocity.
 The reward to be obtained by the agent is given by the formula:
 
+
+![formula](https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1)
+
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
 $\sum_{x = a}^{b} f(x)$
 
 $abs( |v| - v^(\frac{1}{\mathrm{e}^{-w}}))$
