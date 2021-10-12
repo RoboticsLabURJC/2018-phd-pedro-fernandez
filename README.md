@@ -100,12 +100,8 @@ Likewise, we are going to obtain the reward by isolating it from the image proce
 The reward to be obtained by the agent is given by the formula:
 
 
-![formula](https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1)
 
-<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
-$\sum_{x = a}^{b} f(x)$
-
-$abs( |v| - v^(\frac{1}{\mathrm{e}^{-w}}))$
+![formula](https://render.githubusercontent.com/render/math?math=abs(|v|-v^(\frac{1}{\mathrm{e}^{-w}})))
 
 where | v | represents linear velocity normalized.
 
