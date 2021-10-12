@@ -31,10 +31,14 @@
 ---
 ## Weblog
 
+Full code is in the provisional repo until I can integrate it into RL Studio
+https://github.com/pjfernandecabo/rl-studio-arm64
+
 ### October
 
-From 1 to 15. 
-Goal: 
+- From 1 to 15. 
+
+**Goal**: 
 
 In this work period, we are going to focus on starting to work with spaces for continuous actions.
 
@@ -61,7 +65,18 @@ Therefore we are going to work with 2 actions:
 - v = 10 m/sec which will be constant in training. We will do tests with different values ​​of v to understand the behavior of the agent
 - w = [-2.5, +2.5]
 
-Neural Networks
+
+**Coninuous actions**
+
+To work with continuous actions, there are 2 options widely used in the research community:
+
+- use noisy perturbations, specifically an Ornstein-Uhlenbeck process for generating noise, as described in the paper. It samples noise from a correlated normal distribution. (https://www.wikipedia.org/wiki/Ornstein-Uhlenbeck_process)
+
+- Like in the TD Advantage Actor-Critic method, where the output are two scalar functions, μ (s) and σ (s), which are used as the mean and standard deviation of a Gaussian (normal) distribution. We will choose our actions by sampling from this distribution. The figure below shows the process with one neural net with two outputs, one for mean and other one for standard deviation.
+
+![alt text](https://miro.medium.com/max/700/1*GlQCfOGm0slsuL-7qB_vYg.jpeg)
+
+**Neural Networks**
 
 
 Currently our neural network consists of a number of outputs that are delimited by our construction of the discrete set of actions. And with a softmax function we choose the one with the best probability for the network.
@@ -74,7 +89,28 @@ One example is shown below with 2 categories, one for object color, and the othe
 ![alt text](https://pyimagesearch.com/wp-content/uploads/2018/05/keras_multi_output_fashionnet_bottom.png?_ga=2.236320897.1058554134.1633706853-1748351799.1633706853)
 
 
-References in this period:
+
+**Reward and Image Preprocessing**
+
+So far we have worked obtaining the reward through the image captured by the camera sensor placed on the agent. Once the information is received, the central point of the image gives us the rewards: the closer we are to the center of the image, the greater the reward.
+Additionally, that rewards are established by the developer based on his experience, similar to how it has been done with actions above.
+
+From now on, we will try to isolate any sensor from the RL algorithm to avoid image processing and to be able to scale our algorithms to other agents and to other environments.
+Likewise, we are going to obtain the reward by isolating it from the image processing, by means of a formula applied to the physics of our experiments using the two variables that are moving our agent in this environment, the linear velocity and the angular velocity.
+The reward to be obtained by the agent is given by the formula:
+
+$\sum_{x = a}^{b} f(x)$
+
+$abs( |v| - v^(\frac{1}{\mathrm{e}^{-w}}))$
+
+where | v | represents linear velocity normalized.
+
+
+
+So that mean, our state is represented by the input image obtained through the camera, and the reward is obtained from the linear velocity and the angular velocity, which are the 2 magnitudes that define the movement of our agent. That means that we do not preprocess the image and allow us to easily escalate to other problems.
+
+
+**References in this period**:
 
 - https://medium.com/@asteinbach/actor-critic-using-deep-rl-continuous-mountain-car-in-tensorflow-4c1fb2110f7c
 - https://www.tensorflow.org/tutorials/reinforcement_learning/actor_critic
