@@ -36,7 +36,23 @@ https://github.com/pjfernandecabo/rl-studio-arm64
 
 ### October
 
-- From 1 to 15. 
+- From 16 to 27
+
+In this period we are implementing the DDPG algorithm with continuous actions. So:
+
+1. We follow the Keras API and I had to upgrade to TensorFlow 2.6.
+
+2. we work with constant linear velocity and continuous angular velocity to analyze how the algorithm behaves
+
+3. The environment provides us with the dimensions of the space, through the camera sensor, whereas before we provided it through the configuration file. This is an important advance in the future so that we do not depend on the parameter file and it is provided by the sensor.
+
+4. The input images are reduced to 20% of the size of the original image so that the neural networks can process the data well. I had a memory allocation error that could be fixed in this way.
+Also, the images are normalized so that the color goes from 0 to 1. This is typical in NN image processing.
+For the moment we leave it like that to move forward, without going into analyzing how it could affect the recognition of the input status and the actions to take. It seems that the memory problems in Tamino are due to the training of other companions simultaneously.
+
+5. At the moment, the rewards are being obtained from the pre-processing of the image, obtaining the lines and centers of the image to obtain the position of the car and be able to give it the reward values. Due to the previous point, where we change the size of the image, some constants have had to be varied by hand, within the corresponding functions. In next steps we will try to eliminate the preprocessing of the image so that the reward is obtained depending on the physics of the environment.
+
+- From 1 to 15
 
 **Goal**: 
 
@@ -101,7 +117,7 @@ The reward to be obtained by the agent is given by the formula:
 
 
 
-![formula](https://render.githubusercontent.com/render/math?math=abs(|v|-v^(\frac{1}{\mathrm{e}^{-w}})))
+![formula](https://render.githubusercontent.com/render/math?math=abs(|v|-v^(\frac{1}{\mathrm{-e}^{w}})))
 
 where | v | represents linear velocity normalized.
 
@@ -112,6 +128,7 @@ So that mean, our state is represented by the input image obtained through the c
 
 **References in this period**:
 
+- [Continuous control with Deep RL](https://arxiv.org/pdf/1509.02971.pdf)
 - https://medium.com/@asteinbach/actor-critic-using-deep-rl-continuous-mountain-car-in-tensorflow-4c1fb2110f7c
 - https://www.tensorflow.org/tutorials/reinforcement_learning/actor_critic
 - https://keras.io/examples/rl/ddpg_pendulum/
