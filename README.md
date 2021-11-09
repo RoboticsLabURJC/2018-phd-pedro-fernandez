@@ -6,6 +6,7 @@
 
   - [Weblog](#weblog)
 
+    - [November 2021](#November)
     - [October 2021](#October)
     - [September 2021](#September)
     - [May 2021](#May)
@@ -34,9 +35,16 @@
 Full code is in the provisional repo until I can integrate it into RL Studio
 https://github.com/pjfernandecabo/rl-studio-arm64
 
+### November
+
+- From 1 to 15
+
+We are integrating the developments made on my local machine, with the framework of the RL-Studio workgroup. In this way we can advance in a single and unified tool to create RL algorithms
+
+
 ### October
 
-- From 16 to 27
+- From 16 to 27th
 
 In this period we are implementing the DDPG algorithm with continuous actions. So:
 
@@ -52,7 +60,7 @@ For the moment we leave it like that to move forward, without going into analyzi
 
 5. At the moment, the rewards are being obtained from the pre-processing of the image, obtaining the lines and centers of the image to obtain the position of the car and be able to give it the reward values. Due to the previous point, where we change the size of the image, some constants have had to be varied by hand, within the corresponding functions. In next steps we will try to eliminate the preprocessing of the image so that the reward is obtained depending on the physics of the environment.
 
-- From 1 to 15
+- From 1 to 15th
 
 **Goal**: 
 
