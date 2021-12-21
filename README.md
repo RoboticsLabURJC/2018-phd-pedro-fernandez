@@ -35,12 +35,22 @@
 Full code is in the provisional repo until I can integrate it into RL Studio
 https://github.com/pjfernandecabo/rl-studio-arm64
 
+
+### December
+
+We finish implementing algorithm, with two continuous actions. Now we are training with differents hyperparams and configurations.
+
+Good new is algorithm and architecture is working fine: we have 5 neural nets with more than 8 millions params each one, image as state, reward function is working and Actor-critic architecure is having good behavior. But we are not get our goals yet. There are a large number of hyperparams and params and in next days, we are going to tunind and tweaking to get the best configuration and try to finish simple circiut
+
 ### November
 
 - From 1 to 15
 
 We are integrating the developments made on my local machine, with the framework of the RL-Studio workgroup. In this way we can advance in a single and unified tool to create RL algorithms
 
+https://github.com/keras-rl/keras-rl
+
+https://hackernoon.com/intuitive-rl-intro-to-advantage-actor-critic-a2c-4ff545978752
 
 ### October
 
