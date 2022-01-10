@@ -6,6 +6,8 @@
 
   - [Weblog](#weblog)
 
+    - [January 2022](#January)
+    - [December 2021](#December)
     - [November 2021](#November)
     - [October 2021](#October)
     - [September 2021](#September)
@@ -34,6 +36,23 @@
 
 Full code is in the provisional repo until I can integrate it into RL Studio
 https://github.com/pjfernandecabo/rl-studio-arm64
+
+### January 1 - 15
+
+Up to this point, for our F1 agent and the follow the line problem, we have different algorithms (Qlearning, Deep QLearning and DDPG), different input states (simplified perception and the raw image) and 2 types of actions for linear velocity and the angular (discrete and continuous).
+In this period we are integrating all the parameters in a single yaml file to carry out the training in the simplest way.
+The trainings that we are going to run are:
+
+|States | Discrete Actions | Continuous Actions |
+| ---|---|---|
+|SP (simplified perception (1 to n points)| qlearning, DQN, DDPG| DDPG|
+|image| DQN, DDPG| DDPG|
+
+
+Within the simplified perception (SP) we are going to train with 1, 3, 5 and N points.
+Therefore we will have 19 training models. But we must bear in mind that within each of them there may be different parameters. For example, for SP1, we will have to play with different positions of the point within the height of the image. The same for sp3 and sp5. Nor for SPN since we take all points of the height in the image.
+
+For discrete actions we will play with a small preset range. But for continuous actions we will have to try many other ranges. In the trainings that we have carried out with continuous actions with the DDPG algorithm and the raw image as the input state, we have verified that the agent does not achieve good results in the first 5000 episodes
 
 
 ### December
