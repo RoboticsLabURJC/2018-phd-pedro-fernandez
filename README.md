@@ -37,7 +37,15 @@
 Full code is in the provisional repo until I can integrate it into RL Studio
 https://github.com/pjfernandecabo/rl-studio-arm64
 
-### January 1 - 15
+
+
+### January 
+- From 15 - 31
+
+Integrating my RL Studio branch with main repo RL-Studio v1.1. Adding new deep deterministic policy gradient (DDPG) algorithm which allows working with continuous actions and multidimensional states space such as images
+
+
+- From 1 - 15
 
 Up to this point, for our F1 agent and the follow the line problem, we have different algorithms (Qlearning, Deep QLearning and DDPG), different input states (simplified perception and the raw image) and 2 types of actions for linear velocity and the angular (discrete and continuous).
 In this period we are integrating all the parameters in a single yaml file to carry out the training in the simplest way.
