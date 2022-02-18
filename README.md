@@ -6,6 +6,7 @@
 
   - [Weblog](#weblog)
 
+    - [February 2022](#February)
     - [January 2022](#January)
     - [December 2021](#December)
     - [November 2021](#November)
@@ -38,11 +39,18 @@ Full code is in the provisional repo until I can integrate it into RL Studio
 https://github.com/pjfernandecabo/rl-studio-arm64
 
 
+### February
+- From 1 - 15
+
+
+Integrating my RL Studio branch with main repo RL-Studio v1.1. Adding new deep deterministic policy gradient (DDPG) algorithm which allows working with continuous actions and multidimensional states space such as images
 
 ### January 
 - From 15 - 31
 
-Integrating my RL Studio branch with main repo RL-Studio v1.1. Adding new deep deterministic policy gradient (DDPG) algorithm which allows working with continuous actions and multidimensional states space such as images
+Training qlearn, dqn and ddpg algorithms with differents features set: images and simplified perception as states and discrete or contiuous actions.
+Those parameters give us dozens of trainings, which serve us as learning
+
 
 
 - From 1 - 15
