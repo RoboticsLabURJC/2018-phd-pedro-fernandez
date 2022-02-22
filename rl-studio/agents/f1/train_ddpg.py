@@ -4,11 +4,11 @@ import random
 import os
 import time
 from tqdm import tqdm
-from cprint import cprint
+#from cprint import cprint
 import numpy as np
 import random
 import utils
-from icecream import ic
+#from icecream import ic
 from datetime import datetime, timedelta
 import numpy as np
 import gym
@@ -26,8 +26,8 @@ from tensorflow.keras.callbacks import TensorBoard
 from visual.ascii.images import JDEROBOT_LOGO
 from visual.ascii.text import JDEROBOT, QLEARN_CAMERA, LETS_GO
 
-ic.enable()
-ic.configureOutput(prefix=f'{datetime.now()} | ')
+#ic.enable()
+#ic.configureOutput(prefix=f'{datetime.now()} | ')
 
 
 def save_stats_episodes(environment, outdir, aggr_ep_rewards, current_time):
@@ -44,6 +44,7 @@ def save_stats_episodes(environment, outdir, aggr_ep_rewards, current_time):
     df = pd.DataFrame(aggr_ep_rewards)
     df.to_csv(file_csv, mode='a', index = False, header=None)
     df.to_excel(file_excel)
+
 
 class bcolors:
     HEADER = '\033[95m'
@@ -80,7 +81,8 @@ class F1TrainerDDPG:
         self.ep_rewards = [] 
         self.aggr_ep_rewards = {
             'episode':[], 'avg':[], 'max':[], 'min':[], 'step':[], 'epoch_training_time':[], 'total_training_time':[]
-        }     
+        }
+        self.best_current_epoch = {'best_epoch':[], 'highest_reward':[], 'best_step':[], 'best_epoch_training_time':[], 'current_total_training_time':[]}
         self.environment_params = params.environment["params"]
         self.env_name = params.environment["params"]["env_name"]
         self.total_episodes = params.settings["total_episodes"]
@@ -185,13 +187,14 @@ class F1TrainerDDPG:
         start_time = datetime.now()
         start_time_format = start_time.strftime("%Y%m%d_%H%M")
         best_epoch = 1
+        current_max_reward = 0
+        best_step = 0
 
         # Reset env
         state, state_size = self.env.reset()   
 
         # Checking state and actions 
         print_messages('In train_ddpg.py', state_size = state_size, action_space = self.action_space, action_size = self.actions_size)
-
 
         ## --------------------- Deep Nets ------------------
         ou_noise = OUActionNoise(mean=np.zeros(1), std_deviation=float(self.std_dev) * np.ones(1))
@@ -210,22 +213,13 @@ class F1TrainerDDPG:
             cumulated_reward = 0
             step = 1
             start_time_epoch = datetime.now()
-            best_step = step
 
-            prev_state, prev_state_size = self.env.reset()
-
-            # ended at training time setting: 2 hours, 15 hours...
-            if (datetime.now() - timedelta(hours=self.training_time) > start_time):
-                if self.highest_reward < cumulated_reward:
-                    print_messages('Training time finished in:', time = datetime.now() - start_time, episode = episode, cumulated_reward = cumulated_reward, total_time = (datetime.now() - timedelta(hours=self.training_time)))
-                    ac_agent.actor_model.save(f"{self.outdir}/models/{self.model_name}_TRAININGTIME_ACTOR_Max{int(max_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
-                    ac_agent.critic_model.save(f"{self.outdir}/models/{self.model_name}_TRAININGTIME_CRITIC_Max{int(max_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
-
-                break        
+            prev_state, prev_state_size = self.env.reset()        
 
             # ------- WHILE
             #while not done and (step < self.estimated_steps) and (datetime.now() - timedelta(hours=self.training_time) < start_time):
-            while not done and (step < self.estimated_steps):
+            #while not done and (step < self.estimated_steps):
+            while not done:
 
                 tf_prev_state = tf.expand_dims(tf.convert_to_tensor(prev_state), 0) 
                 # Get action
@@ -243,21 +237,50 @@ class F1TrainerDDPG:
                 prev_state = state
                 step += 1
 
-
-                # save model
-                if (step > self.estimated_steps and self.highest_reward < cumulated_reward):
-                    self.highest_reward = cumulated_reward
+                # save best episode and step's stats
+                if current_max_reward <= cumulated_reward:
+                    current_max_reward = cumulated_reward
                     best_epoch = episode
                     best_step = step
-                    print_messages('Lap completed in:', time = datetime.now() - start_time_epoch, episode = episode, cumulated_reward = cumulated_reward, total_time = (datetime.now() - timedelta(hours=self.training_time)))
-                    ac_agent.actor_model.save(f"{self.outdir}/models/{self.model_name}_INTOEPOCH_ACTOR_Max{int(max_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
-                    ac_agent.critic_model.save(f"{self.outdir}/models/{self.model_name}_INTOEPOCH_CRITIC_Max{int(max_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
+                    best_epoch_training_time = datetime.now() - start_time_epoch
 
-
-                # Show stats for debugging
+                 # Showing stats in screen only for monitoring. Showing every 'save_every_step' value
                 if not step % self.save_every_step:
-                    print_messages('Showing stats but not saving', episode = episode, cumulated_reward = int(cumulated_reward), total_time = (datetime.now() - start_time), epoch_time = datetime.now() - start_time_epoch, best_episode = best_epoch, in_step = best_step)
+                    print_messages('Showing stats but not saving...', current_episode = episode, current_step = step, cumulated_reward_in_this_episode = int(cumulated_reward), 
+                        total_training_time = (datetime.now() - start_time), epoch_time = datetime.now() - start_time_epoch)
+                    print_messages('... and best record', best_episode_until_now = best_epoch, 
+                        in_best_step = best_step, with_highest_reward = int(current_max_reward), in_best_epoch_trining_time = best_epoch_training_time)
 
+                # save at completed steps    
+                if step >= self.estimated_steps:
+                    done = True
+                    print_messages('Lap completed in:', time = datetime.now() - start_time_epoch, in_episode = episode, episode_reward = int(cumulated_reward), with_steps = step)
+                    ac_agent.actor_model.save(f"{self.outdir}/models/{self.model_name}_LAPCOMPLETED_ACTOR_Max{int(cumulated_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
+                    ac_agent.critic_model.save(f"{self.outdir}/models/{self.model_name}_LAPCOMPLETED_CRITIC_Max{int(cumulated_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
+
+            # Save best lap
+            if cumulated_reward > self.highest_reward:
+                self.highest_reward = cumulated_reward
+                print_messages('Saving best lap', best_episode_until_now = best_epoch, in_best_step = best_step, with_highest_reward = int(cumulated_reward), 
+                        in_best_epoch_trining_time = best_epoch_training_time, total_training_time = (datetime.now() - start_time))
+                self.best_current_epoch['best_epoch'].append(best_epoch)
+                self.best_current_epoch['highest_reward'].append(cumulated_reward)
+                self.best_current_epoch['best_step'].append(best_step)
+                self.best_current_epoch['best_epoch_training_time'].append(best_epoch_training_time)
+                self.best_current_epoch['current_total_training_time'].append(datetime.now() - start_time)
+                save_stats_episodes(self.environment, self.outdir, self.best_current_epoch, start_time)
+                ac_agent.actor_model.save(f"{self.outdir}/models/{self.model_name}_LAPCOMPLETED_ACTOR_Max{int(cumulated_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
+                ac_agent.critic_model.save(f"{self.outdir}/models/{self.model_name}_LAPCOMPLETED_CRITIC_Max{int(cumulated_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
+
+
+            # ended at training time setting: 2 hours, 15 hours...
+            if (datetime.now() - timedelta(hours=self.training_time) > start_time):
+                print_messages('Training time finished in:', time = datetime.now() - start_time, episode = episode, cumulated_reward = cumulated_reward, total_time = (datetime.now() - timedelta(hours=self.training_time)))
+                if self.highest_reward < cumulated_reward:
+                    ac_agent.actor_model.save(f"{self.outdir}/models/{self.model_name}_TRAININGTIME_ACTOR_Max{int(cumulated_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
+                    ac_agent.critic_model.save(f"{self.outdir}/models/{self.model_name}_TRAININGTIME_CRITIC_Max{int(cumulated_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
+
+                break
 
             # WE SAVE BEST VALUES IN EVERY EPISODE
             self.ep_rewards.append(cumulated_reward)
@@ -267,7 +290,7 @@ class F1TrainerDDPG:
                 max_reward = max(self.ep_rewards[-self.save_episodes:])
                 tensorboard.update_stats(reward_avg=average_reward, reward_max=max_reward, steps = step)
 
-                print_messages('Saving episodes with', episodes = episode, highest_reward_in_all_training = int(max(self.ep_rewards)), best_epoch = best_epoch, max_reward_in_batch = max_reward, total_time = (datetime.now() - start_time), epoch_time = datetime.now() - start_time_epoch)
+                print_messages('Showing batch:', current_episode_batch = episode, max_reward_in_current_batch = int(max_reward), best_epoch_in_all_training = best_epoch, highest_reward_in_all_training = int(max(self.ep_rewards)), in_best_step = best_step, total_time = (datetime.now() - start_time))
                 self.aggr_ep_rewards['episode'].append(episode)
                 self.aggr_ep_rewards['step'].append(step)
                 self.aggr_ep_rewards['avg'].append(average_reward)
@@ -276,8 +299,10 @@ class F1TrainerDDPG:
                 self.aggr_ep_rewards['epoch_training_time'].append((datetime.now()-start_time_epoch).total_seconds())
                 self.aggr_ep_rewards['total_training_time'].append((datetime.now()-start_time).total_seconds())
 
-                if max_reward >= max(self.ep_rewards):
-                    tensorboard.update_stats(reward_avg=average_reward, reward_max=max_reward, steps = step)
+                #if max_reward > max(self.ep_rewards):
+                if max_reward > self.highest_reward:
+                    print_messages('Saving batch', max_reward = int(max_reward))
+                    tensorboard.update_stats(reward_avg=int(average_reward), reward_max=int(max_reward), steps = step)
                     ac_agent.actor_model.save(f"{self.outdir}/models/{self.model_name}_ACTOR_Max{int(max_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
                     ac_agent.critic_model.save(f"{self.outdir}/models/{self.model_name}_CRITIC_Max{int(max_reward)}_Epoch{episode}_inTime{time.strftime('%Y%m%d-%H%M%S')}.model")
                     save_stats_episodes(self.environment, self.outdir, self.aggr_ep_rewards, start_time)

@@ -188,7 +188,7 @@ class F1DDPGCameraEnv(F1Env):
 
         w target = B_0 + B_1 * v
         error = w_actual - w_target
-        reward = int(10*(1/exp(reward))) only gets first number as a reward
+        reward = 1/exp(reward + center))) where Max value = 1
 
         Args: 
             linear and angular velocity
@@ -197,7 +197,36 @@ class F1DDPGCameraEnv(F1Env):
         Returns: reward
         '''
 
-        num = 0.0001
+        w_target = self.beta_0 + (self.beta_1 * abs(vel_cmd.linear.x))
+        error = abs(w_target - abs(vel_cmd.angular.z))
+        reward = 1/math.exp(error + center)
+        
+        return reward
+
+    def reward_v_w_center_linear_first_formula(self, vel_cmd, center):
+        '''
+        Applies a linear regression between v and w
+        Supposing there is a lineal relationship V and W. So, formula w = B_0 + x*v.
+
+        Data for Formula1:
+        Max W = 5 r/s we take max abs value. Correctly it is w left or right
+        Max V = 100 m/s
+        Min V = 20 m/s
+        B_0 = -B_1 * Max V
+        B_1 = -(W Max / (V Max - V Min))
+
+        w target = B_0 + B_1 * v
+        error = w_actual - w_target
+        reward = 1/exp(reward)/sqrt(center^2+0.001)
+
+        Args: 
+            linear and angular velocity
+            center
+
+        Returns: reward
+        '''
+
+        num = 0.001
         w_target = self.beta_0 + (self.beta_1 * abs(vel_cmd.linear.x))
         error = abs(w_target - abs(vel_cmd.angular.z))
         reward = 1/math.exp(error)
@@ -413,8 +442,8 @@ class F1DDPGCameraEnv(F1Env):
         - state_size: this field is just for debugging purposes
         '''
         if self.alternate_pose:
-            print(f"\n[INFO] ===> Necesary implement self._gazebo_set_new_pose()...class F1DDPGCameraEnv(F1Env) -> def reset_camera() \n")
-            #self._gazebo_set_new_pose() # Mine, it works fine!!!
+            #print(f"\n[INFO] ===> Necesary implement self._gazebo_set_new_pose()...class F1DDPGCameraEnv(F1Env) -> def reset_camera() \n")
+            self._gazebo_set_new_pose() # Mine, it works fine!!!
             #pos_number = set_new_pose(self.circuit_positions_set) #not using. Just for V1.1
         else:
             self._gazebo_reset()

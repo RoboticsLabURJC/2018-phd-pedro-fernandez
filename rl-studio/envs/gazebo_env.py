@@ -6,6 +6,7 @@ import sys
 import os
 import signal
 from pathlib import Path
+import numpy as np
 
 from gazebo_msgs.msg import ModelState
 from gazebo_msgs.srv import SetModelState, GetModelState
@@ -158,7 +159,46 @@ class GazeboEnv(gym.Env):
         except rospy.ServiceException as e:
             print(f"/gazebo/unpause_physics service call failed: {e}")
 
+
     def _gazebo_set_new_pose(self):
+        """
+        (pos_number, pose_x, pose_y, pose_z, or_x, or_y, or_z, or_z)
+        """
+        pos = np.random.randint(0, high = len(self.start_random_pose) - 1)
+        #self.position = pos
+        #print(f"self.start_random_pose: {self.start_random_pose}")
+        #print(f"pos: {pos}")
+        pos_number = self.start_random_pose[pos][0]
+        #print(f"pos_number: {pos_number}")
+        #print(f"self.start_random_pose[pos][0]: {self.start_random_pose[pos][0]}")
+        #print(f"self.start_random_pose[pos][1]: {self.start_random_pose[pos][1]}")
+        #print(f"self.start_random_pose[pos][2]: {self.start_random_pose[pos][2]}")
+        #print(f"self.start_random_pose[pos][3]: {self.start_random_pose[pos][3]}")
+        #print(f"self.start_random_pose[pos][4]: {self.start_random_pose[pos][4]}")
+        #print(f"self.start_random_pose[pos][5]: {self.start_random_pose[pos][5]}")
+        #print(f"self.start_random_pose[pos][6]: {self.start_random_pose[pos][6]}")
+
+        state = ModelState()
+        state.model_name = self.model_state_name
+        state.pose.position.x = self.start_random_pose[pos][0]
+        state.pose.position.y = self.start_random_pose[pos][1]
+        state.pose.position.z = self.start_random_pose[pos][2]
+        state.pose.orientation.x = self.start_random_pose[pos][3]
+        state.pose.orientation.y = self.start_random_pose[pos][4]
+        state.pose.orientation.z = self.start_random_pose[pos][5]
+        state.pose.orientation.w = self.start_random_pose[pos][6]
+
+        rospy.wait_for_service("/gazebo/set_model_state")
+        try:
+            set_state = rospy.ServiceProxy("/gazebo/set_model_state", SetModelState)
+            set_state(state)
+        except rospy.ServiceException as e:
+            print(f"Service call failed: {e}")
+        return pos_number
+
+
+
+    def _gazebo_set_new_pose_Nacho(self):
         """
         (pos_number, pose_x, pose_y, pose_z, or_x, or_y, or_z, or_z)
         """
@@ -184,6 +224,7 @@ class GazeboEnv(gym.Env):
         except rospy.ServiceException as e:
             print(f"Service call failed: {e}")
         return pos_number
+
 
     def _render(self, mode="human", close=False):
 
