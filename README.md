@@ -35,11 +35,15 @@
 ---
 ## Weblog
 
-Full code is in the provisional repo until I can integrate it into RL Studio
-https://github.com/pjfernandecabo/rl-studio-arm64
+Partial code is in the provisional repo until I can integrate it into RL Studio
+https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/rl-studio
 
 
 ### February
+- From 15 - 28
+
+Training DDPG algorithm with different parameters and configurations. Always taking image as a state, playing with different segmentations, color reduction, neural nets configuration, or image size to get the best results. Actions always are continuous and new linear reward funtion to isolate from the environment, and being a function of linear velocity, angular velocity and center of image. Thus, the agent gets rewards optimizing the three params
+
 - From 1 - 15
 
 
