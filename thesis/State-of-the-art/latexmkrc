@@ -1,0 +1,1 @@
+$ENV{'BSTINPUTS'}='./template/styles/bibtex//:'.$ENV{'BSTINPUTS'};
