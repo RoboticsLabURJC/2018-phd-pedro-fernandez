@@ -67,7 +67,7 @@ For Follow Line task:
 
 - **In function of the center line**. The robot gets the most reward by being positioned in the center of the center line. As the error with respect to the center of the line increases, the rewards decrease, 2 and 1, respectively. In case of leaving the road, there is a strong penalty of -100 to avoid misbehavior.
 
-$$
+$
 reward =
   \begin{cases}
     10       & \quad \text{distance\_to\_center } <= | 0.2 | \\
@@ -75,7 +75,7 @@ reward =
     1        & \quad |0.9| >= \text{distance\_to\_center } > |0.4|  \\
     -100     & \text{distance\_to\_center } > |0.9|  \\
   \end{cases}
-$$
+$
 
 - **In function of linear velocity, angular velocity and distance of the center line**.
 
