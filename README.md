@@ -90,7 +90,7 @@ $$error = w_{target} - w_{goal}$$
 
 and the distance to center, so the reward function comes from:
 
-$$reward = \frac{1}{\textit{e}^{(error + distance\_to\_center)}} $$
+$$reward = \frac{1}{\textit{e}^{(error + distancetocenter)}} $$
 
 For Follow Lane task:
 
@@ -99,11 +99,11 @@ For Follow Lane task:
 $$
 reward =
   \begin{cases}
-    10       & \quad 0.65 >= \text{distance\_to\_center } > 0.25 \\
-    2        & \quad 0.9 > \text{distance\_to\_center } > 0.65  \\
-    2        & \quad 0.25 >= \text{distance\_to\_center } > 0  \\
-    1        & \quad 0 >= \text{distance\_to\_center } > -0.9  \\
-    -100     & \text{distance\_to\_center } > |0.9|  \\
+    10       & \quad 0.65 >= \text{distancetocenter } > 0.25 \\
+    2        & \quad 0.9 > \text{distancetocenter } > 0.65  \\
+    2        & \quad 0.25 >= \text{distancetocenter } > 0  \\
+    1        & \quad 0 >= \text{distancetocenter } > -0.9  \\
+    -100     & \text{distancetocenter } > |0.9|  \\
   \end{cases}
 $$
 
@@ -112,11 +112,11 @@ $$
 $$
 reward =
   \begin{cases}
-    10 + velocity - ln(step)      & \quad 0.65 >= \text{distance\_to\_center } > 0.25 \\
-    2 + velocity - ln(step)      & \quad 0.9 > \text{distance\_to\_center } > 0.65  \\
-    2 + velocity - ln(step)        & \quad 0.25 >= \text{distance\_to\_center } > 0  \\
-    1 + velocity - ln(step)        & \quad 0 >= \text{distance\_to\_center } > -0.9  \\
-    -100     & \text{distance\_to\_center } > |0.9|  \\
+    10 + velocity - ln(step)      & \quad 0.65 >= \text{distancetocenter } > 0.25 \\
+    2 + velocity - ln(step)      & \quad 0.9 > \text{distancetocenter } > 0.65  \\
+    2 + velocity - ln(step)        & \quad 0.25 >= \text{distancetocenter } > 0  \\
+    1 + velocity - ln(step)        & \quad 0 >= \text{distancetocenter } > -0.9  \\
+    -100     & \text{distancetocenter } > |0.9|  \\
   \end{cases}
 $$
 
