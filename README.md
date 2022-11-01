@@ -1,61 +1,144 @@
 ### PhD Pedro - [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez)
 
-
-
 ### Table of contents
 
-  - [Weblog](#weblog)
+- [Weblog](#weblog)
 
-    - [February 2022](#February)
-    - [January 2022](#January)
-    - [December 2021](#December)
-    - [November 2021](#November)
-    - [October 2021](#October)
-    - [September 2021](#September)
-    - [May 2021](#May)
-    - [April 2021](#April)
-    - [March 2021](#March)
-    - [February 2021](#February)
-    - [January 2021](#January)
-    - [December 2020](#December)
-    - [November 2020](#november)
-  - [Resources](#resources)
-    - [Useful links JdRobot](#useful-links-jdrobot)
-    - [Courses](#courses)
-    - [Lectures](#lectures)
-    - [TextBooks](#textbooks)
-    - [Tutorials/Tasks](#tutorialstasks)
-    - [Links](#links)
-    - [Repos](#repos)
-    - [Papers](#papers)
-    - [Open Source Reinforcement Learning Platforms](#open-source-reinforcement-learning-platforms)
-    - [Applications](#Applications)
+  - [October 2022](#October)
+  - [February 2022](#February)
+  - [January 2022](#January)
+  - [December 2021](#December)
+  - [November 2021](#November)
+  - [October 2021](#October)
+  - [September 2021](#September)
+  - [May 2021](#May)
+  - [April 2021](#April)
+  - [March 2021](#March)
+  - [February 2021](#February)
+  - [January 2021](#January)
+  - [December 2020](#December)
+  - [November 2020](#november)
 
- 
+- [Resources](#resources)
+  - [Useful links JdRobot](#useful-links-jdrobot)
+  - [Courses](#courses)
+  - [Lectures](#lectures)
+  - [TextBooks](#textbooks)
+  - [Tutorials/Tasks](#tutorialstasks)
+  - [Links](#links)
+  - [Repos](#repos)
+  - [Papers](#papers)
+  - [Open Source Reinforcement Learning Platforms](#open-source-reinforcement-learning-platforms)
+  - [Applications](#Applications)
+
 ---
+
 ## Weblog
+
+### October
+
+During this time we have been working on integrating all the code in RL-Studio.
+Now we have two complete tasks, follow lane and follow line, with different configurations.
+
+### Task Follow Lane
+
+ThE agent has to run over right lane, trying to avoid line center, and no surpass it.
+Different configurations has been trained:
+
+| Algorithm |             q-learn             |                        $DDPG^1$ |       $DDPG^2$ |                         $DDPG^3$ |
+| --------- | :-----------------------------: | ------------------------------: | -------------: | -------------------------------: |
+| State     | simplified perception (1 point) | simplified perception (1 point) | image as input |                   image as input |
+| Actions   |        discrete (3 set)         |                      continuous |     continuous |                       continuous |
+| Rewards   |            f(center)            |                       f(center) |      f(center) | f(center, linear velocity, time) |
+
+You can watch training process for $DDPG^1$ with simplified perception
+
+[![Alt text](https://img.youtube.com/vi/5pq6hzku4w8/0.jpg)](https://www.youtube.com/watch?v=5pq6hzku4w8)
+
+and for $DDPG^2$ with image as a neural net input
+
+[![Alt text](https://img.youtube.com/vi/-GuPUjT2sy0/0.jpg)](https://www.youtube.com/watch?v=-GuPUjT2sy0)
+
+### Rewards
+
+We created a set of different reward functions for Follow Lane and Follow Line tasks.
+
+For Follow Line task:
+
+- **In function of the center line**. The robot gets the most reward by being positioned in the center of the center line. As the error with respect to the center of the line increases, the rewards decrease, 2 and 1, respectively. In case of leaving the road, there is a strong penalty of -100 to avoid misbehavior.
+
+$$
+reward =
+  \begin{cases}
+    10       & \quad \text{distance\_to\_center } <= | 0.2 | \\
+    2        & \quad |0.4| >= \text{distance\_to\_center } > |0.2|  \\
+    1        & \quad |0.9| >= \text{distance\_to\_center } > |0.4|  \\
+    -100     & \text{distance\_to\_center } > |0.9|  \\
+  \end{cases}
+$$
+
+- **In function of linear velocity, angular velocity and distance of the center line**.
+
+We can assume that linear velocity and angular velocity are linearly related: when one increases, the other decreases. On long straight lines, the linear velocity **v** will be high and the angular velocity **w** must be 0, while on curves, as w increases,v decreases. The formula that governs this assumption is given by:
+
+$$w_{target} = \beta_0 - \beta_1v$$
+
+Assuming that the smallest radius in meters of a curve in our circuits is 5 meters, then we move in ranges of $v=[2, 30]$ and $w=[-6, 6]$
+
+So, we can easily compute the error between actual and desirable angular velocity
+$$error = w_{target} - w_{goal}$$
+
+and the distance to center, so the reward function comes from:
+
+$$reward = \frac{1}{\textit{e}^{(error + distance\_to\_center)}} $$
+
+For Follow Lane task:
+
+- **In function of the center line**. The robot gets the most reward by being positioned in the center of the right lane. As the error with respect to the center of the line increases, the rewards decrease, 2 and 1, respectively. In case of leaving the road, there is a strong penalty of -100 to avoid misbehavior.
+
+$$
+reward =
+  \begin{cases}
+    10       & \quad 0.65 >= \text{distance\_to\_center } > 0.25 \\
+    2        & \quad 0.9 > \text{distance\_to\_center } > 0.65  \\
+    2        & \quad 0.25 >= \text{distance\_to\_center } > 0  \\
+    1        & \quad 0 >= \text{distance\_to\_center } > -0.9  \\
+    -100     & \text{distance\_to\_center } > |0.9|  \\
+  \end{cases}
+$$
+
+- **In function of the center line, linear velocity and time to complete**. The idea is to force the agent go fast and try to finish the task as soon as posible. So, we rewarded fast velocities in center of lane positions, and penalize long steps. It has been added scalars, 10, 2 and 1, to maximize near the center.
+
+$$
+reward =
+  \begin{cases}
+    10 + velocity - ln(step)      & \quad 0.65 >= \text{distance\_to\_center } > 0.25 \\
+    2 + velocity - ln(step)      & \quad 0.9 > \text{distance\_to\_center } > 0.65  \\
+    2 + velocity - ln(step)        & \quad 0.25 >= \text{distance\_to\_center } > 0  \\
+    1 + velocity - ln(step)        & \quad 0 >= \text{distance\_to\_center } > -0.9  \\
+    -100     & \text{distance\_to\_center } > |0.9|  \\
+  \end{cases}
+$$
+
+### February
 
 Partial code is in the provisional repo until I can integrate it into RL Studio
 https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/rl-studio
 
-
-### February
 - From 15 - 28
 
 Training DDPG algorithm with different parameters and configurations. Always taking image as a state, playing with different segmentations, color reduction, neural nets configuration, or image size to get the best results. Actions always are continuous and new linear reward funtion to isolate from the environment, and being a function of linear velocity, angular velocity and center of image. Thus, the agent gets rewards optimizing the three params
 
 - From 1 - 15
 
-
 Integrating my RL Studio branch with main repo RL-Studio v1.1. Adding new deep deterministic policy gradient (DDPG) algorithm which allows working with continuous actions and multidimensional states space such as images
 
-### January 
+### January
+
 - From 15 - 31
 
 Training qlearn, dqn and ddpg algorithms with differents features set: images and simplified perception as states and discrete or contiuous actions.
 Those parameters give us dozens of trainings, which serve us as learning
-
-
 
 - From 1 - 15
 
@@ -63,17 +146,15 @@ Up to this point, for our F1 agent and the follow the line problem, we have diff
 In this period we are integrating all the parameters in a single yaml file to carry out the training in the simplest way.
 The trainings that we are going to run are:
 
-|States | Discrete Actions | Continuous Actions |
-| ---|---|---|
-|SP (simplified perception (1 to n points)| qlearning, DQN, DDPG| DDPG|
-|image| DQN, DDPG| DDPG|
-
+| States                                    | Discrete Actions     | Continuous Actions |
+| ----------------------------------------- | -------------------- | ------------------ |
+| SP (simplified perception (1 to n points) | qlearning, DQN, DDPG | DDPG               |
+| image                                     | DQN, DDPG            | DDPG               |
 
 Within the simplified perception (SP) we are going to train with 1, 3, 5 and N points.
 Therefore we will have 19 training models. But we must bear in mind that within each of them there may be different parameters. For example, for SP1, we will have to play with different positions of the point within the height of the image. The same for sp3 and sp5. Nor for SPN since we take all points of the height in the image.
 
 For discrete actions we will play with a small preset range. But for continuous actions we will have to try many other ranges. In the trainings that we have carried out with continuous actions with the DDPG algorithm and the raw image as the input state, we have verified that the agent does not achieve good results in the first 5000 episodes
-
 
 ### December
 
@@ -104,28 +185,25 @@ In this period we are implementing the DDPG algorithm with continuous actions. S
 3. The environment provides us with the dimensions of the space, through the camera sensor, whereas before we provided it through the configuration file. This is an important advance in the future so that we do not depend on the parameter file and it is provided by the sensor.
 
 4. The input images are reduced to 20% of the size of the original image so that the neural networks can process the data well. I had a memory allocation error that could be fixed in this way.
-Also, the images are normalized so that the color goes from 0 to 1. This is typical in NN image processing.
-For the moment we leave it like that to move forward, without going into analyzing how it could affect the recognition of the input status and the actions to take. It seems that the memory problems in Tamino are due to the training of other companions simultaneously.
+   Also, the images are normalized so that the color goes from 0 to 1. This is typical in NN image processing.
+   For the moment we leave it like that to move forward, without going into analyzing how it could affect the recognition of the input status and the actions to take. It seems that the memory problems in Tamino are due to the training of other companions simultaneously.
 
 5. At the moment, the rewards are being obtained from the pre-processing of the image, obtaining the lines and centers of the image to obtain the position of the car and be able to give it the reward values. Due to the previous point, where we change the size of the image, some constants have had to be varied by hand, within the corresponding functions. In next steps we will try to eliminate the preprocessing of the image so that the reward is obtained depending on the physics of the environment.
 
 - From 1 to 15th
 
-**Goal**: 
+**Goal**:
 
 In this work period, we are going to focus on starting to work with spaces for continuous actions.
 
-So far, the actions that we have developed in our simulator of the circuit with a car, consists of a discrete set of actions designed ad hoc. 
+So far, the actions that we have developed in our simulator of the circuit with a car, consists of a discrete set of actions designed ad hoc.
 
 An example is in the following table, where we have 2 actions that allow us to handle our agent, the linear velocity v in m/s, and the angular velocity w in rad/s:
 
-
-| Actions        | 0           | 1  | 2  |
-| ------------- |:-------------:| -----:| -----:|
-| linear vel v (m/s)     | 3 | 2 | 2 |
-| angular vel w (rad/s)      | 0      |   1 | -1 |
-
-
+| Actions               |  0  |   1 |   2 |
+| --------------------- | :-: | --: | --: |
+| linear vel v (m/s)    |  3  |   2 |   2 |
+| angular vel w (rad/s) |  0  |   1 |  -1 |
 
 As you can see, the values ​​of each action are established by hand and based on the developer's experience with the simulator, which makes our algorithm behave appropriately for training and tests.
 As we already know, the discretization of variables is the first step to understand the algorithms and see how they work, but it does not represent the real world that we are trying to simulate.
@@ -135,9 +213,9 @@ Analyzing the behavior of a real Formula1 on circuits like Montmelo, we can see 
 This gives us a continuous interval of w = [-2.5, +2.5]
 
 Therefore we are going to work with 2 actions:
+
 - v = 10 m/sec which will be constant in training. We will do tests with different values ​​of v to understand the behavior of the agent
 - w = [-2.5, +2.5]
-
 
 **Coninuous actions**
 
@@ -151,7 +229,6 @@ To work with continuous actions, there are 2 options widely used in the research
 
 **Neural Networks**
 
-
 Currently our neural network consists of a number of outputs that are delimited by our construction of the discrete set of actions. And with a softmax function we choose the one with the best probability for the network.
 In the previous example, we have a set of 3 actions: 0, 1 and 2, where action 0 corresponds to v = 3 and w = 0 and so on.
 
@@ -160,8 +237,6 @@ Although, in this first moment the v will be constant, the new architecture of t
 
 One example is shown below with 2 categories, one for object color, and the other one for category. We will substitute for velocity and angular velocity:
 ![alt text](https://pyimagesearch.com/wp-content/uploads/2018/05/keras_multi_output_fashionnet_bottom.png?_ga=2.236320897.1058554134.1633706853-1748351799.1633706853)
-
-
 
 **Reward and Image Preprocessing**
 
@@ -172,16 +247,11 @@ From now on, we will try to isolate any sensor from the RL algorithm to avoid im
 Likewise, we are going to obtain the reward by isolating it from the image processing, by means of a formula applied to the physics of our experiments using the two variables that are moving our agent in this environment, the linear velocity and the angular velocity.
 The reward to be obtained by the agent is given by the formula:
 
-
-
-![formula](https://render.githubusercontent.com/render/math?math=abs(|v|-v^(\frac{1}{\mathrm{-e}^{w}})))
+![formula](<https://render.githubusercontent.com/render/math?math=abs(|v|-v^(\frac{1}{\mathrm{-e}^{w}}))>)
 
 where | v | represents linear velocity normalized.
 
-
-
 So that mean, our state is represented by the input image obtained through the camera, and the reward is obtained from the linear velocity and the angular velocity, which are the 2 magnitudes that define the movement of our agent. That means that we do not preprocess the image and allow us to easily escalate to other problems.
-
 
 **References in this period**:
 
@@ -192,15 +262,13 @@ So that mean, our state is represented by the input image obtained through the c
 - https://towardsdatascience.com/building-a-multi-output-convolutional-neural-network-with-keras-ed24c7bc1178
 - https://www.pyimagesearch.com/2018/06/04/keras-multiple-outputs-and-multiple-losses/
 
-
 ---
-### September
 
+### September
 
 The Deep QLearning (DQN) algorithm is already implemented in the RL-Studio framework following the algorithm developed by DeepMind for the Go game.
 
 The most relevant features are:
-
 
 - Two convolutional neural networks, one main and one secondary, where the weights of the inner network are updated in the latter every defined time to decrease the variance in the training data.
 - Replay Memory where we store the information every certain number of training steps
@@ -226,27 +294,26 @@ TRaining 4
 
 [![Alt text](https://img.youtube.com/vi/TmdUy6gfmoI/0.jpg)](http://www.youtube.com/watch?v=TmdUy6gfmoI)
 
-
 The full code is in the next repo until I can integrate it into RL Studio
 https://github.com/pjfernandecabo/rl-studio-arm64
 
 ---
+
 ### June
 
 **Weeks from 1 to 15**
+
 - Working on RL Studio: implementing in Mac AMD64 and Mac ARM64
 - Running new algorithms: DQN, AC, PPO...
 
-
-
 ---
+
 ### May
 
 **Weeks from 15 to 31**
 
-- ROS Noetic tutorials 
+- ROS Noetic tutorials
 - Gazebo tutorials
-
 
 **Weeks from 1 to 15**
 
@@ -254,20 +321,22 @@ Ending tabular TD methods: Qlearning, SARSA and expected SARSA in Mountain Car O
 
 Going on with Ruben environment to Gazebo
 
-
 ---
+
 ### April
+
 **Weeks from April 16 to 30 April**
 
-Working on new RL environment, trying to connet it to Gazebo 
+Working on new RL environment, trying to connet it to Gazebo
 
 **Weeks from April 1 to 15**
 
 Trying to replicate my workmate's Ruben Lucas dedicated RL environment, both in Ubuntu and Mac. Ruben has differents projects which have implemented in his own RL environment: https://roboticslaburjc.github.io/2020-phd-ruben-lucas/install/
 
-
 ---
+
 ### March
+
 **Weeks from 16 to 31 March**
 
 Installing main architecture in Ubuntu and Mac with Gazebo 11, Gym Gazebo and ROS 2
@@ -280,20 +349,21 @@ Installing working platform and simulators to implement inside RL algorithms
 - Mac Big sur, ROS 2, Gazebo 11
 
 Learning stochastic and deterministic policy gradient algorithms to solve continuos actions and states:
+
 - https://spinningup.openai.com/en/latest/user/algorithms.html
 - https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html
 - https://danieltakeshi.github.io/new-start-here.html
 
-
-
 Following [lilianweng](https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html), then we show the main characteristics of some of the SOTA policy based algorithms:
 
-- REINFORCE (Monte-Carlo policy gradient) using episode samples to update the policy parameter θ. It relies on a full trajectory (MC). 
+- REINFORCE (Monte-Carlo policy gradient) using episode samples to update the policy parameter θ. It relies on a full trajectory (MC).
 
 A widely used variation of REINFORCE is to **subtract a baseline value** from the return Gt to reduce the variance of gradient estimation while keeping the bias unchanged. It is a **on-policy** method
+
 - Actor-Critic, **on-policy** method as MC before: : training samples are collected according to the target policy.
 
 - Off-policy Policy gradient:
+
 1. The off-policy approach does not require full trajectories and can reuse any past episodes (**“experience replay”**) for much better sample efficiency.
 2. The sample collection follows a behavior policy different from the target policy, bringing better **exploration**.
 
@@ -301,9 +371,9 @@ This algorithm works with a behavior policy and a target policy. Importance weig
 
 - A3C Asynchronous Advantage Actor-Critic (Mnih et al., 2016), short for A3C, is a classic policy gradient method with a special focus on parallel training: the critics learn the value function while multiple actors are trained in parallel and get synced with global parameters from time to time.
 
-- A2C is a synchronous, deterministic? version of A3C. A coordinator in A2C waits for all the parallel actors to finish their work before updating the global parameters and then in the next iteration parallel actors starts from the same policy. 
+- A2C is a synchronous, deterministic? version of A3C. A coordinator in A2C waits for all the parallel actors to finish their work before updating the global parameters and then in the next iteration parallel actors starts from the same policy.
 
-- DPG, Deterministic policy gradient (DPG), models the policy as a deterministic decision: a=μ(s). 
+- DPG, Deterministic policy gradient (DPG), models the policy as a deterministic decision: a=μ(s).
 
 - DDPG (Deep Deterministic Policy Gradient) is a **model free** and **off-policy** actor-critic. Combine DPG with DQN:
 
@@ -331,8 +401,8 @@ Multiple distributed parallels actors
 
 Prioritized Experience Replay
 
-- MADDPG (Multi Agent DDPG) s an actor-critic model redesigned particularly for handling such a changing environment and interactions between agents. For one agent, the environment is non-stationary as policies of other agents are quickly upgraded and remain unknown. 
-To mitigate the high variance triggered by the interaction between competing or collaborating agents in the environment, MADDPG proposed one more element - policy ensembles:
+- MADDPG (Multi Agent DDPG) s an actor-critic model redesigned particularly for handling such a changing environment and interactions between agents. For one agent, the environment is non-stationary as policies of other agents are quickly upgraded and remain unknown.
+  To mitigate the high variance triggered by the interaction between competing or collaborating agents in the environment, MADDPG proposed one more element - policy ensembles:
 
 Train K policies for one agent;
 Pick a random policy for episode rollouts;
@@ -343,9 +413,8 @@ Centralized critic + decentralized actors;
 Actors are able to use estimated policies of other agents for learning;
 Policy ensembling is good for reducing variance.
 
-
-
 ---
+
 Next algorithms go in sequence:
 
 - TRPO (TRust region policy optimization) avoid parameter updates that change the policy too much at one step. It carries out this idea by enforcing a KL divergence constraint on the size of policy update at each iteration. TRPO can guarantee a monotonic improvement over policy iteration.
@@ -354,13 +423,11 @@ Next algorithms go in sequence:
 
 - PPG (Phasic policy gradient) modifies the traditional on-policy actor-critic policy gradient algorithm. precisely PPO, to have separate training phases for policy and value functions.
 
-
-
 ---
+
 - ACER (actor critic with Experience Replay) off-policy technique. It is counterpart of A3C on-policy method. It uses Retrace Q-value estimation, importance weigthts truncation and efficient TRPO
 
 - ACTKR (actor-critic using Kronecker-factored trust region) proposed to use Kronecker-factored approximation curvature (K-FAC which uses natural gradient) to do the gradient update for both the critic and actor.
-
 
 - SAC (soft actor-critic) is a off-policy, where incorporates the entropy measure of the policy into the reward to encourage exploration. It has:
 
@@ -380,30 +447,31 @@ Delayed update of Target and Policy Networks
 
 Target Policy Smoothing
 
-- SVPG (Stein Variational Policy Gradient) applies the Stein variational gradient descent (SVGD) algorithm to update the policy parameter 
+- SVPG (Stein Variational Policy Gradient) applies the Stein variational gradient descent (SVGD) algorithm to update the policy parameter
 
-
-- IMPALA (importance Weighted Actor-Learner Architecture) Multiple actors generate experience in parallel, while the learner optimizes both policy and value function parameters using all the generated experience. 
-
-
+- IMPALA (importance Weighted Actor-Learner Architecture) Multiple actors generate experience in parallel, while the learner optimizes both policy and value function parameters using all the generated experience.
 
 ---
+
 ### February
+
 **Weeks from 16 to 28 February**
 
 1. Install platform in Mac Big Sur:
+
 - [Gazebo 11.3.0](http://gazebosim.org/tutorials?cat=install&tut=install_on_mac&ver=11.0)
 - [ROS2](https://index.ros.org/doc/ros2/Installation/Crystal/macOS-Install-Binary/)
 - Gym Gazebo
 - [Ignition Gazebo](https://ignitionrobotics.org/docs/all/getstarted)
 
 2. Documentation in:
+
 - [Gazebo](http://gazebosim.org/tutorials?cat=connect_ros)
 - [ROS2](https://index.ros.org/doc/ros2/Tutorials/Configuring-ROS2-Environment/)
 
 3. Really good tutorial in:
-- [Open Source Robotics: Getting Started with Gazebo and ROS 2](https://www.infoq.com/articles/ros-2-gazebo-tutorial/)
 
+- [Open Source Robotics: Getting Started with Gazebo and ROS 2](https://www.infoq.com/articles/ros-2-gazebo-tutorial/)
 
 References in this period:
 
@@ -417,6 +485,7 @@ References in this period:
 We introduce in continuous actions and states. Unlike discrete actions, now continuous open ne procedures, algorithms and differents ways to do the analysis and almost all research drives to deep learning as a way to find features and parameters in search policy function.
 
 References in this period:
+
 - TFM Alex cabañeros UPC: Autonomous vehicle navigation with deep reinforcement
 - Reinforcement Learning, Sutton 2018, chapter 13
 - [CONTINUOUS CONTROL WITH DEEP REINFORCEMENT LEARNING](https://arxiv.org/pdf/1509.02971.pdf). Timothy P. Lillicrap, Jonathan J. Hunt,Alexander Pritzel, Nicolas Heess,Tom Erez, Yuval Tassa, David Silver & Daan Wierstra. Google Deepmind
@@ -426,37 +495,31 @@ References in this period:
 - [Natural actor–critic algorithms](https://www.sciencedirect.com/science/article/pii/S0005109809003549), Shalabh Bhatnagar, Richard S. Sutton, Mohammad Ghavamzadeh, Mark Lee
 
 - [Deep Reinforcement Learning That Matters](https://ojs.aaai.org/index.php/AAAI/article/view/11694), Henderson, P., Islam, R., Bachman, P., Pineau, J., Precup, D., & Meger, D. (2018). Deep Reinforcement Learning That Matters. Proceedings of the AAAI Conference on Artificial Intelligence, 32(1)
-- [Actor-critic algorithms. In Advances in neural information processing systems (pp. 1008-1014).](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.821.1075&rep=rep1&type=pdf) Konda, V. R., & Tsitsiklis, J. N. (2000). 
-- [Policy gradient methods for reinforcement learning with function approximation. In NIPs (Vol. 99, pp. 1057-1063).](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.6.696&rep=rep1&type=pdf)Sutton, R. S., McAllester, D. A., Singh, S. P., & Mansour, Y. (1999, November). 
-- [Reinforcement learning in continuous action spaces through sequential monte carlo methods. Advances in neural information processing systems, 20, 833-840.](http://chercheurs.lille.inria.fr/~lazaric/Webpage/Publications_files/lazaric2008reinforcement.pdf) Lazaric, A., Restelli, M., & Bonarini, A. (2007). 
-- [Deterministic policy gradient algorithms. In International conference on machine learning (pp. 387-395). PMLR.](http://proceedings.mlr.press/v32/silver14.html) Silver, D., Lever, G., Heess, N., Degris, T., Wierstra, D., & Riedmiller, M. (2014, January). 
+- [Actor-critic algorithms. In Advances in neural information processing systems (pp. 1008-1014).](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.821.1075&rep=rep1&type=pdf) Konda, V. R., & Tsitsiklis, J. N. (2000).
+- [Policy gradient methods for reinforcement learning with function approximation. In NIPs (Vol. 99, pp. 1057-1063).](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.6.696&rep=rep1&type=pdf)Sutton, R. S., McAllester, D. A., Singh, S. P., & Mansour, Y. (1999, November).
+- [Reinforcement learning in continuous action spaces through sequential monte carlo methods. Advances in neural information processing systems, 20, 833-840.](http://chercheurs.lille.inria.fr/~lazaric/Webpage/Publications_files/lazaric2008reinforcement.pdf) Lazaric, A., Restelli, M., & Bonarini, A. (2007).
+- [Deterministic policy gradient algorithms. In International conference on machine learning (pp. 387-395). PMLR.](http://proceedings.mlr.press/v32/silver14.html) Silver, D., Lever, G., Heess, N., Degris, T., Wierstra, D., & Riedmiller, M. (2014, January).
 
 - [Optimizing expectations: From deep reinforcement learning to stochastic computation graphs (Doctoral dissertation, UC Berkeley).](https://escholarship.org/uc/item/9z908523) Schulman, J. (2016).
 - [Policy Gradient Algorithms](https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html)
 
-
 ---
+
 ### January
 
 **Weeks from 18 to 31 January**
 Continuing developing GridWorlds, trying to reach textbook chapter 13. This period we focus on discrete worls, understanding value functions, policy search and models worlds, the three main approaches to every RL agent can have.
 
-
-
-
 **Week from 4 to 18 January**
 
 We are going to work with discrete and continuous examples as before.
 
-- GridWorld & maze. Show images of agent with different configurations of state space, obstacles and Start and end points. Create graphics and results of implementation. Algorithms are in directory /GridWorld&Maze 
+- GridWorld & maze. Show images of agent with different configurations of state space, obstacles and Start and end points. Create graphics and results of implementation. Algorithms are in directory /GridWorld&Maze
 
-
-- MountainCar the same as above point. 
-
-
-
+- MountainCar the same as above point.
 
 ---
+
 ### December
 
 **Week from 17 to 31 december**
@@ -464,6 +527,7 @@ We are going to work with discrete and continuous examples as before.
 We are going to work in two simple projects:
 
 - Grid World with Robot
+
   - https://github.com/qqiang00/Reinforce/tree/master/reinforce
   - https://github.com/imraviagrawal/Reinforcement-Learning-Implementation
   - https://github.com/adik993/reinforcement-learning-sutton
@@ -472,12 +536,10 @@ We are going to work in two simple projects:
 
 - Mountain car
 
-
 - Some other interesting gyms:
   - https://github.com/MattChanTK/gym-maze
   - https://github.com/maximecb/gym-minigrid
   - https://github.com/maximecb/gym-miniworld
-
 
 **Week from 1 to 16 december**
 
@@ -487,7 +549,6 @@ We are going to work in two simple projects:
 
 - Install Ubuntu20.04, Python 3.7, Gazebo 11, BehaviorStudio, Ros Noetic (lastest Version). See details in Install.md
 
-
 - Experience Replay
 
 ### Lectures and URLs of the week
@@ -495,11 +556,9 @@ We are going to work in two simple projects:
 - [Reinforcement Learning with ROS and Gazebo](https://github.com/vmayoral/basic_reinforcement_learning/blob/master/tutorial7/README.md)
 
 - [Erle Robotics: Accelerated Robot Training through Simulation
-with ROS and Gazebo](https://roscon.ros.org/2018/presentations/ROSCon2018_AcceleratedRobotTraining.pdf)
+  with ROS and Gazebo](https://roscon.ros.org/2018/presentations/ROSCon2018_AcceleratedRobotTraining.pdf)
 
 - [gym-gazebo2](https://github.com/AcutronicRobotics/gym-gazebo2)
-
-
 
 - [Deep Reinforcement Learning - an overview](https://arxiv.org/pdf/1701.07274.pdf)
 - [A Brief Survey of Deep Reinforcement Learning](https://arxiv.org/pdf/1708.05866.pdf)
@@ -510,7 +569,7 @@ with ROS and Gazebo](https://roscon.ros.org/2018/presentations/ROSCon2018_Accele
 - https://github.com/Lazydok/RL-Pytorch-cartpole
 - https://github.com/erlerobot/gym-gazebo && https://github.com/AcutronicRobotics/gym-gazebo2
 - [Extending the OpenAI Gym for robotics: a toolkit
-for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.05742.pdf)
+  for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.05742.pdf)
 
 - [Toward Self-Driving Bicycles Using State-of-the-Art Deep Reinforcement Learning Algorithms](https://www.mdpi.com/2073-8994/11/2/290/htm)
 
@@ -538,24 +597,23 @@ for reinforcement learning using ROS and Gazebo](https://arxiv.org/pdf/1608.0574
 
 - [DQN from Scratch with TensorFlow 2](https://levelup.gitconnected.com/dqn-from-scratch-with-tensorflow-2-eb0541151049)
 
-
 ---
+
 ### November
 
 **Week from 2 to 7**
 
-
-I am going to read TFM's Ignacio Arranz in 📂   **/Users/user/PhD**
+I am going to read TFM's Ignacio Arranz in 📂 **/Users/user/PhD**
 This TFM is my foundation in this part of research. I'll take all code and ideas to begin with.
 
 Next week Proposal: Install and execute all parts, frameworks, libraries and "play" with them.
-
 
 **Week up to 30 November**
 
 Goal: play with OpenAI Gym Pendulum.
 
 The explanations of environments are here:
+
 - https://github.com/openai/gym/wiki/Pendulum-v0
 - https://mspries.github.io/jimmy_pendulum.html
 - https://github.com/ZhengXinyue/Model-Predictive-Control/blob/master/Naive_MPC/Pure_MPC_Pendulum.py
@@ -564,10 +622,10 @@ The explanations of environments are here:
 - https://towardsdatascience.com/reinforcement-learning-with-openai-d445c2c687d2
 - https://leonardoaraujosantos.gitbook.io/artificial-inteligence/artificial_intelligence/markov_decision_process
 
-
 I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 
 ---
+
 ### General Resources
 
 ### Useful links JdRobot
@@ -576,48 +634,41 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 - BehaviorStudio project from JdRobot: https://github.com/JdeRobot/BehaviorStudio
 - Gym-Gazebo 2 project from JdRobot: https://github.com/JdeRobot/gym-gazebo-2
 
-
 ### Courses
 
 - [Coursera] [RL Specialization University of Alberta](https://www.coursera.org/specializations/reinforcement-learning)
 - [Coursera] [Practical Reinforcement Learning by National Research University Higher School of Economics](https://www.coursera.org/learn/practical-rl?specialization=aml)
 - [Coursera] [Reinforcement Learning in Finance New York University](https://www.coursera.org/learn/reinforcement-learning-in-finance)
-- [Udacity][ Reinforcement Learning](https://www.udacity.com/course/reinforcement-learning--ud600): by Georgia Tech, free available
+- [Udacity][ reinforcement learning](https://www.udacity.com/course/reinforcement-learning--ud600): by Georgia Tech, free available
 - [Stanford] [CS234: Reinforcement Learning - Winter 2020](http://web.stanford.edu/class/cs234/index.html)
 - [David Silver's Reinforcement Learning Course - UCL(University College London) course on RL](https://www.davidsilver.uk/teaching/)
 
-
 ### Lectures
+
 - [Berkeley] [Lectures for [UC Berkeley] CS 285 Fall 2020: Deep Reinforcement Learning](https://www.youtube.com/playlist?list=PL_iWQOsE6TfURIIhCrlt-wj9ByIVpbfGc)
 
 ### TextBooks
 
 - [Reinforcement Learning: An Introduction, second edition](http://incompleteideas.net/book/RLbook2018.pdf). Richard S. Sutton and Andrew G. Barto. The MIT Press (https://mitpress.mit.edu/books/reinforcement-learning-second-edition) [[Code]](https://github.com/ShangtongZhang/reinforcement-learning-an-introduction)
 
-
-
 ### Tutorials/Tasks
 
-
-
-
 ### Links
+
 - [Applications of Reinforcement Learning in Real World](https://towardsdatascience.com/applications-of-reinforcement-learning-in-real-world-1a94955bcd12): an intro to RL world with very very useful links
 - [An Outsider's Tour of Reinforcement Learning](http://www.argmin.net/2018/06/25/outsider-rl/)
-
 
 - [Awesome Reinforcement Learning:](https://github.com/aikorea/awesome-rl) is a entry door to entire RL world
 - [Implementation of RL algorithms:](https://github.com/dennybritz/reinforcement-learning) with many notebooks in main subjects such as TD, MDP, Q
 
 ### Repos
-- [Udacity RL](https://github.com/udacity/deep-reinforcement-learning)
 
+- [Udacity RL](https://github.com/udacity/deep-reinforcement-learning)
 
 ### Papers
 
-
-
 ### Open Source Reinforcement Learning Platforms
+
 - [OpenAI gym](https://github.com/openai/gym) - A toolkit for developing and comparing reinforcement learning algorithms
 - [OpenAI universe](https://github.com/openai/universe) - A software platform for measuring and training an AI's general intelligence across the world's supply of games, websites and other applications
 - [DeepMind Lab](https://github.com/deepmind/lab) - A customisable 3D platform for agent-based AI research
@@ -633,14 +684,12 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 - [OpenAI lab](https://github.com/kengz/openai_lab) - An experimentation system for Reinforcement Learning using OpenAI Gym, Tensorflow, and Keras.
 - [keras-rl](https://github.com/matthiasplappert/keras-rl) - State-of-the art deep reinforcement learning algorithms in Keras designed for compatibility with OpenAI.
 - [BURLAP](http://burlap.cs.brown.edu) - Brown-UMBC Reinforcement Learning and Planning, a library written in Java
-- [MAgent](https://github.com/geek-ai/MAgent) - A Platform for Many-agent Reinforcement Learning. 
+- [MAgent](https://github.com/geek-ai/MAgent) - A Platform for Many-agent Reinforcement Learning.
 - [Ray RLlib](http://ray.readthedocs.io/en/latest/rllib.html) - Ray RLlib is a reinforcement learning library that aims to provide both performance and composability.
 - [SLM Lab](https://github.com/kengz/SLM-Lab) - A research framework for Deep Reinforcement Learning using Unity, OpenAI Gym, PyTorch, Tensorflow.
 - [Unity ML Agents](https://github.com/Unity-Technologies/ml-agents) - Create reinforcement learning environments using the Unity Editor
 - [Intel Coach](https://github.com/NervanaSystems/coach) - Coach is a python reinforcement learning research framework containing implementation of many state-of-the-art algorithms.
 - [Microsoft AirSim](https://microsoft.github.io/AirSim/docs/reinforcement_learning/) - Open source simulator based on Unreal Engine for autonomous vehicles from Microsoft AI & Research.
-
-
 
 ## Applications
 
@@ -657,14 +706,4 @@ I finally implemented Pendulum and cartPole, even with NN in Pendulum.
 - [Real-Time Bidding with Multi-Agent Reinforcement Learningin Display Advertising](https://arxiv.org/pdf/1802.09756.pdf)
 - Games such as [AlphaGo](https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf) , [AlphaGo Zero](https://deepmind.com/blog/article/alphago-zero-starting-scratch), [playing Atari of DeepMind](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf) and [LSTM DL (DRQN)](https://arxiv.org/pdf/1507.06527.pdf)
 - [GANs and RL](https://arxiv.org/pdf/1804.01118.pdf) from [DeepMind](https://www.youtube.com/watch?v=N5oZIO8pE40)
-- [Pros and cons of RL state of art (2018)][Deep Reinforcement Learning Doesn't Work Yet](https://www.alexirpan.com/2018/02/14/rl-hard.html)
-
-
-
-
-
-
-
-
-
-
+- [Pros and cons of RL state of art (2018)][deep reinforcement learning doesn't work yet](https://www.alexirpan.com/2018/02/14/rl-hard.html)
