@@ -82,6 +82,7 @@ Once the algorithm was able to converge and finish the circuit correctly, we tri
   <a href="https://www.youtube.com/watch?v=HAXq4K7tWOU"><img src="https://img.youtube.com/vi/HAXq4K7tWOU/0.jpg"></a>
 </div>
 
+
 [![Youtube](https://img.youtube.com/vi/HAXq4K7tWOU/0.jpg)](https://www.youtube.com/watch?v=HAXq4K7tWOU "Inference in the same training lane circuit")
 
 
@@ -106,9 +107,19 @@ Different configurations has been trained:
 
 You can watch training process for $DDPG^1$ with simplified perception
 
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=5pq6hzku4w8"><img src="https://img.youtube.com/vi/5pq6hzku4w8/0.jpg"></a>
+</div>
+
 [![Youtube](https://img.youtube.com/vi/5pq6hzku4w8/0.jpg)](https://www.youtube.com/watch?v=5pq6hzku4w8)
 
 and for $DDPG^2$ with image as a neural net input
+
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=-GuPUjT2sy0"><img src="https://img.youtube.com/vi/-GuPUjT2sy0/0.jpg"></a>
+</div>
 
 [![Youtube](https://img.youtube.com/vi/-GuPUjT2sy0/0.jpg)](https://www.youtube.com/watch?v=-GuPUjT2sy0)
 
