@@ -4,6 +4,7 @@
 
 - [Weblog](#weblog)
 
+  - [May 2023](#May-2023)
   - [October 2022](#October)
   - [February 2022](#February)
   - [January 2022](#January)
@@ -34,6 +35,58 @@
 ---
 
 ## Weblog
+### May-2023
+
+In this long period of time, we have been working in the Carla 0.9.13 environment, and taking everything implemented in Gazebo, this is the follow line and follow lane tasks.
+
+At this moment, we have trained an agent in a complex circuit for the lane follow task, so that the vehicle manages to complete a target distance without leaving its lane.
+
+The features of what we have implemented are:
+
+- Task: follow lane
+- Algorithm: Q-Learning
+- States: a point of perception, obtained from a mask applied to the RGB camera sensor. In this way we obtain the center of the lane for a certain point of the x-axis of the image. In the examples shown below, x=100 pixels.
+The center of the image is obtained from the right and center lines of the image, which in this part of the circuit are both continuous.
+- Actions: 3 actions, 0=[0.4, -0.1], 1=[0.6,0.0], 2=[0.4, 0.1] where the values correspond to [throttle, steering]
+- Reward function: depends only on the distance to the center of the lane
+
+The chosen circuit corresponds to the city 7 of Carla, being a winding circuit with up and down slopes, which makes training very difficult.
+The trainings have been executed during 1000 iterations with 500 steps in each of them.
+
+Once the algorithm was able to converge and finish the circuit correctly, we tried to make an inference with the result of the Q table trained. The inference has been made in 3 different routes, within the same city due to the fact that the central line of the road is continuous, which ensures that we get the center correctly. There is no similar circuit in other cities of Carla. Therefore, what we have done has been to infer in 3 ways.
+
+1. Infer in the same section of the training.
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=nyCWHW-5rsI"><img src="https://img.youtube.com/vi/nyCWHW-5rsI/0.jpg"></a>
+</div>
+
+[![Youtube](https://img.youtube.com/vi/nyCWHW-5rsI/0.jpg)](https://www.youtube.com/watch?v=nyCWHW-5rsI "Inference in the same training lane circuit")
+
+
+
+
+2. Infer on a different section of the training, with different curves and slopes
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=7SAIw8kB0rI"><img src="https://img.youtube.com/vi/7SAIw8kB0rI/0.jpg"></a>
+</div>
+
+[![Youtube](https://img.youtube.com/vi/7SAIw8kB0rI/0.jpg)](https://www.youtube.com/watch?v=7SAIw8kB0rI "Inference in the same training lane circuit")
+
+
+
+3. Infer in the same section of the training but in the opposite direction.
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=HAXq4K7tWOU"><img src="https://img.youtube.com/vi/HAXq4K7tWOU/0.jpg"></a>
+</div>
+
+[![Youtube](https://img.youtube.com/vi/HAXq4K7tWOU/0.jpg)](https://www.youtube.com/watch?v=HAXq4K7tWOU "Inference in the same training lane circuit")
+
+
+
+
 
 ### October
 
@@ -42,7 +95,7 @@ Now we have two complete tasks, follow lane and follow line, with different conf
 
 ### Task Follow Lane
 
-ThE agent has to run over right lane, trying to avoid line center, and no surpass it.
+The agent has to run over right lane, trying to avoid line center, and no surpass it.
 Different configurations has been trained:
 
 | Algorithm |             q-learn             |                        $DDPG^1$ |       $DDPG^2$ |                         $DDPG^3$ |
@@ -53,11 +106,11 @@ Different configurations has been trained:
 
 You can watch training process for $DDPG^1$ with simplified perception
 
-[![Alt text](https://img.youtube.com/vi/5pq6hzku4w8/0.jpg)](https://www.youtube.com/watch?v=5pq6hzku4w8)
+[![Youtube](https://img.youtube.com/vi/5pq6hzku4w8/0.jpg)](https://www.youtube.com/watch?v=5pq6hzku4w8)
 
 and for $DDPG^2$ with image as a neural net input
 
-[![Alt text](https://img.youtube.com/vi/-GuPUjT2sy0/0.jpg)](https://www.youtube.com/watch?v=-GuPUjT2sy0)
+[![Youtube](https://img.youtube.com/vi/-GuPUjT2sy0/0.jpg)](https://www.youtube.com/watch?v=-GuPUjT2sy0)
 
 ### Rewards
 
@@ -107,7 +160,7 @@ reward =
   \end{cases}
 $$
 
-- **In function of the center line, linear velocity and time to complete**. The idea is to force the agent go fast and try to finish the task as soon as posible. So, we rewarded fast velocities in center of lane positions, and penalize long steps. It has been added scalars, 10, 2 and 1, to maximize near the center.
+- **In function of the center line, linear velocity and time to complete**. The idea is to force the agent going fast and try to finish the task as soon as posible. So, we rewarded fast velocities in center of lane positions, and penalize long steps. It has been added scalars, 10, 2 and 1, to maximize near the center.
 
 $$
 reward =
