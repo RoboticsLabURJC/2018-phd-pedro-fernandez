@@ -37,6 +37,56 @@
 ## Weblog
 ### May-2023
 
+
+- From 16th - 22th
+
+The below plots show the results of the training carried out with the following characteristics:
+
+- Task: Follow Lane
+- City: Town07 mountain circuit
+- Q-Learning algorithm
+- States: simplified perception with 1 control point
+- Position of the control point on the x-axis: 100
+- Actions: 3
+- Target speed: 4km/h
+- Reward function: distance to lane center
+- Epochs: 500 or 12 hours
+- Steps per epoch: 400
+- Target Steps in this circuit with above target velocity: approx. 300 steps
+
+![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-115345_ie_metrics.jpg)
+
+The training ended after 12 hours. 
+In the graph on the top left, we find the reward and the steps in each iteration. If we look at the steps the agent takes, we see that there are oscillations until about training 150, and from there, the number of steps in each episode stays constant at the maximum. Despite that, there are a few oscillations around episode 300.
+Likewise, the reward behaves similarly, and from episode 300 the reward is maximum. It coincides with the low values of the epsilon parameter, which can be seen in the graph on the upper right.
+
+In the graph below on the left, we can see the distance it would take to reach our goal in each episode. Although there are oscillations up to episode 280, it is from there that we can see that in each episode the agent achieves the result
+
+In the graph below to the right, the time the car takes in each episode is shown, and from iteration 280 the time is maximum in all of them, indicating that the objective has been achieved.
+
+
+
+
+Within the task of staying in the lane, it is important to find out if the car has left it and how many times, which indicates good behavior. In the following graphs we can analyze the results. In some training sessions it comes out up to 32 times, but after 280 and it doesn't, behaving perfectly.
+
+![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-115352_lane_changed.jpg)
+
+
+
+
+
+States and actions taken could be seen in next two graphics. In the first one, we can observe that action 0 (turn left) is taken the most, and one possible explanation is due to the circuit has one more left curve than right curves (3 vs. 2) and the agent learnt this behaviour
+
+![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-112953_histogram_actions.jpg)
+![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-112952_histogram_states.jpg)
+
+Histogram of states shows state 8 (in the center of the lane) is taken the most, along with state 7 which is soft left.
+
+Finally, Q-table values are shown below where state - action (6,0), (7,2) and (8,2) are the most valuables. 
+![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-111534_qtable.jpg)
+
+- From 1 - 15
+
 In this long period of time, we have been working in the Carla 0.9.13 environment, and taking everything implemented in Gazebo, this is the follow line and follow lane tasks.
 
 At this moment, we have trained an agent in a complex circuit for the lane follow task, so that the vehicle manages to complete a target distance without leaving its lane.
