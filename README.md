@@ -40,6 +40,40 @@
 
 - From 16th - 22th
 
+
+$$Training 2$$
+All features are the same as Training 1 except for velocity, which we set to maximum 10km/h. This velocity is taken going down the hill, while going up usually the car goes to 2-4 km/h. But now the margin is upper.
+
+![Metrics](./plots/20230522-155327_ie_metrics.jpg)
+
+The training ended after 12 hours. 
+In the graph on the top left, we find the reward and the steps in each iteration. There are some oscilation in results, getting the best rewards at teh end of epochs. That is very visble in left below where we can reach the target almost in the last episodes. The time per epoch gives the same information.
+
+
+Now, at higher speed, the car gets out of its lane much more time.
+
+![Metrics](./plots/20230522-155336_lane_changed.jpg)
+
+
+
+States and actions taken are very similar.
+
+![Metrics](./plots/20230522-160243_histogram_actions.jpg)
+![Metrics](./plots/20230522-160241_histogram_states.jpg)
+
+Histogram of states shows state 8 (in the center of the lane) is taken the most, along with state 7 which is soft left.
+
+Finally, Q-table values are shown below where state - action (6,0), (7,2) and (8,2) are the most valuables. 
+![Metrics](./plots/20230522-160754_qtable.jpg)
+
+
+
+
+
+
+
+
+$$Training 1$$
 The below plots show the results of the training carried out with the following characteristics:
 
 - Task: Follow Lane
