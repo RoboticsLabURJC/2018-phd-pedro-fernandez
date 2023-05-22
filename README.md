@@ -54,7 +54,7 @@ The below plots show the results of the training carried out with the following 
 - Steps per epoch: 400
 - Target Steps in this circuit with above target velocity: approx. 300 steps
 
-![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-115345_ie_metrics.jpg)
+![Metrics](./plots/20230522-115345_ie_metrics.jpg)
 
 The training ended after 12 hours. 
 In the graph on the top left, we find the reward and the steps in each iteration. If we look at the steps the agent takes, we see that there are oscillations until about training 150, and from there, the number of steps in each episode stays constant at the maximum. Despite that, there are a few oscillations around episode 300.
@@ -69,21 +69,19 @@ In the graph below to the right, the time the car takes in each episode is shown
 
 Within the task of staying in the lane, it is important to find out if the car has left it and how many times, which indicates good behavior. In the following graphs we can analyze the results. In some training sessions it comes out up to 32 times, but after 280 and it doesn't, behaving perfectly.
 
-![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-115352_lane_changed.jpg)
-
-
+![Metrics](./plots/20230522-115352_lane_changed.jpg)
 
 
 
 States and actions taken could be seen in next two graphics. In the first one, we can observe that action 0 (turn left) is taken the most, and one possible explanation is due to the circuit has one more left curve than right curves (3 vs. 2) and the agent learnt this behaviour
 
-![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-112953_histogram_actions.jpg)
-![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-112952_histogram_states.jpg)
+![Metrics](./plots/20230522-112953_histogram_actions.jpg)
+![Metrics](./plots/20230522-112952_histogram_states.jpg)
 
 Histogram of states shows state 8 (in the center of the lane) is taken the most, along with state 7 which is soft left.
 
 Finally, Q-table values are shown below where state - action (6,0), (7,2) and (8,2) are the most valuables. 
-![Metrics](https://github.com/RoboticsLabURJC/2018-phd-pedro-fernandez/plots/20230522-111534_qtable.jpg)
+![Metrics](./plots/20230522-111534_qtable.jpg)
 
 - From 1 - 15
 
