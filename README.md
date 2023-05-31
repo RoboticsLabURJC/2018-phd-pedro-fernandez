@@ -37,17 +37,75 @@
 ## Weblog
 ### May-2023
 
+- From 23 to 31
 
-- From 16th - 22th
+We are trying to increment the effective velocity to reach maximun allowed in the circuit, aprox. 30km/h
+
+
+
+$$Training 3$$
+
+- Task: Follow Lane
+- City: Town07 mountain circuit
+- Q-Learning algorithm
+- States: simplified perception with 1 control point and **8** states (we reduce the number of states)
+- Position of the control point on the x-axis: 100
+- Actions: 3
+- Target speed: **15** km/h
+- Reward function: distance to lane center
+- Epochs: 500 or 12 hours
+- Steps per epoch: 300
+- Target Steps in this circuit with above target velocity: approx. 130 steps
+
+
+![Metrics](./plots/20230531-105929_ie_metrics.jpg)
+
+The training ended after 500 epochs 
+In the graph on the top left, we find the reward and the steps in each iteration. We can observe that almost at the end of training, the agent achieved its best effort. 
+
+
+Now, at higher speed, the car gets out of its lane much more time.
+
+![Metrics](./plots/20230531-105935_lane_changed.jpg)
+
+
+
+States and actions taken are very similar.
+
+![Metrics](./plots/20230531-110051_histogram_actions.jpg)
+![Metrics](./plots/20230531-111044_histogram_states.jpg)
+
+Histogram of states shows eight states. Each one is 80 pixels long.
+
+Finally, Q-table values are shown below where state - action (6,0), (7,2) and (8,2) are the most valuables. 
+![Metrics](./plots/20230531-111034_qtable.jpg)
+
+
+
+- From 16 - 22
 
 
 $$Training 2$$
 All features are the same as Training 1 except for velocity, which we set to maximum 10km/h. This velocity is taken going down the hill, while going up usually the car goes to 2-4 km/h. But now the margin is upper.
 
+
+- Task: Follow Lane
+- City: Town07 mountain circuit
+- Q-Learning algorithm
+- States: simplified perception with 1 control point and 16 states
+- Position of the control point on the x-axis: 100
+- Actions: 3
+- Target speed: 10 km/h
+- Reward function: distance to lane center
+- Epochs: 500 or 12 hours
+- Steps per epoch: 400
+- Target Steps in this circuit with above target velocity: approx. 250 steps
+
+
 ![Metrics](./plots/20230522-155327_ie_metrics.jpg)
 
 The training ended after 12 hours. 
-In the graph on the top left, we find the reward and the steps in each iteration. There are some oscilation in results, getting the best rewards at teh end of epochs. That is very visble in left below where we can reach the target almost in the last episodes. The time per epoch gives the same information.
+In the graph on the top left, we find the reward and the steps in each iteration. There are some oscilation in results, getting the best rewards at the end of epochs. That is very visble in left below where we can reach the target almost in the last episodes. The time per epoch gives the same information.
 
 
 Now, at higher speed, the car gets out of its lane much more time.
@@ -79,7 +137,7 @@ The below plots show the results of the training carried out with the following 
 - Task: Follow Lane
 - City: Town07 mountain circuit
 - Q-Learning algorithm
-- States: simplified perception with 1 control point
+- States: simplified perception with 1 control point, and 16 states
 - Position of the control point on the x-axis: 100
 - Actions: 3
 - Target speed: 4km/h
