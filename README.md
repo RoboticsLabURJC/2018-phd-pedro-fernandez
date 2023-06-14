@@ -4,6 +4,7 @@
 
 - [Weblog](#weblog)
 
+  - [June 2023](#June-2023)
   - [May 2023](#May-2023)
   - [October 2022](#October)
   - [February 2022](#February)
@@ -34,7 +35,62 @@
 
 ---
 
-## Weblog
+## 
+
+### June-2023
+
+$$Training \ 5 - target \ speed \ 20km/h$$ 
+
+Working with the height of the point of perception
+
+Features
+
+- Qlearning
+- states: 8
+- actions: 3
+- Tonw07 circuit in the mountains, start position fixed
+- Epochs: 1000
+- 4 point of perception, at height x= [30, 60, 100, 120]
+
+The speed at which we try to work is 20km/h, although the autopilot does it at a maximum of 30km/h. Due to Carla's accelerations (linear and angular) it is an average speed, reaching up to 26km/h during the circuit.
+
+Since there are more states, we make her train for 1000 epochs.
+It seems that the fact of having 4 states makes it learn in a more solid way, consolidating what it has learned as it progresses in the epochs. Although, it only finish 1 lap of the circuit but it does not consolidate the result.
+
+![Metrics](./plots/20230614-150612_ie_metrics.jpg)
+![Metrics](./plots/20230614-150821_histogram_actions.jpg)
+
+
+$$Training \ 4 - target \ speed \ 20km/h$$
+
+Working with the height in the image of the point of perception
+
+Features
+
+- Qlearning
+- states: 6
+- actions: 3
+- Tonw07 circuit in the mountains, start position fixed
+- Epochs: 500
+- 1 point of perception, at height x=20 pixels
+
+We try to work at 20km/h, although the autopilot does it at a maximum of 30km/h. Due to Carla's accelerations (linear and angular) it is an average speed, reaching up to 26km/h during the circuit.
+
+By having the point of perception very high in the image, the car learns to follow it, but with the problem that it changes lane more than we want. With more epochs we could have better results.
+Now, it turns out that when you reach the top and start the downhill of the circuit, the point of x=20 loses the line and is reset, preventing you from continuing the training.
+
+Trainings with different x give us different results
+- X = 30 : also loses the line
+- X = 40 : training does not get good results and never reaches the top
+- X = 36 : the training is not as good as with x = 30 and does not finish reaching the top despite the small difference with x=30
+
+
+In the image you can see the point of perception taken at x = 100
+![Metrics](./plots/one_point.png)
+
+
+
+
 ### May-2023
 
 - From 23 to 31
@@ -51,7 +107,7 @@ $$Training 3$$
 - States: simplified perception with 1 control point and **8** states (we reduce the number of states)
 - Position of the control point on the x-axis: 100
 - Actions: 3
-- Target speed: **15** km/h
+- Target speed: **10** km/h (the range is taken from 8-14km/h)
 - Reward function: distance to lane center
 - Epochs: 500 or 12 hours
 - Steps per epoch: 300
@@ -86,7 +142,7 @@ Finally, Q-table values are shown below where state - action (6,0), (7,2) and (8
 
 
 $$Training 2$$
-All features are the same as Training 1 except for velocity, which we set to maximum 10km/h. This velocity is taken going down the hill, while going up usually the car goes to 2-4 km/h. But now the margin is upper.
+All features are the same as Training 1 except for velocity, which we set to maximum 10km/h. This velocity is taken going down the hill, while going up usually the car goes to 2-4 km/h. But now the margin is greater.
 
 
 - Task: Follow Lane
@@ -95,7 +151,7 @@ All features are the same as Training 1 except for velocity, which we set to max
 - States: simplified perception with 1 control point and 16 states
 - Position of the control point on the x-axis: 100
 - Actions: 3
-- Target speed: 10 km/h
+- Target speed: 10 km/h (but the range oscilates from 2-11 km/h)
 - Reward function: distance to lane center
 - Epochs: 500 or 12 hours
 - Steps per epoch: 400
