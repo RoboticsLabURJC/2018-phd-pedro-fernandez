@@ -54,6 +54,8 @@ Features
 
 The speed at which we try to work is 20km/h, although the autopilot does it at a maximum of 30km/h. Due to Carla's accelerations (linear and angular) it is an average speed, reaching up to 26km/h during the circuit.
 
+![Metrics](./plots/four_points.png)
+
 Since there are more states, we make her train for 1000 epochs.
 It seems that the fact of having 4 states makes it learn in a more solid way, consolidating what it has learned as it progresses in the epochs. Although, it only finish 1 lap of the circuit but it does not consolidate the result.
 
